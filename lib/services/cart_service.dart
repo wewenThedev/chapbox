@@ -3,7 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 //à modifier
+
 class CartService {
+  /*
   Future<String> getDeviceId() async {
     var deviceInfo = DeviceInfoPlugin();
     String deviceId;
@@ -32,5 +34,5 @@ class CartService {
     } else {
       print('Failed to add product');
     }
-  }
+  }*/
 }

@@ -1,0 +1,22 @@
+
+import 'package:flutter/material.dart';
+
+
+class AddressListScreen extends StatefulWidget {
+  @override
+  _AddressListScreenState createState() => _AddressListScreenState();
+}
+
+class _AddressListScreenState extends State<AddressListScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home Page'),
+      ),
+      body: Center(
+        child: Text('This is a Stateful Home Page'),
+      ),
+    );
+  }
+}

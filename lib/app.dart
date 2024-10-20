@@ -1,5 +1,6 @@
+import 'package:chapbox/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'views/home_view.dart';
+import 'screens/home_screen.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeView(),
+      home: SplashScreen(),
       routes: {
         // Ajoutez vos routes ici
         // '/product_detail': (context) => ProductDetailView(),
