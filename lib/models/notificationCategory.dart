@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'notificationCategory.g.dart';
+part 'generated/notificationCategory.g.dart';
 
 @JsonSerializable()
 class NotificationCategory {

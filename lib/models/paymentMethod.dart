@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'paymentMethod.g.dart';
+part 'generated/paymentMethod.g.dart';
 
 @JsonSerializable()
 class PaymentMethod {

@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'invoice.g.dart';
+part 'generated/invoice.g.dart';
 
 @JsonSerializable()
 

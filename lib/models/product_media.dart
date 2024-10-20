@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'product_media.g.dart';
+part 'generated/product_media.g.dart';
 
 @JsonSerializable()
 class ProductMedia {

@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user_notification.g.dart';
+part 'generated/user_notification.g.dart';
 
 @JsonSerializable()
 class UserNotification {

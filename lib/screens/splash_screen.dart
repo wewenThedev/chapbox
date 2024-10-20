@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'home_screen.dart';
+import 'package:chapbox/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  final String? deviceId;
+  // Le constructeur prend le deviceId comme paramètre
+  SplashScreen({required this.deviceId});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -12,8 +16,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => HomeScreen(deviceId: widget.deviceId)));
     });
   }
 
@@ -21,16 +25,11 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.map, size: 100, color: Colors.blue),
-            SizedBox(height: 20),
-            Text(
-              "MapApp",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-          ],
+        child: Image.asset(
+          'assets/logos/chapbox_Borange.png', 
+          width: 150, // Largeur de l'image
+          height: 150, // Hauteur de l'image
+          fit: BoxFit.contain, // Ajuste le contenu de l'image à ses dimensions
         ),
       ),
     );

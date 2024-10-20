@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'order.g.dart';
+part 'generated/order.g.dart';
 
 @JsonSerializable()
 class Order {

@@ -18,6 +18,9 @@ class AppTheme {
       onError: Colors.white,//Color(0xFFFFFFFF),
       brightness: Brightness.dark,
     ),
+    appBarTheme: AppBarTheme(
+    backgroundColor: Colors.white, // Couleur de l'AppBar
+  ),
     textTheme: TextTheme(
       headlineLarge: TextStyle(color: appGrey),
       bodyLarge: TextStyle(color: appGrey),
@@ -25,7 +28,22 @@ class AppTheme {
     ),
     buttonTheme: ButtonThemeData(
       buttonColor: primaryColor,
-      textTheme: ButtonTextTheme.primary,
+      textTheme: ButtonTextTheme.accent,
     ),
+    
+    /*elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      primary: Colors.orange, // Couleur de fond du bouton
+      onPrimary: Colors.white, // Couleur du texte et de l'icône
+      textStyle: TextStyle(
+        fontSize: 16, // Taille du texte
+        fontWeight: FontWeight.bold, // Poids du texte
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15), // Padding du bouton
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10), // Bordure arrondie
+      ),
+    ),
+  ),*/
   );
 }
