@@ -9,10 +9,10 @@ import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:chapbox/screens/profile_screen.dart';
+import 'package:chapbox/screens/supermarket_details_screen.dart';
 import 'package:chapbox/widgets/custom_appBar_title.dart';
 import 'package:chapbox/widgets/drawer_menu.dart';
 import 'package:chapbox/configs/themes.dart';
-import 'package:chapbox/configs/const.dart';
 
 
 class HomeScreen extends StatefulWidget{
@@ -288,13 +288,14 @@ final List<Map<String, dynamic>> categories = [
                     ),
                   );
                 },
+/*
               ),
             ),
-
+*/
           ],
         ),
-      
       ),
+),
       // Pop-up affichée lors du clic sur un supermarché
           if (_isPopupVisible)
             Positioned(

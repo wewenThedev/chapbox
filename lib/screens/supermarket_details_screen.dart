@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class SupermarketScreen extends StatelessWidget {
+class SupermarketDetailsScreen extends StatelessWidget {
+  final int supermarketId;
   final String supermarketName;
   final String supermarketDescription;
   final String supermarketAddress;
   final String supermarketPhone;
 
-  SupermarketScreen({required this.supermarketName});
+  SupermarketDetailsScreen({required this.supermarketId});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,8 @@ class SupermarketScreen extends StatelessWidget {
         title: Text(supermarketName),
       ),
       body: Center(
-        child: Text('Page de présentation pour $supermarketName'),
+        //child: Text('Page de présentation pour $supermarketName'),
+        child: Text('Page de présentation pour Erevan'),
       ),
     );
   }
