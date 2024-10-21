@@ -1,7 +1,8 @@
 //import '../models/Shop.dart';
 
-const String BASE_URL = "http://192.168.8.104/chapbox/"; // Adresse IP à modifier 
-// const String BASE_URL = "https://sitcb-online.com";
+const String BASE_URL = "http://127.0.0.1:8000/api/";
+/*const String BASE_URL = "http://192.168.8.104/chapbox/" // Adresse IP à modifier 
+// const String BASE_URL = "https://sitcb-online.com";*/
 
 class PrefKeys {
   static String USER_ID = "USER_ID";

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../screens/address_list_screen.dart';
 
+
 class DrawerMenu extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -27,6 +29,7 @@ class DrawerMenu extends StatelessWidget {
             title: const Text('Promotions'),
             onTap: () {
               // Handle navigation
+              Navigator.pop(context); // Ferme le Drawer
             },
           ),
           ListTile(
@@ -40,7 +43,10 @@ class DrawerMenu extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.history),
             title: const Text('Historique des commandes'),
-            onTap: () {},
+            onTap: () {
+
+Navigator.pop(context); // Ferme le Drawer
+            },
           ),
         ],
       ),

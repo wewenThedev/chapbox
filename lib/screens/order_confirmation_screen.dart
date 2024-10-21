@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+
+// Page de confirmation de la commande
+class OrderConfirmationPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Commande Confirmée"),
+      ),
+      body: Center(
+        child: Text("Merci pour votre commande!"),
+      ),
+    );
+  }
+}

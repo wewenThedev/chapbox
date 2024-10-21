@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatefulWidget implements PreferredSizeWidget{
   final String title;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
@@ -8,16 +8,34 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({required this.title, required this.scaffoldKey});
 
   @override
+  _CustomAppBarState createState() => _CustomAppBarState();
+  
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => throw UnimplementedError();
+}
+
+ class _CustomAppBarState extends State<CustomAppBar>{
+
+  void _toggleDrawer() {
+    if (widget.scaffoldKey.currentState!.isDrawerOpen) {
+      Navigator.of(context).pop(); // Ferme le drawer
+    } else {
+      widget.scaffoldKey.currentState!.openDrawer(); // Ouvre le drawer
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
         icon: Icon(Icons.menu),
         onPressed: () {
-          scaffoldKey.currentState?.openDrawer(); // Ouvre le Drawer avec la clé du Scaffold
+          _toggleDrawer(); // Ouvre le Drawer avec la clé du Scaffold
         },
       ),
       title: Text(
-        title,
+        widget.title,
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       centerTitle: true, // Centre le titre au milieu de la barre d'applications
@@ -32,6 +50,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ],
     );
   }
+
 
   // Définit la taille de la CustomAppBar
   @override
