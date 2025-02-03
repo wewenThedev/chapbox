@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 
 class SupermarketDetailsScreen extends StatelessWidget {
   final int supermarketId;
-  final String supermarketName;
+  /*final String supermarketName;
   final String supermarketDescription;
   final String supermarketAddress;
-  final String supermarketPhone;
+  final String supermarketWebsite;*/
 
-  SupermarketDetailsScreen({required this.supermarketId});
+  const SupermarketDetailsScreen({super.key, 
+    required this.supermarketId,
+    /*this.supermarketName, 
+    this.supermarketDescription, 
+    this.supermarketAddress,
+    this.supermarketWebsite,*/
+    });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(supermarketName),
+        title: Text('Erevan'),
       ),
       body: Center(
         //child: Text('Page de présentation pour $supermarketName'),

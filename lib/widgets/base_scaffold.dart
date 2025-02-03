@@ -9,7 +9,7 @@ class BaseScaffold extends StatelessWidget {
   final String title; // Titre pour l'AppBar
   final Widget body; // Contenu spécifique à chaque page
 
-  BaseScaffold({required this.title, required this.body});
+  const BaseScaffold({super.key, required this.title, required this.body});
 
   @override
   Widget build(BuildContext context) {

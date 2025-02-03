@@ -5,7 +5,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget{
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   // Le constructeur pour accepter le titre et la clé du Scaffold pour ouvrir le Drawer
-  CustomAppBar({required this.title, required this.scaffoldKey});
+  const CustomAppBar({super.key, required this.title, required this.scaffoldKey});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();

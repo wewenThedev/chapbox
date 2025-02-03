@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:chapbox/configs/themes.dart';
 
 class BottomNavigation extends StatefulWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  BottomNavigation({required this.currentIndex, required this.onTap});
+  const BottomNavigation({super.key, required this.currentIndex, required this.onTap});
 
   @override
   _BottomNavigationState createState() => _BottomNavigationState();

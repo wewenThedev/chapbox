@@ -3,16 +3,16 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:chapbox/widgets/base_scaffold.dart';
-import 'package:chapbox/screens/product_details_screen.dart';
-import 'package:chapbox/screens/profile_screen.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
+
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _SearchScreenState createState() => _SearchScreenState();
 }
 
-class _SearchPageState extends State<SearchPage> {
-  TextEditingController _searchController = TextEditingController();
+class _SearchScreenState extends State<SearchScreen> {
+  final TextEditingController _searchController = TextEditingController();
   List<dynamic> _searchResults = [];
   bool _isLoading = false;
 
@@ -80,9 +80,9 @@ class _SearchPageState extends State<SearchPage> {
                             title: Text(item['name']),
                             subtitle: Text("Prix: ${item['price']}"),
                             onTap: () {
-                              // Naviguer vers la page de détails du produit ou du supermarché
-                              // par exemple: Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailPage(productId: item['id'])));
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailScreen(productId: item['id'], shopId : 1/*To change later*/)));
+                              // Naviguer vers la Screen de détails du produit ou du supermarché
+                              // par exemple: Navigator.push(context, MaterialScreenRoute(builder: (context) => ProductDetailScreen(productId: item['id'])));
+                              Navigator.push(context, MaterialScreenRoute(builder: (context) => ProductDetailScreen(productId: item['id'], shopId : 1/*To change later*/)));
                             },
                           ),
                         );

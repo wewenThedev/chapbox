@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:chapbox/configs/const.dart';
 
 Class GeocodeService {
   Future<LatLng?> getCoordinatesFromAddress(String address) async {

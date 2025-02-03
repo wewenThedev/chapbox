@@ -5,7 +5,7 @@ class CustomAppBarWithLogo extends StatelessWidget implements PreferredSizeWidge
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   // Le constructeur pour accepter le logo et la clé du Scaffold pour ouvrir le Drawer
-  CustomAppBarWithLogo({required this.logoPath, required this.scaffoldKey});
+  const CustomAppBarWithLogo({super.key, required this.logoPath, required this.scaffoldKey});
 
   @override
   Widget build(BuildContext context) {

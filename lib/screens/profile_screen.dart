@@ -3,11 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
-import 'package:chapbox/configs/themes.dart';
-import 'package:chapbox/models/user.dart';
 
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -109,9 +109,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ElevatedButton(
               onPressed: _logout,
               child: Text("Se déconnecter"),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red, // Couleur rouge pour la déconnexion
-              ),
+              /*style: ElevatedButton.styleFrom(
+              color : Colors.red, // Couleur rouge pour la déconnexion
+              ),*/
             ),
           ],
         ),

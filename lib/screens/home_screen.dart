@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:baseflow_plugin_template/baseflow_plugin_template.dart';
 
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'dart:async';
-import 'dart:io' show Platform;
 
-import 'package:chapbox/screens/profile_screen.dart';
-import 'package:chapbox/screens/supermarket_details_screen.dart';
 import 'package:chapbox/widgets/custom_appBar_title.dart';
 import 'package:chapbox/widgets/drawer_menu.dart';
-import 'package:chapbox/configs/themes.dart';
 
 
 class HomeScreen extends StatefulWidget{
 
   final String? deviceId;
   // Le constructeur prend le deviceId comme paramètre
-  HomeScreen({required this.deviceId});
+  const HomeScreen({super.key, required this.deviceId});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -87,8 +79,8 @@ final List<Map<String, dynamic>> categories = [
   @override
   void initState() {
     super.initState();
-    //_getUserLocation();
-    _fetchSupermarkets(); // Appel API pour récupérer les supermarchés proches
+    /*_getUserLocation();
+    _fetchSupermarkets(); //Appel API pour récupérer les supermarchés proches*/
   }
 /*
   Future<void> _fetchSupermarkets() async {
@@ -160,13 +152,14 @@ final List<Map<String, dynamic>> categories = [
     return distanceInMeters / 1000; // Convertir en kilomètres
   }
 
-  void _viewCatalog(int supermarketId/*String supermarketName*/) {
-    // Naviguer vers la page de présentation du supermarché
+/*String supermarketName*/
+  /*void _viewCatalog(int _supermarketId) { 
+    //Naviguer vers la page de présentation du supermarché
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SupermarketScreen(supermarketName: supermarketName)),
+      MaterialPageRoute(builder: (context) => SupermarketDetailsScreen(supermarketId: _supermarketId)),
     );
-  }
+  }*/
 
 
   @override
@@ -209,7 +202,7 @@ final List<Map<String, dynamic>> categories = [
                 ),
               ),
             ),
-    /*Dynamic Section Google Maps
+              /*Dynamic Section Google Maps
             Container(
               height: 300.0,
               width: double.infinity,
@@ -255,7 +248,7 @@ final List<Map<String, dynamic>> categories = [
             ),
             SizedBox(height: 16.0),
 
-            Container(
+            SizedBox(
               height: 100.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -288,16 +281,16 @@ final List<Map<String, dynamic>> categories = [
                     ),
                   );
                 },
-/*
+
               ),
             ),
-*/
+
           ],
         ),
       ),
-),
+    );
       // Pop-up affichée lors du clic sur un supermarché
-          if (_isPopupVisible)
+          if (_isPopupVisible){
             Positioned(
               bottom: 0,
               left: 0,
@@ -350,15 +343,16 @@ final List<Map<String, dynamic>> categories = [
                     SizedBox(height: 16.0),
                     ElevatedButton(
                       onPressed: () {
-                        _viewCatalog(_supermarketName ?? '');
+                        //_viewCatalog(_supermarketId ?? '');
                       },
                       child: Text('Voir le catalogue'),
                     ),
                   ],
                 ),
               ),
-            ),
-    );
+            );
+          }
+
   }
 }
 

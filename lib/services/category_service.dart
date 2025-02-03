@@ -2,10 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:chapbox/models/category.dart';
-import 'package:chapbox/models/shop.dart';
-import 'package:chapbox/models/user.dart';
 
-import 'package:chapbox/configs/other.dart';
 
 
 //Endpoint : GET /shops/{shopId}/categories

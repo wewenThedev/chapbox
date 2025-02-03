@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:chapbox/models/order.dart';
 
 class OrderTrackingPage extends StatefulWidget {
+  const OrderTrackingPage({super.key});
+
   @override
   _OrderTrackingPageState createState() => _OrderTrackingPageState();
 }
@@ -48,9 +50,9 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
             SizedBox(height: 8),
             Text("Statut: ${order.status}", style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
-            Text("Montant: \$${order.amount}", style: TextStyle(fontSize: 16)),
+            Text("Montant: \$${order.totalTtc}", style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
-            Text("Date: ${order.date}", style: TextStyle(fontSize: 16)),
+            Text("Date: ${order.createdAt}", style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
@@ -77,8 +79,8 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
                 Text("Produits:"),
                 ...order.products.map((product) => Text("- ${product.name} (x${product.quantity})")),
                 SizedBox(height: 8),
-                Text("Montant Total: \$${order.amount}"),
-                Text("Date de Commande: ${order.date}"),
+                Text("Montant Total: \$${order.totalTtc}"),
+                Text("Date de Commande: ${order.createdAt}"),
               ],
             ),
           ),

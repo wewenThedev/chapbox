@@ -5,7 +5,7 @@ class CustomCard extends StatelessWidget {
   final String subtitle;
   final IconData icon;
 
-  CustomCard({required this.title, required this.subtitle, required this.icon});
+  const CustomCard({super.key, required this.title, required this.subtitle, required this.icon});
 
   @override
   Widget build(BuildContext context) {

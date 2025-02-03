@@ -8,7 +8,7 @@ import 'dart:convert';
 class ProductCategoryPage extends StatefulWidget {
   final String categoryId; // ID de la catégorie
 
-  ProductCategoryPage({required this.categoryId});
+  const ProductCategoryPage({super.key, required this.categoryId});
 
   @override
   _ProductCategoryPageState createState() => _ProductCategoryPageState();

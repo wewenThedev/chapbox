@@ -2,14 +2,13 @@ import 'package:chapbox/configs/styles.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:chapbox/configs/themes.dart';
 import 'package:chapbox/screens/home_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
   final String? deviceId;
   // Le constructeur prend le deviceId comme paramètre
-  SplashScreen({required this.deviceId});
+  const SplashScreen({super.key, required this.deviceId});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();

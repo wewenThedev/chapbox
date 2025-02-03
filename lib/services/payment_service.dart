@@ -1,4 +1,6 @@
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
+
 
    Future<String> initiatePayment(double amount) async {
      final response = await http.post(
@@ -19,11 +21,9 @@ import 'package:http/http.dart' as http;
      }
    }
 
-      import 'package:url_launcher/url_launcher.dart';
-
    void openPaymentUrl(String url) async {
-     if (await canLaunch(url)) {
-       await launch(url);
+     if (await canLaunchUrl(url)) {
+       await launchUrl(url);
      } else {
        throw 'Could not launch $url';
      }

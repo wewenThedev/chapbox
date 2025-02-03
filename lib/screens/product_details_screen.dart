@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'package:chapbox/configs/themes.dart'; // Import du fichier theme
-import 'package:chapbox/configs/styles.dart'; // Import des styles
+// Import des styles
 
-import 'package:chapbox/models/product.dart';
-import 'package:chapbox/models/shop.dart';
-import 'package:chapbox/models/shop_product.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final int productId;
   final int shopId;
-  final String productName;
-  final String productDescription;
-  final double productPrice;
-  final String productImageUrl;
+  final String? productName;
+  final String? productDescription;
+  final double? productPrice;
+  final String? productImageUrl;
 
-  ProductDetailsScreen({
+  const ProductDetailsScreen({super.key, 
     required this.productId,
     required this.shopId,
     /*required this.productName,
@@ -34,7 +31,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.lightTheme.colorScheme.background, // Couleur de fond
+      backgroundColor: AppTheme.lightTheme.colorScheme.surface, // Couleur de fond
       appBar: AppBar(
         title: Text(widget.productName),
         backgroundColor: AppTheme.lightTheme.appBarTheme.backgroundColor, // Couleur de l'AppBar

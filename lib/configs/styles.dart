@@ -44,7 +44,6 @@ ButtonStyle customStyle(BuildContext ctx) {
       backgroundColor: WidgetStateProperty.all<Color?>(appGrey));
 }
 
-
 ButtonStyle homePageBtStyle(BuildContext ctx) {
   return ButtonStyle(
       shape: WidgetStateProperty.all<RoundedRectangleBorder?>(
@@ -70,4 +69,3 @@ ButtonStyle productDialogBtStyle(Color backgroundColor) {
       foregroundColor: WidgetStateProperty.all<Color?>(Colors.white),
       backgroundColor: WidgetStateProperty.all<Color?>(backgroundColor));
 }
-

@@ -3,9 +3,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:chapbox/configs/themes.dart'
-
 class ChangeAddressPage extends StatefulWidget {
+  const ChangeAddressPage({super.key});
+
   @override
   _ChangeAddressPageState createState() => _ChangeAddressPageState();
 }
@@ -94,7 +94,7 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
           ),
 
           // Carte affichant la position de l'adresse sélectionnée
-          Container(
+          SizedBox(
             height: 300, // Hauteur de la carte
             child: GoogleMap(
               initialCameraPosition: CameraPosition(

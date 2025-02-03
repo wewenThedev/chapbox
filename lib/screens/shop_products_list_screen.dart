@@ -8,7 +8,7 @@ import 'dart:convert';
 class ProductListingPage extends StatefulWidget {
   final String supermarketId; // ID du supermarché ou de la catégorie
 
-  ProductListingPage({required this.supermarketId});
+  const ProductListingPage({super.key, required this.supermarketId});
 
   @override
   _ProductListingPageState createState() => _ProductListingPageState();

@@ -1,7 +1,5 @@
 import 'package:chapbox/configs/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:chapbox/configs/themes.dart';
-import 'package:chapbox/widgets/bottom_navigation.dart';
 
 
 
@@ -23,6 +21,8 @@ class ShopListPage extends StatelessWidget {
       "distance": 3.8,
     },
   ];
+
+  const ShopListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
