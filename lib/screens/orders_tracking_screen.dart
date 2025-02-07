@@ -22,8 +22,8 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
 
   // Méthode pour récupérer les commandes depuis l'API
   Future<void> _fetchOrders() async {
-    final response = await http.get(Uri.parse('https://ton-api.com/orders'));
-
+    final response = await http.get(Uri.parse('http://localhost:8001/api/orders'));
+    
     if (response.statusCode == 200) {
       final List<dynamic> results = json.decode(response.body);
       setState(() {
@@ -52,7 +52,7 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
             SizedBox(height: 8),
             Text("Montant: \$${order.totalTtc}", style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
-            Text("Date: ${order.createdAt}", style: TextStyle(fontSize: 16)),
+            Text("Date: ${order.orderingDate}", style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
@@ -77,10 +77,11 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
             child: ListBody(
               children: [
                 Text("Produits:"),
-                ...order.products.map((product) => Text("- ${product.name} (x${product.quantity})")),
+                /*//...order.products.map((product) => Text("- ${product.name} (x${product.quantity})")),*/
+                
                 SizedBox(height: 8),
                 Text("Montant Total: \$${order.totalTtc}"),
-                Text("Date de Commande: ${order.createdAt}"),
+                Text("Date de Commande: ${order.orderingDate}"),
               ],
             ),
           ),

@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Chapbox',
       theme: AppTheme.lightTheme,
+      debugShowCheckedModeBanner: false,
       // Définir la page de démarrage (HomePage) ou une autre page
       home: SplashScreen(deviceId: _deviceId), // On passe le deviceId à la page d'accueil
       // Définir les routes de l'application

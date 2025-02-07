@@ -1,3 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:chapbox/configs/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -165,7 +168,7 @@ final List<Map<String, dynamic>> categories = [
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Accueil', scaffoldKey: _scaffoldKey),
+      appBar: CustomAppBar(title: 'Accueil', height: 80.0, scaffoldKey: _scaffoldKey),
       drawer: DrawerMenu(),
       onDrawerChanged: _onDrawerChanged,
       //onEndDrawerChanged: _onDrawerEnd,
@@ -260,12 +263,13 @@ final List<Map<String, dynamic>> categories = [
                     child: Column(
                       children: [
                         CircleAvatar(
-                          radius: 30.0,
-                          backgroundColor: Colors.green[100],
+                          //radius: 30.0,
+                          radius: 10.0,
+                          backgroundColor: const Color.fromRGBO(255, 127, 80, 0.2)   /*Colors.green[100]*/,
                           child: Icon(
                             category['icon'],
                             size: 30.0,
-                            color: Colors.green[700],
+                            color:primaryColor /*Colors.green[700]*/,
                           ),
                         ),
                         SizedBox(height: 8.0),
@@ -284,7 +288,14 @@ final List<Map<String, dynamic>> categories = [
 
               ),
             ),
-
+            /*Text(
+                devi,
+                style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[700],
+              ),
+            ),*/
           ],
         ),
       ),

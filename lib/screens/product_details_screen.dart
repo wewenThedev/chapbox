@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 
 import 'package:chapbox/configs/themes.dart'; // Import du fichier theme
+//import 'package:chapbox/configs/styles.dart';
 // Import des styles
 
 
 class ProductDetailsScreen extends StatefulWidget {
   final int productId;
   final int shopId;
-  final String? productName;
-  final String? productDescription;
-  final double? productPrice;
-  final String? productImageUrl;
+  final String productName;
+  final String productDescription;
+  final double productPrice;
+  final String productImageUrl;
 
   const ProductDetailsScreen({super.key, 
     required this.productId,
     required this.shopId,
-    /*required this.productName,
+    required this.productName,
     required this.productDescription,
     required this.productPrice,
-    required this.productImageUrl,*/
+    required this.productImageUrl,
   });
 
   @override
@@ -81,7 +82,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "\$${widget.productPrice.toStringAsFixed(2)}",
+                  "\$${widget.productPrice.toString()}",
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,

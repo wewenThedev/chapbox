@@ -1,6 +1,9 @@
+import 'package:chapbox/screens/order_confirmation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:chapbox/screens/address_edit_screen.dart';
 
 // Classe principale pour la page de confirmation de commande
 class CheckoutScreen extends StatefulWidget {
@@ -60,7 +63,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       // Rediriger vers une page de confirmation de commande
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => OrderConfirmationPage()),
+        MaterialPageRoute(builder: (context) => OrderConfirmationScreen()),
       );
     } else {
       print('Erreur lors de la confirmation de la commande');
@@ -121,7 +124,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     // Redirection vers une page pour changer l'adresse de livraison
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ChangeAddressPage()),
+                      MaterialPageRoute(builder: (context) => ChangeAddressScreen()),
                     ).then((value) {
                       if (value != null) {
                         setState(() {

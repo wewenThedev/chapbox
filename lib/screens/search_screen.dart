@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:chapbox/widgets/base_scaffold.dart';
+import 'package:chapbox/screens/product_details_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -82,7 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             onTap: () {
                               // Naviguer vers la Screen de détails du produit ou du supermarché
                               // par exemple: Navigator.push(context, MaterialScreenRoute(builder: (context) => ProductDetailScreen(productId: item['id'])));
-                              Navigator.push(context, MaterialScreenRoute(builder: (context) => ProductDetailScreen(productId: item['id'], shopId : 1/*To change later*/)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(productId: item['id'], shopId : 1, productName: item['name'], productDescription: item['description'], productPrice: item['price'], productImageUrl: item['imageUrl'],/*To change later*/)));
                             },
                           ),
                         );

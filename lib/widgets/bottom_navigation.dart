@@ -7,7 +7,7 @@ class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key, required this.currentIndex, required this.onTap});
 
   @override
-  _BottomNavigationState createState() => _BottomNavigationState();
+  BottomNavigationState createState() => BottomNavigationState();
 }
 
 class BottomNavigationState extends State<BottomNavigation> {
@@ -15,14 +15,14 @@ class BottomNavigationState extends State<BottomNavigation> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: widget.selectedIndex,
+      currentIndex: selectedIndex,
       selectedItemColor: Colors.amber[800],
       onTap: _onItemTapped,
       items: [

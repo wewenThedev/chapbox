@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,8 +24,8 @@ import 'package:url_launcher/url_launcher.dart';
    }
 
    void openPaymentUrl(String url) async {
-     if (await canLaunchUrl(url)) {
-       await launchUrl(url);
+     if (await canLaunchUrl(url as Uri)) {
+       await launchUrl(url as Uri);
      } else {
        throw 'Could not launch $url';
      }

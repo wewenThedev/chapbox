@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+//import 'package:chapbox/configs/const.dart';
 
 class ChangeAddressPage extends StatefulWidget {
   const ChangeAddressPage({super.key});
@@ -20,13 +24,16 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
   Future<void> _searchAddress(String query) async {
     if (query.isNotEmpty) {
       // Appel à l'API pour obtenir les adresses suggérées
-      final response = await http.get(Uri.parse($BASE_URL.'addresses?query=$query'));
+      final response = await http.get(Uri.parse("http://127.0.0.1:8001/api/addresses?query=$query"));// as int
+      //final response = await http.get(Uri.parse(BASE_URL."addresses?query=$query"));// as int
 
       if (response.statusCode == 200) {
         // Si l'API renvoie un succès, analyser les données
-        final List<dynamic> results = json.decode(response.body);
+        final List<String> results = json.decode(response.body);
+        //final List<dynamic> results = json.decode(response.body);
         setState(() {
-          _suggestedAddresses = results.map((address) => address['formatted_address']).toList(); // Supposant que l'API retourne des adresses au format souhaité
+          _suggestedAddresses = results.map((address) => 'this' /*address['fullAddress']*/).toList(); // Supposant que l'API retourne des adresses au format souhaité/
+          //_suggestedAddresses = results.map((address) => address['fullAddress']).toList(); // Supposant que l'API retourne des adresses au format souhaité/
         });
       } else {
         // En cas d'erreur
@@ -124,3 +131,7 @@ class _ChangeAddressPageState extends State<ChangeAddressPage> {
     );
   }
 }
+
+/*extension on String {
+  String get "addresses?query= => null;
+}*/

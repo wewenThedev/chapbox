@@ -15,13 +15,13 @@ class BaseScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        theme : AppTheme.lightTheme.colorScheme.primary, // Utilise le thème configuré
+        backgroundColor : AppTheme.lightTheme.colorScheme.primary, // Utilise le thème configuré
         title: Text(title),
         // Ajoute d'autres personnalisations ici si nécessaire
       ),
       body: body, // Contenu spécifique à chaque page
       bottomNavigationBar: BottomNavigation(currentIndex: 0, // Index de l'onglet sélectionné
-        onTap: ()),
-    );
+        onTap: (value) => {} ,
+    ));
   }
 }

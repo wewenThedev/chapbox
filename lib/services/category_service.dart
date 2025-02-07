@@ -9,7 +9,8 @@ import 'package:chapbox/models/category.dart';
 
 Future<List<Category>> fetchCategoriesByShop(int shopId) async {
   final response = await http.get(
-    Uri.parse($BASE_URL.'$shopId/categories'),
+    Uri.parse('http://127.0.0.1:8001/api/$shopId/categories'),
+    //Uri.parse($BASE_URL.'$shopId/categories'),
   );
 
   if (response.statusCode == 200) {

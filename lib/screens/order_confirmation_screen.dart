@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // Page de confirmation de la commande
-class OrderConfirmationPage extends StatelessWidget {
-  const OrderConfirmationPage({super.key});
+class OrderConfirmationScreen extends StatelessWidget {
+  const OrderConfirmationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

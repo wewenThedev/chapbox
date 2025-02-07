@@ -22,7 +22,7 @@ class ShopListPage extends StatelessWidget {
     },
   ];
 
-  const ShopListPage({super.key});
+  ShopListPage({super.key});
 
   @override
   Widget build(BuildContext context) {

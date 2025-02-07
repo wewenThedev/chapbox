@@ -1,3 +1,4 @@
+import 'package:chapbox/screens/start_checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -224,7 +225,7 @@ class _CartPageState extends State<CartPage> {
                       // Action à réaliser lors de la commande
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CheckoutPage()),
+                        MaterialPageRoute(builder: (context) => CheckoutScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(

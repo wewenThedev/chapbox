@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget{
   final String title;
+  final double height;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   // Le constructeur pour accepter le titre et la clé du Scaffold pour ouvrir le Drawer
-  const CustomAppBar({super.key, required this.title, required this.scaffoldKey});
+  const CustomAppBar({super.key, required this.title, this.height = kToolbarHeight, required this.scaffoldKey});
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
-  
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => throw UnimplementedError();
+  Size get preferredSize => Size.fromHeight(height);
+  
 }
 
- class _CustomAppBarState extends State<CustomAppBar>{
+class _CustomAppBarState extends State<CustomAppBar>{
 
   void _toggleDrawer() {
     if (widget.scaffoldKey.currentState!.isDrawerOpen) {
@@ -52,7 +52,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget{
   }
 
 
-  // Définit la taille de la CustomAppBar
+  /* Définit la taille de la CustomAppBar
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(height);*/
 }
