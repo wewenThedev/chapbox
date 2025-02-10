@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          'logos/chapbox_Borange.jpg', 
+          'assets/logos/chapbox_Borange.jpg',
           width: 150, // Largeur de l'image
           height: 150, // Hauteur de l'image
           fit: BoxFit.contain, // Ajuste le contenu de l'image à ses dimensions
