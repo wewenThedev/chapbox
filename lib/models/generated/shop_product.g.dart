@@ -7,8 +7,9 @@ part of '../shop_product.dart';
 // **************************************************************************
 
 ShopProduct _$ShopProductFromJson(Map<String, dynamic> json) => ShopProduct(
-      shopId: (json['shopId'] as num?)?.toInt(),
-      productId: (json['productId'] as num?)?.toInt(),
+      //shopId: (json['shopId'] as num?)?.toInt(),
+      shopId: (json['shopId'] as num).toInt(),
+      productId: (json['productId'] as num).toInt(),
     );
 
 Map<String, dynamic> _$ShopProductToJson(ShopProduct instance) =>

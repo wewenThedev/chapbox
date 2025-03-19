@@ -14,10 +14,10 @@ class _AddressListScreenState extends State<AddressListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: Text('Address List Page'),
       ),
       body: Center(
-        child: Text('This is a Stateful Home Page'),
+        child: Text('This is a Stateful Address List Page'),
       ),
     );
   }

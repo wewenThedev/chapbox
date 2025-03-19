@@ -8,15 +8,25 @@ const Color primaryColorDark = Color(0xFFCC3700);
 
 const Color secondaryColor = Color(0xFFFF7F50);
 
-const Color backgroundColor = Color(0xFF2E2E2E);
+const Color textBlackColor = Color(0xFF2E2E2E);
+
+const Color textPrimaryColor = Color(0xFF2E2E2E);
+
+const Color myGrey = Color(0xFF666666);
+
+//const Color backgroundColor = Color(0xFF2E2E2E);
+const Color backgroundColor = Color.fromRGBO(255, 220, 236, 234);
 
 const Color scaffoldBackgroundColor = Color.fromARGB(255, 255, 243, 243);
 
-const Color appGrey = Color(0xFF4A4A4A);
+const Color appGrey = Color(0xFF4F4F4F);
 
 const Color appDarkGrey = Color(0xFF2E2E2E);
 
-const Color appLightGrey = Color(0xFF7D7D7D);
+const Color appLightGrey = Color(0xFFCCCCCC);
+
+const Color onSecondaryContainerColor = Color(0xFFFFD1BF);
+
 
 ButtonStyle defaultStyle(BuildContext ctx) {
   return ButtonStyle(

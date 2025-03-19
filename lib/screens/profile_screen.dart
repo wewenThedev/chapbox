@@ -1,3 +1,4 @@
+import 'package:chapbox/widgets/custom_appBar_with_back.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -18,6 +19,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String email = "";
   List<dynamic> addresses = [];
   List<dynamic> orderHistory = [];
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 
   @override
   void initState() {
@@ -53,9 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Mon Profil"),
-      ),
+      appBar: CustomAppBarWithBack(title: 'Mon Profil', scaffoldKey: _scaffoldKey),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

@@ -1,9 +1,11 @@
+//import 'package:chapbox/widgets/custom_appBar_title.dart';
+import 'package:chapbox/widgets/custom_appBar_with_back.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:chapbox/widgets/base_scaffold.dart';
 import 'package:chapbox/screens/product_details_screen.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -16,6 +18,8 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   List<dynamic> _searchResults = [];
   bool _isLoading = false;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<void> _search(String query) async {
     setState(() {
@@ -43,19 +47,21 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffold(
-      title: "Recherche",
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+    //var _scaffoldKey;
+    return Scaffold(
+      appBar: CustomAppBarWithBack(title: 'Recherche', scaffoldKey: _scaffoldKey),
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
             // Barre de recherche
             TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                labelText: "Rechercher des produits ou des supermarchés",
+                hintText: "Que cherchez-vous ?",
+                prefixIcon: Icon(Icons.search),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(Iconsax.close_circle),
                   onPressed: () {
                     if (_searchController.text.isNotEmpty) {
                       _search(_searchController.text); // Démarrer la recherche
@@ -72,8 +78,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   ? Center(child: CircularProgressIndicator()) // Indicateur de chargement
                   : ListView.builder(
                       itemCount: _searchResults.length,
-                      itemBuilder: (context, index) {
+                      //if(_searchResults.length === 0){
+                    itemBuilder: (context, index) {
                         var item = _searchResults[index];
+
                         return Card(
                           margin: EdgeInsets.symmetric(vertical: 8.0),
                           child: ListTile(
@@ -88,11 +96,27 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         );
                       },
+                  /*}else{
+                    return Center(
+                      child: Padding(
+                        child Column(
+                          mainAxisAlignment: MainAxisAlignment.center
+                          children: [
+                            Icon(Icons.search_off),
+                            SizedBox(height: 10),
+                            Text('Nous n\'avons rien trouvé')
+                          ]
+                        ),
+                      ),
+                    )
+                  }*/
+                      
                     ),
             ),
           ],
         ),
-      ),
+    ),
     );
+    
   }
 }

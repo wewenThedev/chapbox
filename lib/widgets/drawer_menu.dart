@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import '../screens/address_list_screen.dart';
 
 
@@ -27,7 +28,15 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.local_offer),
+            leading: const Icon(Iconsax.profile_2user /*Icons.person*/),
+            title: const Text('Profil'),
+            onTap: () {
+              // Handle navigation
+              Navigator.pop(context); // Ferme le Drawer
+            },
+          ),
+          ListTile(
+            leading: const Icon(Iconsax.ticket /*Icons.local_offer*/),
             title: const Text('Promotions'),
             onTap: () {
               // Handle navigation
@@ -35,21 +44,28 @@ class DrawerMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.history),
+            leading: const Icon(Iconsax.location /*Icons.history*/),
             title: const Text('Adresses'),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => AddressListScreen()));
             },
           ),
-          ListTile(
+          /*ListTile(
             leading: const Icon(Icons.history),
             title: const Text('Historique des commandes'),
             onTap: () {
 
 Navigator.pop(context); // Ferme le Drawer
+            },),*/
+          ListTile(
+            leading: const Icon(Iconsax.logout /*Icons.exit_to_app*/),
+            title: const Text('Me déconnecter'),
+            onTap: () {
+//Navigator.pop(context); // Ferme le Drawer
             },
           ),
+      
         ],
       ),
     );

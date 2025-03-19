@@ -4,7 +4,7 @@ import 'package:chapbox/configs/themes.dart'; // Import du fichier theme
 //import 'package:chapbox/configs/styles.dart';
 // Import des styles
 
-
+//shopProducts details 
 class ProductDetailsScreen extends StatefulWidget {
   final int productId;
   final int shopId;
@@ -32,11 +32,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.lightTheme.colorScheme.surface, // Couleur de fond
+      backgroundColor: ChapboxTheme.lightTheme.colorScheme.surface, // Couleur de fond
       appBar: AppBar(
         title: Text(widget.productName),
-        backgroundColor: AppTheme.lightTheme.appBarTheme.backgroundColor, // Couleur de l'AppBar
-        iconTheme: IconThemeData(color: AppTheme.lightTheme.colorScheme.onSurface), // Couleur des icônes
+        backgroundColor: ChapboxTheme.lightTheme.appBarTheme.backgroundColor, // Couleur de l'AppBar
+        iconTheme: IconThemeData(color: ChapboxTheme.lightTheme.colorScheme.onSurface), // Couleur des icônes
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,10 +59,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             // Nom du produit
             Text(
               widget.productName,
-              style: AppTheme.lightTheme.textTheme.headlineLarge!.copyWith(
+              style: ChapboxTheme.lightTheme.textTheme.headlineLarge!.copyWith(
                 fontSize: 28.0,
                 fontWeight: FontWeight.bold,
-                color: AppTheme.lightTheme.colorScheme.onSurface, // Couleur du texte
+                color: ChapboxTheme.lightTheme.colorScheme.onSurface, // Couleur du texte
               ),
             ),
             SizedBox(height: 12.0),
@@ -70,9 +70,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             // Description du produit
             Text(
               widget.productDescription,
-              style: AppTheme.lightTheme.textTheme.bodyLarge!.copyWith(
+              style: ChapboxTheme.lightTheme.textTheme.bodyLarge!.copyWith(
                 fontSize: 16.0,
-                color: AppTheme.lightTheme.colorScheme.onSurface,
+                color: ChapboxTheme.lightTheme.colorScheme.onSurface,
               ),
             ),
             SizedBox(height: 24.0),
@@ -86,7 +86,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
-                    color: AppTheme.lightTheme.colorScheme.primary, // Couleur du prix
+                    color: ChapboxTheme.lightTheme.colorScheme.primary, // Couleur du prix
                   ),
                 ),
                 ElevatedButton(
@@ -97,10 +97,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             SnackBar(
                               content: Text('${widget.productName} a été ajouté au panier !'),
                               duration: Duration(seconds: 2), // La durée d'affichage du SnackBar
-                              backgroundColor: AppTheme.lightTheme.colorScheme.primary, // Couleur du Snackbar
+                              backgroundColor: ChapboxTheme.lightTheme.colorScheme.primary, // Couleur du Snackbar
                               action: SnackBarAction(
                                 label: 'Annuler',
-                                textColor: AppTheme.lightTheme.colorScheme.onPrimary, // Couleur du texte d'action
+                                textColor: ChapboxTheme.lightTheme.colorScheme.onPrimary, // Couleur du texte d'action
                                 onPressed: () {
                                   // Action si l'utilisateur appuie sur "Annuler"
                                   print('Ajout annulé');
@@ -113,14 +113,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                     backgroundColor: isInStock
-                        ? AppTheme.lightTheme.colorScheme.primary
+                        ? ChapboxTheme.lightTheme.colorScheme.primary
                         : Colors.grey, // Couleur du bouton selon l'état
                   ),
                   child: Text(
                     isInStock ? "Add to Cart" : "Out of Stock", // Change le texte du bouton selon l'état
                     style: TextStyle(
                       fontSize: 16.0,
-                      color: AppTheme.lightTheme.colorScheme.onPrimary, // Couleur du texte du bouton
+                      color: ChapboxTheme.lightTheme.colorScheme.onPrimary, // Couleur du texte du bouton
                     ),
                   ),
                 ),
