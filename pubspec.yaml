@@ -64,6 +64,10 @@ dependencies:
   flutter_map: ^7.0.2
   geolocator: ^10.1.0
   flutter_polyline_points: ^2.0.0
+  #flutter_map: ^5.0.0
+  #latlong2: ^0.8.1
+  #geolocator: ^10.1.0
+  #http: ^0.13.5
   #google_maps_utils: ^2.0.0+1
   permission_handler: ^11.3.1
   provider: ^6.0.0           # Pour la gestion d'état
@@ -143,6 +147,7 @@ flutter:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: "AppIcon"
-  image_path: "assets/logos/chapbox_Bwhite.jpg"
+  image_path: "assets/logos/logo_chapbox_pin.png"
+  #image_path: "assets/logos/logo_chapbox_pin_background.png"
   min_sdk_android: 21
   remove_alpha_ios: true
