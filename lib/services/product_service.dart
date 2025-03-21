@@ -4,7 +4,6 @@ import 'package:chapbox/database_helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:chapbox/services/api_service.dart';
 
-import 'package:chapbox/models/product.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ProductService {

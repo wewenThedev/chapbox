@@ -2,13 +2,14 @@
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- Optional, for background location -->
     <application
         android:label="Chapbox test"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
-        <meta-data
+        <!--meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="VOTRE_CLE_API_GOOGLE_MAPS"/>
+        android:value="VOTRE_CLE_API_GOOGLE_MAPS"/-->
         <activity
             android:name=".MainActivity"
             android:exported="true"

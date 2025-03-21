@@ -8,7 +8,6 @@ import 'package:chapbox/screens/category_list_screen.dart';
 import 'package:chapbox/screens/profile_screen.dart';
 import 'package:chapbox/screens/promotions_list_screen.dart';
 import 'package:chapbox/screens/search_screen.dart';
-import 'package:chapbox/screens/settings_screen.dart';
 import 'package:chapbox/widgets/custom_appBar_with_logo.dart';
 import 'package:chapbox/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
-import 'package:line_icons/line_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   //final String? deviceId;

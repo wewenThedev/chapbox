@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:chapbox/configs/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:chapbox/widgets/custom_button.dart';
@@ -8,6 +10,7 @@ import 'package:chapbox/services/maps_service.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart' /*as flutter_map*/;
+import 'package:http/http.dart' as http;
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:latlong2/latlong.dart' /*as local_coordinates*/;
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -15,6 +18,8 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 //with flutter maps
 class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _MapScreenState createState() => _MapScreenState();
@@ -23,6 +28,8 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   late MapController _mapController;
   LatLng _currentPosition = LatLng(6.5244, 3.3792); // Lagos par défaut
+
+  final Set<Marker> _markers = {};
 
   @override
   void initState() {
@@ -37,13 +44,41 @@ class _MapScreenState extends State<MapScreen> {
     if (permission == LocationPermission.denied) return;
 
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
+        //locationSettings: LocationSettings.accuracy,
+        //accuracy : LocationAccuracy.high
+        // ignore: deprecated_member_use
+        desiredAccuracy: LocationAccuracy.high);
 
     setState(() {
       _currentPosition = LatLng(position.latitude, position.longitude);
       _mapController.move(_currentPosition, 14);
     });
+  }
+
+  static Future<List<Marker>> fetchMarkers() async {
+    const String apiUrl = "http://127.0.0.1:8001/api/locations";
+
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      List<dynamic> locations = jsonDecode(response.body);
+      return locations.map((location) {
+        return Marker(
+          //markerId: MarkerId(location['id'].toString()),
+          point: LatLng(location['lat'], location['lng']),
+          //infoWindow: InfoWindow(title: location['name']),
+          child: Dialog(elevation: 2.0, child: Text(location['name'])),
+        );
+      }).toList();
+    } else {
+      //return AlertDialog.adaptive(title: Text('Erreur lors du chargement des emplacements'),)
+      throw Exception("Erreur lors du chargement des emplacements");
+    }
+  }
+
+  void _loadMarkers() async {
+    List<Marker> markers = await fetchMarkers();
+    setState(() => _markers.addAll(markers));
   }
 
   @override

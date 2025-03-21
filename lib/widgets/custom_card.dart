@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chapbox/configs/styles.dart';
 import 'package:chapbox/configs/themes.dart';
 import 'package:chapbox/screens/category_list_screen.dart';
-import 'package:chapbox/screens/product_details_screen.dart';
 //import 'package:chapbox/models/shop_product.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';

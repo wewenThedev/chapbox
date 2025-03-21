@@ -51,6 +51,12 @@
 <string>Nous avons besoin de votre localisation pour afficher la carte</string>
 <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 <string>Nous avons besoin de votre localisation pour afficher la carte</string>
+
+<!-- Optional: For background location -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+    </array>
 <key>io.flutter.embedded_views_preview</key>
 <true/>
 

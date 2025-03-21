@@ -6,7 +6,7 @@ class FullScreenImage extends StatelessWidget {
   final List<String> images;
   final int initialIndex;
 
-  FullScreenImage({required this.images, required this.initialIndex});
+  const FullScreenImage({super.key, required this.images, required this.initialIndex});
 
   @override
   Widget build(BuildContext context) {

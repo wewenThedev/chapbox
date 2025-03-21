@@ -1,7 +1,93 @@
 import 'package:chapbox/configs/styles.dart';
+import 'package:chapbox/screens/maps/map_screen.dart';
+import 'package:chapbox/screens/shop_map_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
+import 'package:chapbox/services/maps_service.dart';
 
+class NearbySupermarketsPage extends StatefulWidget {
+  @override
+  _NearbySupermarketsPageState createState() => _NearbySupermarketsPageState();
+}
+
+class _NearbySupermarketsPageState extends State<NearbySupermarketsPage> {
+  List<dynamic> supermarkets = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadNearbySupermarkets();
+  }
+
+  Future<void> loadNearbySupermarkets() async {
+    try {
+      Position position = await MapService.getCurrentLocation();
+      List<dynamic> results = await MapService.fetchNearbySupermarkets(
+        position.latitude,
+        position.longitude,
+      );
+      setState(() {
+        supermarkets = results;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur: $e')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Supermarchés à proximité'),
+        backgroundColor: primaryColorLight,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.map),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShopMapScreen(
+                    supermarkets: supermarkets,
+                    shops: [],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: supermarkets.length,
+              itemBuilder: (context, index) {
+                var supermarket = supermarkets[index];
+                return ListTile(
+                  title: Text(supermarket['name']),
+                  subtitle: Text(supermarket['distance']),
+                  onTap: () {
+                    // Naviguer vers la page du supermarché
+                  },
+                );
+              },
+            ),
+    );
+  }
+}
+
+/*78632 code extraction aomei partition zip */
+
+/*import 'package:chapbox/configs/styles.dart';
+import 'package:flutter/material.dart';
 
 class ShopListPage extends StatelessWidget {
   final List<Map<String, dynamic>> shops = [
@@ -96,3 +182,4 @@ class ShopListPage extends StatelessWidget {
     );
   }
 }
+*/

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:chapbox/services/shop_service.dart';
 
 class ShopListScreen extends StatefulWidget {
+  const ShopListScreen({super.key});
+
   @override
   _ShopListScreenState createState() => _ShopListScreenState();
 }

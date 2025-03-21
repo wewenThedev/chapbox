@@ -1,6 +1,4 @@
-import 'package:chapbox/configs/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class MapsItineraryScreen extends StatefulWidget {
   const MapsItineraryScreen({super.key});

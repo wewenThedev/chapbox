@@ -2,12 +2,8 @@
 import 'dart:convert';
 import 'package:chapbox/services/api_service.dart';
 
-import 'package:http/http.dart' as http;
 
 
-import 'package:chapbox/models/product.dart';
-import 'package:chapbox/models/shop.dart';
-import 'package:chapbox/models/shop_product.dart';
 
 class ShopProductService {
   static Future<List<dynamic>> getShops() async {

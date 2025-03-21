@@ -38,7 +38,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     "https://via.placeholder.com/600x400?text=Image+3",
   ];*/
 
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
   List<String> imageUrls = [];
 
   @override
