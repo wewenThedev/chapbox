@@ -1,19 +1,14 @@
 import 'dart:convert';
 
-import 'package:chapbox/configs/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:chapbox/widgets/custom_button.dart';
 
 //import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'package:chapbox/services/maps_service.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart' /*as flutter_map*/;
 import 'package:http/http.dart' as http;
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:latlong2/latlong.dart' /*as local_coordinates*/;
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 //import 'package:custom_map_markers/custom_map_markers.dart';
 
 //with flutter maps

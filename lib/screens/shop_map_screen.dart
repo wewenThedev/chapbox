@@ -6,7 +6,7 @@ import 'package:latlong2/latlong.dart';
 class ShopMapScreen extends StatelessWidget {
   final List<dynamic> shops;
 
-  ShopMapScreen({required this.shops, required List supermarkets});
+  const ShopMapScreen({super.key, required this.shops, required List supermarkets});
 
   @override
   Widget build(BuildContext context) {

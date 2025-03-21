@@ -1,6 +1,5 @@
 import 'package:chapbox/services/shop_service.dart';
 import 'package:flutter/material.dart';
-import 'package:chapbox/services/shop_service.dart';
 
 class ShopListScreen extends StatefulWidget {
   const ShopListScreen({super.key});

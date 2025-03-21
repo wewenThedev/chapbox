@@ -7,6 +7,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:chapbox/services/maps_service.dart';
 
 class NearbySupermarketsPage extends StatefulWidget {
+  const NearbySupermarketsPage({super.key});
+
   @override
   _NearbySupermarketsPageState createState() => _NearbySupermarketsPageState();
 }
