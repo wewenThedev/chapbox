@@ -1,17 +1,20 @@
 import 'dart:convert';
 
-
 import 'package:chapbox/services/api_service.dart';
 
 class CartService {
   //static Future<List<dynamic>> getCartItems() async {
   static Future<List<dynamic>> getCartItems() async {
     final response = await ApiService.get("cart");
-    return jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      return jsonDecode(response.body);
+    }
   }
 
-  static Future<Map<String, dynamic>> addToCart(Map<String, dynamic> cartData /*Map<String, dynamic> product*/) async {
-    
+  static Future<Map<String, dynamic>> addToCart(
+      Map<String, dynamic> cartData /*Map<String, dynamic> product*/) async {
     /*final db = await DatabaseHelper.database;
 
     // Vérifier si le produit est déjà dans le panier
@@ -56,7 +59,8 @@ class CartService {
     return jsonDecode(response.body);
   }
 
-  static Future<Map<String, dynamic>> updateCartItem(int id, Map<String, dynamic> cartData) async {
+  static Future<Map<String, dynamic>> updateCartItem(
+      int id, Map<String, dynamic> cartData) async {
     final response = await ApiService.put("cart/$id", cartData);
     return jsonDecode(response.body);
   }

@@ -63,8 +63,12 @@ class LogoCard extends StatelessWidget {
           height: 75,
         ),
         /*Image.network(logo)*/
-        title: Text(title, style: TextStyle(fontSize: 20)),
-        subtitle: Text(subtitle, style: TextStyle()),
+        title: Text(
+          title,
+          style: ChapboxTheme.lightTheme.textTheme.bodyLarge,
+        ),
+        subtitle:
+            Text(subtitle, style: ChapboxTheme.lightTheme.textTheme.bodyMedium),
         style: ListTileStyle.list,
         //titleTextStyle: ,
         titleAlignment:
@@ -169,6 +173,7 @@ class ProductCard extends StatelessWidget {
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      width: double.infinity,
       height: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
@@ -179,40 +184,40 @@ class ProductCard extends StatelessWidget {
           Row(
             children: [
               GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    CategoryListScreen() /*ProductDetailsScreen()*/),
-                          );
-                        },
-                        child: Row(
-                children: [
-                  Container(
-                    width: media.width * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      //borderRadius: BorderRadius.right(10.0),
-                    ),
-                    //child: Image.network(src, width: media.width * 0.3),
-                    child: Image.asset(
-                      'images/productsImages/kitkat_nestle_paysage.jpg',
-                      
-                      //fit: BoxFit.cover,
-                      fit: BoxFit.fill,
-                    ),
-                    /*CachedNetworkImage(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            CategoryListScreen() /*ProductDetailsScreen()*/),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Container(
+                      width: media.width * 0.5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        //borderRadius: BorderRadius.right(10.0),
+                      ),
+                      //child: Image.network(src, width: media.width * 0.3),
+                      child: Image.asset(
+                        'images/productsImages/kitkat_nestle_paysage.jpg',
+
+                        //fit: BoxFit.cover,
+                        fit: BoxFit.fill,
+                      ),
+                      /*CachedNetworkImage(
                   imageUrl: product.imageUrl,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(/*Icons.error */Iconsax.error),
                 ),*/
-                  ),
-                  const SizedBox(width: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(
@@ -253,10 +258,11 @@ class ProductCard extends StatelessWidget {
                             )
                           ],
                         ),
-                    ],
-                  ),
-                ],
-              ),),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               Row(
                 children: [
                   IconButton(
@@ -270,7 +276,8 @@ class ProductCard extends StatelessWidget {
                   isOutlined = !isOutlined; // Basculer entre Outlined et Linear
                 });*/
                     },
-                    icon: Icon(Iconsax.add_square_copy) /*Icon( Iconsax.tick_square_copy)*/ /*Icon(Iconsax.archive_add_copy)*/,
+                    icon: Icon(Iconsax
+                        .add_square_copy) /*Icon( Iconsax.tick_square_copy)*/ /*Icon(Iconsax.archive_add_copy)*/,
                     /* isOutlined ? Iconsax.home_outline : Iconsax.home_linear, */
                     tooltip: 'Ajouter au panier',
                     color: primaryColor,
@@ -298,6 +305,7 @@ class OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       margin: EdgeInsets.all(4.0),
       padding: EdgeInsets.all(8.0),
       child: Row(

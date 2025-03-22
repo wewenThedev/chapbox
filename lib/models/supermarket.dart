@@ -1,3 +1,4 @@
+import 'package:chapbox/models/shop.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'generated/supermarket.g.dart';
@@ -18,8 +19,25 @@ class Supermarket {
   DateTime? updatedAt;
   DateTime? deletedAt; // Soft delete
 
-  Supermarket({this.id, this.name, this.description, this.denomination, this.rccm, this.ifu, this.website, this.addressId, this.logoId, this.marketManagerId, this.createdAt, this.updatedAt, this.deletedAt});
+  final List<Shop> shops;
 
-  factory Supermarket.fromJson(Map<String, dynamic> json) => _$SupermarketFromJson(json);
+  Supermarket(
+      {this.id,
+      required this.shops,
+      this.name,
+      this.description,
+      this.denomination,
+      this.rccm,
+      this.ifu,
+      this.website,
+      this.addressId,
+      this.logoId,
+      this.marketManagerId,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt});
+
+  factory Supermarket.fromJson(Map<String, dynamic> json) =>
+      _$SupermarketFromJson(json);
   Map<String, dynamic> toJson() => _$SupermarketToJson(this);
 }

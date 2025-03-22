@@ -6,7 +6,7 @@ import 'package:chapbox/screens/home_screen.dart';
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ) {
     return MaterialApp(
       title: 'Chapbox',
       theme: ThemeData(

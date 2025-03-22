@@ -1,10 +1,12 @@
 //based on login
 
 import 'package:chapbox/configs/themes.dart';
+import 'package:chapbox/screens/auth/login_screen.dart';
 import 'package:chapbox/screens/auth/otp_screen.dart';
 import 'package:chapbox/widgets/custom_button.dart';
 import 'package:chapbox/widgets/custom_textField.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -20,6 +22,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     TextEditingController pnController = TextEditingController();
     //TextEditingController emailController = TextEditingController();
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Iconsax
+              .arrow_left /*Iconsax.arrow_left_1*/ /*LineIcons.arrowLeft*/),
+          onPressed: () {
+            Navigator.maybePop(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
+          },
+        ),
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SafeArea(
@@ -27,17 +39,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-              ),
-              Image.asset(
-                'logos/logo_chapbox_pin.png',
-                height: 50,
-                width: 50,
-              ),
-              SizedBox(
-                height: media.width * 0.03,
-              ),
               Text(
                 'Réinitialiser le mot de passe',
                 textAlign: TextAlign.center,
@@ -46,22 +47,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               SizedBox(
                 height: media.width * 0.05,
               ),
-              Text(
-                'Saisissez votre numéro pour obtenir le code de réintiialisation',
-                textAlign: TextAlign.center,
-                style: ChapboxTheme.lightTheme.textTheme.headlineSmall,
-              ),
-              SizedBox(
-                height: media.width * 0.1,
-              ),
-              MyTextField(
-                  controller: pnController,
-                  hintText: 'Numéro de téléphone',
-                  type: TextInputType.phone),
-              SizedBox(
-                height: media.width * 0.05,
-              ),
-              /*MyTextField(
+              Column(
+                children: [
+                  Text(
+                    'Saisissez votre numéro pour obtenir le code de réintiialisation',
+                    textAlign: TextAlign.center,
+                    style: ChapboxTheme.lightTheme.textTheme.headlineSmall,
+                  ),
+                  SizedBox(
+                    height: media.width * 0.1,
+                  ),
+                  MyTextField(
+                      controller: pnController,
+                      hintText: 'Numéro de téléphone',
+                      type: TextInputType.phone),
+                  SizedBox(
+                    height: media.width * 0.05,
+                  ),
+                  /*MyTextField(
                   controller: emailController,
                   hintText: 'Adresse mail',
                   labelName: 'Adresse mail',
@@ -69,9 +72,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               SizedBox(
                 height: media.width * 0.05,
               ),*/
-              /*TextFormField(textAlign: TextAlign.center,),
+                  /*TextFormField(textAlign: TextAlign.center,),
             TextField()
           */
+                ],
+              ),
               SizedBox(
                 height: media.width * 0.1,
               ),

@@ -1,3 +1,4 @@
+import 'package:chapbox/screens/auth/register_screen.dart';
 import 'package:chapbox/screens/search_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -84,13 +85,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    /*final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;*/
+
     return MaterialApp(
       title: 'Chapbox',
       theme: ChapboxTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       // Définir la page de démarrage (HomePage) ou une autre page
-      home: SplashScreen(
-          deviceId: _deviceId), // On passe le deviceId à la page d'accueil
+      home:
+          HomeScreen() /*RegisterScreen() SplashScreen(
+          deviceId: _deviceId)*/
+      , // On passe le deviceId à la page d'accueil
       // Définir les routes de l'application
       routes: {
         '/home': (context) => HomeScreen(/*deviceId: _deviceId*/),

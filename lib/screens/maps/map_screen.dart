@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:chapbox/configs/styles.dart';
 import 'package:flutter/material.dart';
 
 //import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -23,6 +24,12 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   late MapController _mapController;
   LatLng _currentPosition = LatLng(6.5244, 3.3792); // Lagos par défaut
+
+  final List<LatLng> markerPositions = [
+    LatLng(48.8566, 2.3522), // Paris
+    LatLng(45.7640, 4.8357), // Lyon
+    LatLng(43.2965, 5.3698), // Marseille
+  ];
 
   final Set<Marker> _markers = {};
 
@@ -50,7 +57,7 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
-  static Future<List<Marker>> fetchMarkers() async {
+  static Future<List<Marker>> fetchMarkers(_currentPosition) async {
     const String apiUrl = "http://127.0.0.1:8001/api/locations";
 
     final response = await http.get(Uri.parse(apiUrl));
@@ -59,20 +66,66 @@ class _MapScreenState extends State<MapScreen> {
       List<dynamic> locations = jsonDecode(response.body);
       return locations.map((location) {
         return Marker(
-          //markerId: MarkerId(location['id'].toString()),
-          point: LatLng(location['lat'], location['lng']),
-          //infoWindow: InfoWindow(title: location['name']),
-          child: Dialog(elevation: 2.0, child: Text(location['name'])),
-        );
+            //markerId: MarkerId(location['id'].toString()),
+            point: LatLng(location['lat'], location['lng']),
+            //infoWindow: InfoWindow(title: location['name']),
+            //child: showDialog(elevation: 2.0, child: Text(location['name'])),
+            child: IconButton(
+                onPressed: () {
+                  var distance = Geolocator.distanceBetween(
+                      _currentPosition.latitude,
+                      _currentPosition.longitude,
+                      location['lat'],
+                      location['lng']);
+                  Dialog(
+                    backgroundColor: Colors.white54,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [Text(location['name'])],
+                        ),
+                        Column(children: [
+                          Text('Boutique située à $distance'),
+                        ]),
+                      ],
+                    ),
+                  );
+                },
+                icon: Icon(Iconsax.shopping_cart,
+                    color: primaryColorLight, size: 40)));
       }).toList();
     } else {
       //return AlertDialog.adaptive(title: Text('Erreur lors du chargement des emplacements'),)
       throw Exception("Erreur lors du chargement des emplacements");
     }
   }
+  //pour les fonction avec exception on fait try{} catch . Exemple :
+  /*
+          child: ElevatedButton(
+            onPressed: () async {
+              try {
+                // Appel d'une fonction qui peut throw une exception
+                await fetchData();
+              } catch (e) {
+                // Afficher l'erreur dans un SnackBar
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Erreur: ${e.toString()}'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+            child: Text('Charger les données'),
+          ),
+        ),
+      ),
+    );
+  }
+*/
 
   void _loadMarkers() async {
-    List<Marker> markers = await fetchMarkers();
+    List<Marker> markers = await fetchMarkers(_currentPosition);
     setState(() => _markers.addAll(markers));
   }
 
@@ -80,32 +133,72 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Carte Interactive")),
-      body: FlutterMap(
-        mapController: _mapController,
-        options: MapOptions(
-          initialCenter: _currentPosition,
-          initialZoom: 14.0,
+      body: GestureDetector(
+        child: FlutterMap(
+          mapController: _mapController,
+          options: MapOptions(
+            initialCenter: _currentPosition,
+            //zoom à modifier
+            //chercher comment détecter uniquement les marqueurs spécifiques ajoutés sur l'écran
+            initialZoom: 20.0, //14.0,
+            onTap: (position, latLng) {
+              print("Clic à ${latLng.latitude}, ${latLng.longitude}");
+              // Ajouter un marqueur dynamiquement...
+            },
+          ),
+          children: [
+            TileLayer(
+              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              subdomains: ['a', 'b', 'c'],
+            ),
+            MarkerLayer(
+              markers: [
+                Marker(
+                  point: _currentPosition,
+                  width: 40,
+                  height: 40,
+                  child: Icon(Iconsax.box,
+                      /*Iconsax
+                        .location_copy Icons.my_location,*/
+                      color: primaryColorLight,
+                      size: 40),
+                ),
+                Marker(
+                  point: LatLng(6.3552, 2.4194),
+                  width: 40,
+                  height: 40,
+                  child: IconButton(
+                      onPressed: () {
+                        var distance = Geolocator.distanceBetween(
+                            _currentPosition.latitude,
+                            _currentPosition.longitude,
+                            6.3552,
+                            2.4194);
+                        Dialog(
+                          backgroundColor: Colors.white54,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [Text('Position 2')],
+                              ),
+                              Column(children: [
+                                Text(
+                                    'Boutique située à $distance de Position 1'),
+                              ]),
+                            ],
+                          ),
+                        );
+                      },
+                      icon: Icon(Iconsax.box,
+                          /*Iconsax
+                        .location_copy Icons.my_location,*/
+                          color: primaryColorLight,
+                          size: 40)),
+                ),
+              ],
+            ),
+          ],
         ),
-        children: [
-          TileLayer(
-            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            subdomains: ['a', 'b', 'c'],
-          ),
-          MarkerLayer(
-            markers: [
-              Marker(
-                point: _currentPosition,
-                width: 40,
-                height: 40,
-                child: Icon(
-                    Iconsax
-                        .location_copy /*Iconsax.box_copy Icons.my_location*/,
-                    color: Colors.blue,
-                    size: 30),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

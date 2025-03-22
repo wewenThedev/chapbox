@@ -5,16 +5,18 @@ import 'package:chapbox/configs/themes.dart';
 import 'package:chapbox/screens/address_list_screen.dart';
 import 'package:chapbox/screens/auth/login_screen.dart';
 import 'package:chapbox/screens/category_list_screen.dart';
+import 'package:chapbox/screens/products_from_benin_screen.dart';
 import 'package:chapbox/screens/profile_screen.dart';
 import 'package:chapbox/screens/promotions_list_screen.dart';
 import 'package:chapbox/screens/search_screen.dart';
+import 'package:chapbox/screens/supermarket_details_screen.dart';
+import 'package:chapbox/screens/supermarkets_list_screen.dart';
 import 'package:chapbox/widgets/custom_appBar_with_logo.dart';
 import 'package:chapbox/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-
 
 class HomeScreen extends StatefulWidget {
   //final String? deviceId;
@@ -167,18 +169,86 @@ class _HomeScreenState extends State<HomeScreen> {
     return distanceInMeters / 1000; // Convertir en kilomètres
   }
 
+  final List<String> supermarketLogos = [
+    'assets/logo1.png',
+    'assets/logo2.png',
+    'assets/logo3.png',
+    'assets/logo4.png',
+  ];
+
+// Liste de démonstration avec des ID virtuels et URLs de logos
+  final List<Map<String, dynamic>> supermarketsLogoId = [
+    {
+      'id': 101,
+      'logoUrl': 'https://example.com/logo_carrefour.png',
+    },
+    {
+      'id': 102,
+      'logoUrl': 'https://example.com/logo_auchan.png',
+    },
+    {
+      'id': 103,
+      'logoUrl': 'https://example.com/logo_leclerc.png',
+    },
+    {
+      'id': 104,
+      'logoUrl': 'https://example.com/logo_intermarche.png',
+    },
+    {
+      'id': 105,
+      'logoUrl': 'https://example.com/logo_casino.png',
+    },
+  ];
+
+
+
   /*List<Map<String, dynamic>>*/ getProductsMadeInBenin() {
     return;
   }
 
 /*String supermarketName*/
-  /*void _viewCatalog(int _supermarketId) { 
+  void _viewCatalog(int _supermarketId) {
     //Naviguer vers la page de présentation du supermarché
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SupermarketDetailsScreen(supermarketId: _supermarketId)),
+      MaterialPageRoute(
+          builder: (context) =>
+              SupermarketDetailsScreen(supermarketId: _supermarketId)),
     );
-  }*/
+  }
+
+  void _onSupermarketTap(int index) {
+    // Gérer le clic sur un logo
+    print('Logo cliqué:'); //${supermarketLogos[index]}');
+  }
+
+  Widget _buildLogoItem(String imageUrl, int supermarketId) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SupermarketDetailsScreen(supermarketId: supermarketId)))
+      },
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.27,
+        height: MediaQuery.of(context).size.width * 0.27,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          image: DecorationImage(
+            image: AssetImage('logos/chapbox_Borange.jpg'),
+            //AssetImage(imageUrl),
+            /*NetworkImage(
+              imageUrl),*/ // Ou AssetImage pour les ressources locales
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showAllSupermarkets() {
+    // Navigation vers l'écran complet
+    print('Afficher tous les supermarchés');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -295,20 +365,45 @@ Navigator.pop(context); // Ferme le Drawer
           children: [
             Container(
               margin: const EdgeInsets.all(16.0),
-              child: SearchBar(
+              child: /*SearchBar(
+                elevation: WidgetStatePropertyAll(0.0),
                 hintText: "Que cherchez-vous ?",
                 hintStyle: ChapboxTheme.lightTheme.searchBarTheme.hintStyle,
                 leading: IconButton(
                     icon: Icon(/*LineIcons
-                        .search*/ Iconsax.search_normal_1_copy /*Icons.search*/),
+                        .search*/
+                        Iconsax.search_normal_copy /*Icons.search*/),
                     onPressed: () {}),
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SearchScreen()));
                 },
-                /*shape: RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
-        ),*/
+        ),
+              ),*/
+                  TextField(
+                decoration: InputDecoration(
+                  fillColor: appLightGrey,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
+                  ),
+                  prefixIcon:
+                      Icon(/*LineIcons
+                        .search*/
+                          Iconsax.search_normal_copy /*Icons.search*/),
+                  filled: true,
+                  hintText: "Que cherchez-vous ?",
+                  hintStyle: TextStyle(color: appGrey),
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SearchScreen()));
+                },
               ),
             ),
 
@@ -445,11 +540,6 @@ Navigator.pop(context); // Ferme le Drawer
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      /*Column(
-                        children: [
-                          SizedBox(
-                            width: media.width * 0.3,
-                            child: */
                       Text(
                         '100% Bénin',
                         style: ChapboxTheme.lightTheme.textTheme.headlineSmall,
@@ -461,261 +551,300 @@ Navigator.pop(context); // Ferme le Drawer
                           SizedBox(
                               width: media.width * 0.2,
                               child: */
-                      /*Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Tout voir',
-                          //style: ChapboxTheme.lightTheme.textTheme.bodyLarge,
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            color: primaryColorLight,
-                          ),
-                        ),
-                      ),
-                            IconButton(
-                              onPressed: () {
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             ProductsFromBeninScreen()));
                               },
-                              icon: Icon(Iconsax.arrow_right_1, size: 30, color: primaryColorLight, weight: 200,),
-                            )
-                          ]),*/
-                      Row(
-                        children: [
-                          Text(
-                            'Découvrir',
-                            //style: ChapboxTheme.lightTheme.textTheme.bodyLarge,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w700,
-                              color: primaryColorLight,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Icon(/*Iconsax.arrow_right_copy,*/ Iconsax.arrow_right_4, /*Iconsax.arrow_2_copy*/ color: primaryColor)
-                          /*TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Découvrir',
-                          //style: ChapboxTheme.lightTheme.textTheme.bodyLarge,
-                          style: TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w700,
-                            color: primaryColorLight,
-                          ),
-                        ),
-                      )*/
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'Découvrir',
+                                    //style: ChapboxTheme.lightTheme.textTheme.bodyLarge,
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w700,
+                                      color: primaryColorLight,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Icon(Icons.arrow_forward_ios,
+                                      /*Iconsax
+                                  .arrow_right_4,
+                              Iconsax.arrow_2_copy*/
+                                      color: primaryColor)
+                                ],
+                              )),
                         ],
-                      )
-                      /*),
-                        ],
-                      ),*/
+                      ),
                     ],
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
-                    child: /*Column*/ Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //1
-                        //Margin
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 3.0, vertical: 3.0),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
+                      child: /*Column*/ Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //1
+                          //Margin
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 3.0, vertical: 3.0),
 
-                          //Le conteneur de tout un produit 100% Benin
-                          //boucle pour afficher tous les produits madeInBenin
-                          child: Container(
-                            width: /*125,*/ media.width * 0.425,
+                            //Le conteneur de tout un produit 100% Benin
+                            //boucle pour afficher tous les produits madeInBenin
+                            child: Container(
+                              width: /*125,*/ media.width * 0.425,
 
-                            margin: EdgeInsetsDirectional.symmetric(
-                                horizontal: 6.0, vertical: 3.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: appLightGrey.withOpacity(0.5),
-                                    spreadRadius: 3,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 3),
+                              margin: EdgeInsetsDirectional.symmetric(
+                                  horizontal: 6.0, vertical: 3.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: appLightGrey.withOpacity(0.5),
+                                      spreadRadius: 3,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ]),
+                              //La box pour garder le contenu descriptif d'un 100% Benin
+                              child: Column(
+                                mainAxisSize: MainAxisSize
+                                    .min, // Permet au Container de s'ajuster au contenu
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //Le contenur de l'image pour pouvoir faire la mise en forme border-radius
+                                  Container(
+                                    margin: EdgeInsetsDirectional.symmetric(
+                                        horizontal: 6.0, vertical: 3.0),
+
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      //side: BorderSide
+                                    ),
+                                    //child: Image.network(
+                                    child: Image.asset(
+                                      'images/productsImages/kitkat_nestle_paysage.jpg',
+                                      //child: Image.file('images/productsImages/kitkat nestlé paysage.jpg',
+                                      // Ajuste la largeur mais pas la hauteur
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ]),
-                            //La box pour garder le contenu descriptif d'un 100% Benin
-                            child: Column(
-                              mainAxisSize: MainAxisSize
-                                  .min, // Permet au Container de s'ajuster au contenu
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                //Le contenur de l'image pour pouvoir faire la mise en forme border-radius
-                                Container(
-                                  margin: EdgeInsetsDirectional.symmetric(
-                                      horizontal: 6.0, vertical: 3.0),
+                                  Padding(
+                                    padding: EdgeInsets.all(3.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize
+                                          .min, // Permet au Container de s'ajuster au contenu
 
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    //side: BorderSide
-                                  ),
-                                  //child: Image.network(
-                                  child: Image.asset(
-                                    'images/productsImages/kitkat_nestle_paysage.jpg',
-                                    //child: Image.file('images/productsImages/kitkat nestlé paysage.jpg',
-                                    // Ajuste la largeur mais pas la hauteur
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(3.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize
-                                        .min, // Permet au Container de s'ajuster au contenu
-
-                                    children: [
-                                      Text('Titre du produit'),
-                                      SizedBox(height: 4.0),
-                                      //Autres détails
-                                      Row(
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text('Supermarché vendeur')
-                                            ],
-                                          ),
-                                          /*Column(
+                                      children: [
+                                        Text('Titre du produit'),
+                                        SizedBox(height: 4.0),
+                                        //Autres détails
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Text('Supermarché vendeur')
+                                              ],
+                                            ),
+                                            /*Column(
                                             children: [
                                               Text('Prix'),
                                               SizedBox(height: 2.0),
                                               Text('En stock'),
                                             ],
                                           )*/
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
 
-                        //2
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 3.0, vertical: 3.0),
+                          //2
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 3.0, vertical: 3.0),
 
-                          //Le conteneur de tout un produit 100% Benin
-                          //boucle pour afficher tous les produits madeInBenin
-                          child: Container(
-                            width: media.width * 0.425,
-                            margin: EdgeInsetsDirectional.symmetric(
-                                horizontal: 6.0, vertical: 3.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: appLightGrey.withOpacity(0.5),
-                                    spreadRadius: 3,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 3),
-                                  ),
-                                ]),
-                            //La box pour garder le contenu descriptif d'un 100% Benin
-                            child: Column(
-                              mainAxisSize: MainAxisSize
-                                  .min, // Permet au Container de s'ajuster au contenu
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                //Le contenur de l'image pour pouvoir faire la mise en forme border-radius
-                                Container(
-                                  /*margin:
+                            //Le conteneur de tout un produit 100% Benin
+                            //boucle pour afficher tous les produits madeInBenin
+                            child: Container(
+                              width: media.width * 0.425,
+                              margin: EdgeInsetsDirectional.symmetric(
+                                  horizontal: 6.0, vertical: 3.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: appLightGrey.withOpacity(0.5),
+                                      spreadRadius: 3,
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ]),
+                              //La box pour garder le contenu descriptif d'un 100% Benin
+                              child: Column(
+                                mainAxisSize: MainAxisSize
+                                    .min, // Permet au Container de s'ajuster au contenu
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //Le contenur de l'image pour pouvoir faire la mise en forme border-radius
+                                  Container(
+                                    /*margin:
                                       EdgeInsetsDirectional.only(bottom: 4.0),*/
-                                  margin: EdgeInsetsDirectional.symmetric(
-                                      horizontal: 6.0, vertical: 3.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    margin: EdgeInsetsDirectional.symmetric(
+                                        horizontal: 6.0, vertical: 3.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    //child: Image.network(
+                                    child: Image.asset(
+                                      'images/productsImages/kitkat_nestle_paysage.jpg',
+                                      //child: Image.file('images/productsImages/kitkat nestlé paysage.jpg',
+                                      //width: double.infinity, // Ajuste la largeur mais pas la hauteur
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  //child: Image.network(
-                                  child: Image.asset(
-                                    'images/productsImages/kitkat_nestle_paysage.jpg',
-                                    //child: Image.file('images/productsImages/kitkat nestlé paysage.jpg',
-                                    //width: double.infinity, // Ajuste la largeur mais pas la hauteur
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.all(3.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize
-                                        .min, // Permet au Container de s'ajuster au contenu
+                                  Padding(
+                                    padding: EdgeInsets.all(3.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize
+                                          .min, // Permet au Container de s'ajuster au contenu
 
-                                    children: [
-                                      Text('Titre du produit'),
-                                      SizedBox(height: 4.0),
-                                      //Autres détails
-                                      Row(
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text('Supermarché vendeur')
-                                            ],
-                                          ),
-                                          /*Column(
+                                      children: [
+                                        Text('Titre du produit'),
+                                        SizedBox(height: 4.0),
+                                        //Autres détails
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Text('Supermarché vendeur')
+                                              ],
+                                            ),
+                                            /*Column(
                                             children: [
                                               Text('Prix'),
                                               SizedBox(height: 2.0),
                                               Text('En stock'),
                                             ],
                                           )*/
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        //
+
+                          //
+                        ],
+                      )),
+
+                  //custom card code
+                  Container(
+                    width: double.infinity,
+                    margin: EdgeInsetsDirectional.symmetric(
+                        horizontal: 6.0, vertical: 3.0),
+                    child: Column(
+                      children: [
+                        //to made dynamic
+                        ProductCard(),
+                        ProductCard(),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
 
-//custom card code
-            Container(
-              margin: EdgeInsetsDirectional.symmetric(
-                  horizontal: 6.0, vertical: 3.0),
-              child: Column(
-                children: [
-                  ProductCard(),
-                  ProductCard(),
-                ],
-              ),
-            ),
-
-            /*Text()
+                  /*Text()
                 Image.network('src')*/
 
-            /*Text(
+                  /*Text(
                             'Redécouvrez vos marques préférées',
                             //style: style,
                           ),*/
-          ],
-        ),
-      ),
+                ],
+              ),
+            ),
 
-      /*Text(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0, bottom: 12.0),
+                  child: Text(
+                    'Nos supermarchés partenaires',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Wrap(
+                    spacing: 12, // Espace horizontal entre les logos
+                    runSpacing: 12, // Espace vertical entre les lignes
+                    alignment: WrapAlignment.center,
+                    children: [
+                      /*...supermarketLogos
+                        .take(3)
+                        .map((url) => _buildLogoItem(url)),
+*/
+
+                      for (int indexLogo = 0; indexLogo < 3; indexLogo++)
+                        _buildLogoItem(supermarketLogos[indexLogo], supermarketLogos[supermarketId]),
+
+//icone +
+// Quatrième élément conditionnel
+                      if (supermarketLogos.length > 3)
+                      GestureDetector(
+                        onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SupermarketListScreen()));
+      },
+      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.27,
+                          height: MediaQuery.of(context).size.width * 0.27,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Icon(
+                            Icons.add,
+                            size: 32,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      )
+                        
+/*Container(
+      width: 80,
+      height: 80,
+      child: Icon(Iconsax.add_square),
+    ),*/
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
+            /*Text(
                 devi,
                 style: TextStyle(
                 fontSize: 16.0,
@@ -723,6 +852,9 @@ Navigator.pop(context); // Ferme le Drawer
                 color: Colors.grey[700],
               ),
             ),*/
+          ],
+        ),
+      ),
     );
     // Pop-up affichée lors du clic sur un supermarché
     if (_isPopupVisible) {
@@ -789,26 +921,3 @@ Navigator.pop(context); // Ferme le Drawer
     }
   }
 }
-
-//a kind of splash screen
-/*
-Column(
-  children: [
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: Image.asset(
-              'assets/logo_one.png',
-              alignment: Alignment.center,
-              height: 72,
-            ),
-          ),
-        ],
-      ),
-    ),
-  ],
-)*/

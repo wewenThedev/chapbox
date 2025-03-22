@@ -13,6 +13,33 @@ class LargeTextButton extends StatelessWidget {
       required this.action,
       required this.type});
 
+/*
+ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white/*const Color.fromARGB(255, 148, 84, 84)*/,
+                    foregroundColor: primaryColor,
+                    elevation: 0.0,
+                    fixedSize: Size(media.width*0.75, media.height*0.06),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    textStyle: TextStyle(color: primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
+                    //side: ,
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                RegisterScreen(/*deviceId: '',*/)));
+                  },
+                  child: Text(
+                    'S\'inscrire',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: primaryColor),
+                  ),
+                ), */
+
   @override
   Widget build(BuildContext context) {
     if (type == ButtonType.elevated) {
@@ -25,31 +52,32 @@ class LargeTextButton extends StatelessWidget {
           //style: TextStyle(fontweight: FontWeight.bold),
         ),
       );
-    } else if(type == ButtonType.outlined){
+    } else if (type == ButtonType.outlined) {
       return OutlinedButton(
         onPressed: action,
         style: Theme.of(context).outlinedButtonTheme.style,
-        //style: ChapboxTheme().lightTheme.outlinedButtonTheme.style,
+        //style: ChapboxTheme.lightTheme.outlinedButtonTheme.style,
         child: Text(
           content,
           textAlign: TextAlign.center,
         ),
       );
-    }else /*if(type == ButtonType.text)*/{
+    } else /*if(type == ButtonType.text)*/ {
       return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.75, // Largeur max
-      height: MediaQuery.of(context).size.height * 0.02,
-      child: TextButton(
-        onPressed: action,
-        style: Theme.of(context).textButtonTheme.style,
-        //style: ChapboxTheme().lightTheme.textButtonTheme.style,
-        child: Text(
-          content,
-          textAlign: TextAlign.center,
+        width: MediaQuery.of(context).size.width * 0.75, // Largeur max
+        height: MediaQuery.of(context).size.height * 0.02,
+        child: TextButton(
+          onPressed: action,
+          style: Theme.of(context).textButtonTheme.style,
+          //style: ChapboxTheme.lightTheme.textButtonTheme.style,
+          child: Text(
+            content,
+            textAlign: TextAlign.center,
+          ),
         ),
-      ),);
+      );
+    }
   }
-}
 }
 
 class SmallTextButton extends StatelessWidget {
@@ -74,7 +102,7 @@ class SmallTextButton extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       );
-    } else if(type == ButtonType.outlined){
+    } else if (type == ButtonType.outlined) {
       return OutlinedButton(
         onPressed: action,
         style: Theme.of(context).outlinedButtonTheme.style,
@@ -83,20 +111,21 @@ class SmallTextButton extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       );
-    }else /*if(type == ButtonType.text)*/{
+    } else /*if(type == ButtonType.text)*/ {
       return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.75, // Largeur max
-      height: MediaQuery.of(context).size.height * 0.02,
-      child: TextButton(
-        onPressed: action,
-        style: Theme.of(context).textButtonTheme.style,
-        //style: ChapboxTheme().lightTheme.textButtonTheme.style,
-        child: Text(
-          content,
-          textAlign: TextAlign.center,
+        width: MediaQuery.of(context).size.width * 0.75, // Largeur max
+        height: MediaQuery.of(context).size.height * 0.02,
+        child: TextButton(
+          onPressed: action,
+          style: Theme.of(context).textButtonTheme.style,
+          //style: ChapboxTheme.lightTheme.textButtonTheme.style,
+          child: Text(
+            content,
+            textAlign: TextAlign.center,
+          ),
         ),
-      ),);
-  }
+      );
+    }
   }
 }
 

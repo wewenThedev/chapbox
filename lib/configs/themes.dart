@@ -3,42 +3,40 @@ import 'package:google_fonts/google_fonts.dart';
 import 'styles.dart';
 
 class ChapboxTheme {
-  late BuildContext context;
+  //late BuildContext? context;
   static final ThemeData lightTheme = ThemeData(
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: primaryColor, // Couleur principale
       primaryContainer: primaryColorDark,
       secondary: primaryColorLight, // Couleur secondaire (ancien accentColor)
       secondaryContainer: Color(0xFFFFD1BF),
-      surface: Colors.white,//Color(0xFFFFFFFF)
+      surface: Colors.white, //Color(0xFFFFFFFF)
       error: Colors.red,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       onSurface: appGrey,
-      onError: Colors.white,//Color(0xFFFFFFFF),
+      onError: Colors.white, //Color(0xFFFFFFFF),
       //brightness: Brightness.dark,
       brightness: Brightness.light,
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
       foregroundColor: Colors.black /*primaryColor*/,
-      
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      selectedItemColor: primaryColor,
-      unselectedItemColor: appLightGrey, //Colors.grey
-      selectedLabelStyle: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.bold,
-      ),
-      unselectedLabelStyle: const TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-      ),
-      type: BottomNavigationBarType.fixed
-    ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: appLightGrey, //Colors.grey
+        selectedLabelStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        type: BottomNavigationBarType.fixed),
     textTheme: TextTheme(
       headlineLarge: GoogleFonts.openSans(
         fontSize: 28.0,
@@ -53,7 +51,7 @@ class ChapboxTheme {
       headlineSmall: GoogleFonts.openSans(
         fontSize: 20.0,
         fontWeight: FontWeight.w800,
-        color: const Color.fromARGB(255, 77, 77, 77)/*Colors.black*/,
+        color: const Color.fromARGB(255, 77, 77, 77) /*Colors.black*/,
       ),
       bodyLarge: GoogleFonts.openSans(
         fontSize: 14.0,
@@ -80,14 +78,12 @@ class ChapboxTheme {
     ),
     checkboxTheme: CheckboxThemeData(),
     textButtonTheme: TextButtonThemeData(
-      style: ButtonStyle(
-        textStyle: WidgetStatePropertyAll(TextStyle(
-          color: primaryColor,
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-        ))
-      )
-    ),
+        style: ButtonStyle(
+            textStyle: WidgetStatePropertyAll(TextStyle(
+      color: primaryColor,
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+    )))),
     iconButtonTheme: IconButtonThemeData(),
     dialogTheme: DialogTheme(
       backgroundColor: Colors.white70,
@@ -109,19 +105,22 @@ class ChapboxTheme {
         padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
+        //fixedSize: Size(media.width*0.75, media.height*0.06),
+
         elevation: 0.0,
-        //fixedSize: Size(MediaQuery.of(ChapboxTheme().context!).size.width*0.75, MediaQuery.of(ChapboxTheme().context!).size.height*0.06),
+        //fixedSize: Size(300, 54),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        textStyle: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+        textStyle: TextStyle(
+            color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         //side: ,
       ),
     ),
-    
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        textStyle: TextStyle(color: primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
+        textStyle: TextStyle(
+            color: primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
         padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
         alignment: Alignment.center,
         backgroundColor: null,
@@ -143,23 +142,29 @@ class ChapboxTheme {
         maximumSize: WidgetStatePropertyAll(MediaQuery.of(ChapboxTheme().context!).size * 0.8),
         //shape: WidgetStatePropertyAll(Roun),*/
     ),
-
     inputDecorationTheme: InputDecorationTheme(
-      labelStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.black),
-      hintStyle: TextStyle(fontSize: 11, fontWeight: FontWeight.normal, color: appGrey),
+      labelStyle: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: /*appLightGrey*/ appGrey),
+      hintStyle: TextStyle(
+          fontSize: 11, fontWeight: FontWeight.normal, color: appGrey),
       border: InputBorder.none,
       filled: true,
-      fillColor: appLightGrey,
+      fillColor: Colors.grey.shade300,
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),//BorderRadiusDirectional.circular(10.0),//BorderRadius.all(Radius.circular(10),
+        borderRadius: BorderRadius.circular(
+            10), //BorderRadiusDirectional.circular(10.0),//BorderRadius.all(Radius.circular(10),
         borderSide: BorderSide(color: Color(0xffff0000), width: 1.5),
       ),
       enabledBorder: /*UnderlineInputBorder()*/ OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),//BorderRadiusDirectional.circular(10.0),//BorderRadius.all(Radius.circular(10),
-        borderSide: BorderSide(color: appDarkGrey),
+        borderRadius: BorderRadius.circular(
+            10), //BorderRadiusDirectional.circular(10.0),//BorderRadius.all(Radius.circular(10),
+        borderSide: BorderSide(color: appLightGrey /*appDarkGrey*/),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),//BorderRadiusDirectional.circular(10.0),//BorderRadius.all(Radius.circular(10),
+        borderRadius: BorderRadius.circular(
+            10), //BorderRadiusDirectional.circular(10.0),//BorderRadius.all(Radius.circular(10),
         //borderSide: BorderSide(color: primaryColorLight, width: 1.5),
       ),
       prefixIconColor: appGrey,
@@ -172,7 +177,6 @@ class ChapboxTheme {
       padding:  WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0)),
     ),*/
   );
-  
-  //get context => null;
 
+  //get context => null;
 }
