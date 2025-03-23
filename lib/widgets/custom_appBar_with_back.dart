@@ -28,6 +28,9 @@ class _CustomAppBarWithBackState extends State<CustomAppBarWithBack> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      /*backgroundColor: primaryColorLight,
+      foregroundColor: Colors.white,*/
+      elevation: 2.0,
       leading: IconButton(
         icon: Icon(/*Iconsax.arrow_left*/ Iconsax.arrow_square_left_copy,
             color: appGrey, size: 35.0),

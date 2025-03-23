@@ -49,7 +49,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   Future<void> fetchProductImages() async {
     final response = await http.get(Uri.parse(
-        "http://127.0.0.1:8001/api/product/1/images")); //url à modifier
+        //"http://127.0.0.1:8001/api/product/1/images")); //url à modifier
+        "http://127.0.0.1:8001/api/products/1/images")); //url à modifier
 
     if (response.statusCode == 200) {
       //List<dynamic> images = jsonDecode(response.body);

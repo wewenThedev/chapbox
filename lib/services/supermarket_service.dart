@@ -16,12 +16,16 @@ class SupermarketService {
         return Supermarket(
           id: supermarket['id'],
           name: supermarket['name'],
+          addressId: supermarket['address_id'],
           shops: (supermarket['shops'] as List).map((shop) {
             return Shop(
               id: shop['id'],
-              name: shop['name'],
+              //name: shop['name'],
               city: shop['city'],
               address: shop['address'],
+              phone: shop['phone'],
+              addressId: shop['address_id'],
+              supermarketId: shop['supermarket_id'],
             );
           }).toList(),
         );
@@ -31,6 +35,9 @@ class SupermarketService {
     }
   }
 
+//fetch supermarket aginate
+
+/*
   static Future<List<Supermarket>> getSupermarketsWithLogos() async {
     try {
       // 1. Récupération des supermarchés
@@ -84,5 +91,5 @@ class SupermarketService {
           .toList();
     }
     throw Exception('Échec du chargement des médias');
-  }
+  }*/
 }

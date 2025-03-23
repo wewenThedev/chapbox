@@ -1,6 +1,7 @@
 import 'package:chapbox/models/shop.dart';
 import 'package:chapbox/models/supermarket.dart';
 import 'package:chapbox/screens/supermarket_details_screen.dart';
+import 'package:chapbox/services/supermarket_service.dart';
 import 'package:chapbox/widgets/custom_appBar_with_back.dart';
 import 'package:chapbox/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,31 @@ class SupermarketListScreen extends StatefulWidget {
 }
 
 class _SupermarketListScreenState extends State<SupermarketListScreen> {
-  final List<Supermarket> supermarkets = [];
+  List<Supermarket> supermarkets = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadSupermarkets();
+  }
+
+  Future<void> loadSupermarkets() async {
+    try {
+      List<Supermarket> data = await SupermarketService.fetchSupermarkets();
+      setState(() {
+        supermarkets = data;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,40 +47,49 @@ class _SupermarketListScreenState extends State<SupermarketListScreen> {
     return Scaffold(
       appBar: CustomAppBarWithBack(
           title: 'Supermarchés partenaires', scaffoldKey: _scaffoldKey),
-      body: Column(
-        children: [
-          GestureDetector(
-            child: LogoCard(
-                title: 'Erevan',
-                subtitle: 'Supermarchés meilleur du Bénin',
-                logo: 'logos/logo_chapbox_pin.png'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SupermarketDetailsScreen(
-                          supermarketId: 10,
-                        )),
-              );
-            },
-          ),
-          GestureDetector(
-            child: LogoCard(
-                title: 'Erevan',
-                subtitle: 'Supermarchés meilleur du Bénin',
-                logo: 'logos/logo_chapbox_pin.png'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SupermarketDetailsScreen(
-                          supermarketId: 10,
-                        )),
-              );
-            },
-          ),
-        ],
-      ),
+      //ourrait partir en commentaire
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: supermarkets.length,
+              itemBuilder: (context, index) {
+                Supermarket supermarket = supermarkets[index];
+                return Column(
+                  children: [
+                    //mettre à jour le Gesture Detector
+                    GestureDetector(
+                      child: LogoCard(
+                          title: 'Erevan',
+                          subtitle: 'Supermarchés meilleur du Bénin',
+                          logo: 'logos/logo_chapbox_pin.png'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SupermarketDetailsScreen(
+                                    supermarketId: 10,
+                                  )),
+                        );
+                      },
+                    ),
+                    GestureDetector(
+                      child: LogoCard(
+                          title: 'Erevan',
+                          subtitle: 'Supermarchés meilleur du Bénin',
+                          logo: 'logos/logo_chapbox_pin.png'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SupermarketDetailsScreen(
+                                    supermarketId: 10,
+                                  )),
+                        );
+                      },
+                    ),
+                  ],
+                );
+              }),
 /*ListView.builder(
         itemCount: supermarkets.length,
         itemBuilder: (context, index) {

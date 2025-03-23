@@ -1,16 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../brand.dart';
+part of 'notificationCategory.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Brand _$BrandFromJson(Map<String, dynamic> json) => Brand(
+NotificationCategory _$NotificationCategoryFromJson(
+        Map<String, dynamic> json) =>
+    NotificationCategory(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
-      infos: json['infos'] as String?,
-      website: json['website'] as String?,
+      description: json['description'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -22,11 +23,12 @@ Brand _$BrandFromJson(Map<String, dynamic> json) => Brand(
           : DateTime.parse(json['deletedAt'] as String),
     );
 
-Map<String, dynamic> _$BrandToJson(Brand instance) => <String, dynamic>{
+Map<String, dynamic> _$NotificationCategoryToJson(
+        NotificationCategory instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'infos': instance.infos,
-      'website': instance.website,
+      'description': instance.description,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'deletedAt': instance.deletedAt?.toIso8601String(),

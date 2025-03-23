@@ -1,10 +1,15 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:convert';
+
 import 'package:chapbox/configs/styles.dart';
 import 'package:chapbox/configs/themes.dart';
+import 'package:chapbox/models/category.dart';
+import 'package:chapbox/models/product.dart';
 import 'package:chapbox/screens/address_list_screen.dart';
 import 'package:chapbox/screens/auth/login_screen.dart';
 import 'package:chapbox/screens/category_list_screen.dart';
+import 'package:chapbox/screens/products_by_category_screen.dart';
 import 'package:chapbox/screens/products_from_benin_screen.dart';
 import 'package:chapbox/screens/profile_screen.dart';
 import 'package:chapbox/screens/promotions_list_screen.dart';
@@ -16,7 +21,9 @@ import 'package:chapbox/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class HomeScreen extends StatefulWidget {
   //final String? deviceId;
@@ -33,6 +40,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // Clé pour ouvrir le Drawer avec le bouton du menu
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  List<Category> firstSixCategories = [];
+  List<Product> localProducts = [];
+  bool isLoading = true;
 
 //getUserCurrentPosition
 
@@ -67,6 +78,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Map<String, dynamic>> productsMadeInBenin = [];
 
+  fetchTopCategories() async {
+    //api/categories/top-categories
+
+    final response = await http
+        .get(Uri.parse("http://127.0.0.1/api/categories/top-categories"));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        firstSixCategories = json.decode(response.body);
+        isLoading = false;
+      });
+    } else {
+      throw Exception("Erreur lors du chargement des catégories");
+    }
+  }
+
+  //fetchproductsMadeInBenin() {} //api/products/local-products
+  Future<void> fetchLocalProducts() async {
+    final response = await http.get(Uri.parse(
+        "http://127.0.0.1/api/shopsAndProducts/findBenineseProducts"));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        localProducts = json.decode(response.body);
+      });
+    } else {
+      throw Exception("Échec du chargement des produits locaux");
+    }
+  }
+
 //static map
   final List<Marker> _supermarketMarkers = [
     Marker(
@@ -95,6 +136,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    fetchTopCategories();
+
     /*_getUserLocation();
     _fetchSupermarkets(); //Appel API pour récupérer les supermarchés proches*/
   }
@@ -200,8 +243,6 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
-
-
   /*List<Map<String, dynamic>>*/ getProductsMadeInBenin() {
     return;
   }
@@ -218,6 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onSupermarketTap(int index) {
+    //Logique pour affiche pager de présentation du supermarché
     // Gérer le clic sur un logo
     print('Logo cliqué:'); //${supermarketLogos[index]}');
   }
@@ -225,7 +267,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildLogoItem(String imageUrl, int supermarketId) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SupermarketDetailsScreen(supermarketId: supermarketId)))
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SupermarketDetailsScreen(supermarketId: supermarketId)));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.27,
@@ -410,6 +456,7 @@ Navigator.pop(context); // Ferme le Drawer
             //Static Section Carte Google Maps
             Container(
               height: 250.0,
+              width: double.infinity,
               margin: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16.0),
@@ -422,7 +469,9 @@ Navigator.pop(context); // Ferme le Drawer
                   ),
                 ],
               ),
-              child: Text('Votre carte'),
+              child: Center(
+                child: Text('Votre carte'),
+              ),
               /*ClipRRect(
                 borderRadius: BorderRadius.circular(16.0),
                 child: GoogleMap(
@@ -483,14 +532,55 @@ Navigator.pop(context); // Ferme le Drawer
               ),
             ),
             SizedBox(height: 16.0),
-
+//we are here to list just four or five first categories
             SizedBox(
               height: 100.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
+                itemCount: (firstSixCategories.length) + 1,
                 itemBuilder: (context, index) {
-                  final category = categories[index];
+                  final topCategory = firstSixCategories[index];
+                  do {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      /*height: ,
+                    width: ,
+                    constraints: BoxConstraints(),*/
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductsByCategoryScreen(
+                                              categoryId: topCategory.id)));
+                            },
+                            child: CircleAvatar(
+                              radius: 30.0,
+                              backgroundColor: const Color.fromRGBO(
+                                  255, 127, 80, 0.2) /*Colors.green[100]*/,
+                              child: Icon(
+                                categories.elementAt(index)['icon'],
+                                size: 30.0,
+                                color: primaryColor /*Colors.green[700]*/,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 8.0),
+                          Text(
+                            topCategory.name,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } while (index < firstSixCategories.length);
                   return Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     /*height: ,
@@ -508,18 +598,18 @@ Navigator.pop(context); // Ferme le Drawer
                           },
                           child: CircleAvatar(
                             radius: 30.0,
-                            backgroundColor: const Color.fromRGBO(
-                                255, 127, 80, 0.2) /*Colors.green[100]*/,
+                            backgroundColor:
+                                const Color.fromRGBO(255, 127, 80, 0.2),
                             child: Icon(
-                              category['icon'],
-                              size: 30.0,
-                              color: primaryColor /*Colors.green[700]*/,
+                              Icons.add,
+                              size: 32,
+                              color: Colors.grey[600],
                             ),
                           ),
                         ),
                         SizedBox(height: 8.0),
                         Text(
-                          category['label'],
+                          'Autres',
                           style: TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w600,
@@ -797,7 +887,7 @@ Navigator.pop(context); // Ferme le Drawer
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(10),
                   child: Wrap(
                     spacing: 12, // Espace horizontal entre les logos
                     runSpacing: 12, // Espace vertical entre les lignes
@@ -809,30 +899,35 @@ Navigator.pop(context); // Ferme le Drawer
 */
 
                       for (int indexLogo = 0; indexLogo < 3; indexLogo++)
-                        _buildLogoItem(supermarketLogos[indexLogo], supermarketLogos[supermarketId]),
+                        _buildLogoItem(supermarketLogos[indexLogo],
+                            10 /*supermarketLogos[supermarketId]*/),
 
 //icone +
 // Quatrième élément conditionnel
                       if (supermarketLogos.length > 3)
-                      GestureDetector(
-                        onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => SupermarketListScreen()));
-      },
-      child: Container(
-                          width: MediaQuery.of(context).size.width * 0.27,
-                          height: MediaQuery.of(context).size.width * 0.27,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SupermarketListScreen()));
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.27,
+                            height: MediaQuery.of(context).size.width * 0.27,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              Icons.add,
+                              size: 32,
+                              color: Colors.grey[600],
+                            ),
                           ),
-                          child: Icon(
-                            Icons.add,
-                            size: 32,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                      )
-                        
+                        )
+
 /*Container(
       width: 80,
       height: 80,

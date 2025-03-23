@@ -27,7 +27,7 @@ class MapService {
   }
 }
 */
-
+/*
 import 'package:geolocator/geolocator.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -69,4 +69,46 @@ class MapService {
       throw Exception('Failed to load nearby supermarkets');
     }
   }
+}
+*/
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class MapsService {
+  static const String _baseUrl = 'https://maps.googleapis.com/maps/api';
+  final String apiKey;
+
+  MapsService({required this.apiKey});
+
+  Future<Map<String, dynamic>> reverseGeocode(double lat, double lng) async {
+    final url =
+        Uri.parse('$_baseUrl/geocode/json?latlng=$lat,$lng&key=$apiKey');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    }
+    throw Exception('Erreur Google Maps: ${response.statusCode}');
+  }
+
+  Future<Map<String, dynamic>> getNearbyPlaces({
+    required double lat,
+    required double lng,
+    int radius = 1000,
+    String type = 'restaurant',
+  }) async {
+    final url = Uri.parse('$_baseUrl/place/nearbysearch/json?'
+        'location=$lat,$lng&radius=$radius&type=$type&key=$apiKey');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    }
+    throw Exception('Erreur Google Places: ${response.statusCode}');
+  }
+
+  //... (implémentez les autres méthodes de la même manière)
 }

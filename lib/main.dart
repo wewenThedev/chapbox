@@ -94,10 +94,9 @@ class _MyAppState extends State<MyApp> {
       theme: ChapboxTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       // Définir la page de démarrage (HomePage) ou une autre page
-      home:
-          HomeScreen() /*RegisterScreen() SplashScreen(
-          deviceId: _deviceId)*/
-      , // On passe le deviceId à la page d'accueil
+      home: SplashScreen(
+          //HomeScreen() /*RegisterScreen()*/
+          deviceId: _deviceId), // On passe le deviceId à la page d'accueil
       // Définir les routes de l'application
       routes: {
         '/home': (context) => HomeScreen(/*deviceId: _deviceId*/),

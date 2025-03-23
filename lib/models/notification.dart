@@ -1,18 +1,42 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'generated/notification.g.dart';
+//part 'generated/notification.g.dart';
+part 'notification.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Notification {
-  int? id;
-  String? message;
-  int? notificationCategoryId; // Foreign key
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  DateTime? deletedAt; // Soft delete
+  @JsonKey(name: 'id')
+  final int id;
 
-  Notification({this.id, this.message, this.notificationCategoryId, this.createdAt, this.updatedAt, this.deletedAt});
+  @JsonKey(name: 'message')
+  final String message;
 
-  factory Notification.fromJson(Map<String, dynamic> json) => _$NotificationFromJson(json);
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+
+  @JsonKey(name: 'deleted_at', includeIfNull: false)
+  final DateTime? deletedAt;
+
+  Notification({
+    required this.id,
+    required this.message,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+
+  factory Notification.fromJson(Map<String, dynamic> json) =>
+      _$NotificationFromJson(json);
   Map<String, dynamic> toJson() => _$NotificationToJson(this);
+
+  // Méthode helper pour afficher le temps écoulé (ex: "Il y a 5 minutes")
+  String get timeAgo {
+    final now = DateTime.now();
+    final difference = now.difference(createdAt);
+    // Implémentez la logique de formatage ou utilisez un package comme timeago
+    return '${difference.inMinutes} minutes ago';
+  }
 }

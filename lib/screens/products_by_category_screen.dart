@@ -1,21 +1,26 @@
+import 'package:chapbox/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 //import model
-//change page name
 
-class ProductCategoryPage extends StatefulWidget {
-  final String categoryId; // ID de la catégorie
+//vérifier la fin du fichier pour les mises à jour
 
-  const ProductCategoryPage({super.key, required this.categoryId});
+class ProductsByCategoryScreen extends StatefulWidget {
+  final int categoryId; // ID de la catégorie
+  //final String categoryId; // ID de la catégorie
+  //final Category categoryConerned;
+
+  const ProductsByCategoryScreen({super.key, required this.categoryId});
 
   @override
-  _ProductCategoryPageState createState() => _ProductCategoryPageState();
+  _ProductsByCategoryScreenState createState() =>
+      _ProductsByCategoryScreenState();
 }
 
-class _ProductCategoryPageState extends State<ProductCategoryPage> {
-  List<dynamic> products = [];
+class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
+  List<dynamic> categoryProducts = [];
   bool isLoading = true; // Pour indiquer le chargement
   bool hasMore = true; // Pour indiquer s'il y a plus de produits à charger
 
@@ -33,12 +38,15 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
     });
 
     // Remplace par l'URL de ton API
-    final response = await http.get(Uri.parse('https://api.example.com/products?category_id=${widget.categoryId}'));
+    //final response = await http.get(Uri.parse('https://api.example.com/products?category_id=${widget.categoryId}'));
+    final response = await http.get(Uri.parse(
+        'http://127.0.0.1:8001/api/categories/${widget.categoryId}/products'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {
-        products.addAll(data['products']); // Ajouter les nouveaux produits
+        categoryProducts
+            .addAll(data['products']); // Ajouter les nouveaux produits
         hasMore = data['has_more']; // Vérifier s'il y a plus de produits
         isLoading = false; // Fin du chargement
       });
@@ -60,7 +68,7 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Catégorie de Produits"),
+        title: Text("Catégorie de Produits"), //remlacer par categoryName
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -89,23 +97,30 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
             // Liste des produits
             Expanded(
               child: ListView.builder(
-                itemCount: products.length + (isLoading ? 1 : 0), // Ajouter un indicateur de chargement si en cours
+                itemCount: categoryProducts.length +
+                    (isLoading
+                        ? 1
+                        : 0), // Ajouter un indicateur de chargement si en cours
                 itemBuilder: (context, index) {
-                  if (index == products.length) {
-                    return Center(child: CircularProgressIndicator()); // Indicateur de chargement
+                  if (index == categoryProducts.length) {
+                    return Center(
+                        child:
+                            CircularProgressIndicator()); // Indicateur de chargement
                   }
 
-                  var product = products[index];
+                  var product = categoryProducts[index];
                   return Card(
                     margin: EdgeInsets.symmetric(vertical: 8.0),
                     child: ListTile(
-                      leading: Image.network(product['image'], width: 50, height: 50, fit: BoxFit.cover),
+                      leading: Image.network(product['image'],
+                          width: 50, height: 50, fit: BoxFit.cover),
                       title: Text(product['name']),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Prix: ${product['price']}"),
-                          Text("Disponibilité: ${product['available'] ? 'Disponible' : 'Indisponible'}"),
+                          Text(
+                              "Disponibilité: ${product['available'] ? 'Disponible' : 'Indisponible'}"),
                         ],
                       ),
                       trailing: ElevatedButton(
@@ -123,3 +138,30 @@ class _ProductCategoryPageState extends State<ProductCategoryPage> {
     );
   }
 }
+
+
+/*
+class ProductsPage extends StatelessWidget {
+  final Category category;
+
+  ProductsPage({required this.category});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Produits de ${category.name}")),
+      body: ListView.builder(
+        itemCount: category.products.length,
+        itemBuilder: (context, index) {
+          final product = category.products[index];
+          return ListTile(
+            title: Text(product.name),
+            subtitle: Text("Prix : ${product.price} €"),
+          );
+        },
+      ),
+    );
+  }
+}
+
+ */

@@ -7,19 +7,20 @@ class SupermarketDetailsScreen extends StatelessWidget {
   final String supermarketAddress;
   final String supermarketWebsite;*/
 
-  const SupermarketDetailsScreen({super.key, 
+  const SupermarketDetailsScreen({
+    super.key,
     required this.supermarketId,
     /*this.supermarketName, 
     this.supermarketDescription, 
     this.supermarketAddress,
     this.supermarketWebsite,*/
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Erevan'),
+        title: Text('Erevan'), //Text(supermarket.name),
       ),
       body: Center(
         //child: Text('Page de présentation pour $supermarketName'),
@@ -28,5 +29,3 @@ class SupermarketDetailsScreen extends StatelessWidget {
     );
   }
 }
-
-

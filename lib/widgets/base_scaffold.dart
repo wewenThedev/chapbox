@@ -51,6 +51,8 @@ class _BaseScaffoldState extends State<BaseScaffold> {
       // Ajoute d'autres personnalisations ici si nécessaire
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        //type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         unselectedItemColor: appLightGrey,

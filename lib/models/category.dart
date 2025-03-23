@@ -1,18 +1,49 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'generated/category.g.dart';
+//part 'generated/category.g.dart';
+part 'category.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Category {
-  int? id;
-  String? name;
-  String? description;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  DateTime? deletedAt; // Soft delete
+  @JsonKey(name: 'id')
+  final int id;
 
-  Category({this.id, this.name, this.description, this.createdAt, this.updatedAt, this.deletedAt});
+  @JsonKey(name: 'name')
+  final String name;
 
-  factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
+  @JsonKey(name: 'description', includeIfNull: false)
+  final String? description;
+
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+
+  @JsonKey(name: 'deleted_at', includeIfNull: false)
+  final DateTime? deletedAt;
+
+  final int? productsCount;
+
+  Category({
+    required this.id,
+    required this.name,
+    this.description,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+    this.productsCount,
+  });
+
+  factory Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
   Map<String, dynamic> toJson() => _$CategoryToJson(this);
+
+  // Helper pour afficher une description tronquée
+  String get shortDescription {
+    if (description == null) return '';
+    return description!.length > 100
+        ? '${description!.substring(0, 100)}...'
+        : description!;
+  }
 }

@@ -120,3 +120,136 @@ class AuthService {
     await prefs.setInt("user_id", userId);
   }
 }
+
+
+/*
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:your_app/models/user.dart';
+
+class AuthService {
+  static const String _baseUrl = 'https://votre-api.com/api';
+  final SharedPreferences prefs;
+
+  AuthService(this.prefs);
+
+  // Enregistrement
+  Future<User> register({
+    required String firstname,
+    required String lastname,
+    required String username,
+    required String email,
+    required String phone,
+    required String password,
+    required int profileId,
+    String? deviceId,
+  }) async {
+    final response = await http.post(
+      Uri.parse('$_baseUrl/register'),
+      body: jsonEncode({
+        'firstname': firstname,
+        'lastname': lastname,
+        'username': username,
+        'email': email,
+        'phone': phone,
+        'password': password,
+        'profile_id': profileId,
+        'device_id': deviceId,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 201) {
+      return User.fromJson(jsonDecode(response.body));
+    }
+    throw _handleError(response);
+  }
+
+  // Connexion
+  Future<String> login({
+    required String emailOrPhone,
+    required String password,
+  }) async {
+    final response = await http.post(
+      Uri.parse('$_baseUrl/login'),
+      body: jsonEncode({
+        'email_or_phone': emailOrPhone,
+        'password': password,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      await _saveToken(data['token']);
+      return data['token'];
+    }
+    throw _handleError(response);
+  }
+
+  // Déconnexion
+  Future<void> logout() async {
+    final token = await _getToken();
+    final response = await http.post(
+      Uri.parse('$_baseUrl/logout'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      await prefs.remove('auth_token');
+    } else {
+      throw _handleError(response);
+    }
+  }
+
+  // Récupérer l'utilisateur connecté
+  Future<User> getCurrentUser() async {
+    final token = await _getToken();
+    final response = await http.get(
+      Uri.parse('$_baseUrl/user'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      return User.fromJson(jsonDecode(response.body));
+    }
+    throw _handleError(response);
+  }
+
+  // Gestion du token
+  Future<void> _saveToken(String token) async {
+    await prefs.setString('auth_token', token);
+  }
+
+  Future<String?> _getToken() async {
+    return prefs.getString('auth_token');
+  }
+
+  // Gestion des erreurs
+  Never _handleError(http.Response response) {
+    final error = jsonDecode(response.body)?['error'] ?? 'Erreur inconnue';
+    throw Exception('${response.statusCode} - $error');
+  }
+}
+
+
+// Dans votre provider/Bloc
+Future<void> loginUser(String email, String password) async {
+  try {
+    final token = await authService.login(email, password);
+    _currentUser = await authService.getCurrentUser();
+    notifyListeners();
+  } catch (e) {
+    throw Exception('Échec de connexion: $e');
+  }
+}
+
+Future<String> refreshToken() async {
+  final response = await http.post(
+    Uri.parse('$_baseUrl/refresh-token'),
+    headers: {'Authorization': 'Bearer ${await _getToken()}'},
+  );
+  // Implémentez la logique de rafraîchissement
+}
+ */

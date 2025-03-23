@@ -1,18 +1,39 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'generated/profile.g.dart';
+//part 'generated/profile.g.dart';
+part 'profile.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Profile {
-  int? id;
-  String? name;
-  String? description;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  DateTime? deletedAt; // Soft delete
+  @JsonKey(name: 'id')
+  final int id;
 
-  Profile({this.id, this.name, this.description, this.createdAt, this.updatedAt, this.deletedAt});
+  @JsonKey(name: 'name')
+  final String name;
 
-  factory Profile.fromJson(Map<String, dynamic> json) => _$ProfileFromJson(json);
+  @JsonKey(name: 'description', includeIfNull: false)
+  final String? description;
+
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+
+  @JsonKey(name: 'deleted_at', includeIfNull: false)
+  final DateTime? deletedAt;
+
+  Profile({
+    required this.id,
+    required this.name,
+    this.description,
+    required this.createdAt,
+    required this.updatedAt,
+    this.deletedAt,
+  });
+
+  factory Profile.fromJson(Map<String, dynamic> json) =>
+      _$ProfileFromJson(json);
+
   Map<String, dynamic> toJson() => _$ProfileToJson(this);
 }
