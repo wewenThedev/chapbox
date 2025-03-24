@@ -2,10 +2,12 @@
 
 import 'dart:convert';
 
+import 'package:chapbox/configs/const.dart';
 import 'package:chapbox/configs/styles.dart';
 import 'package:chapbox/configs/themes.dart';
 import 'package:chapbox/models/category.dart';
 import 'package:chapbox/models/product.dart';
+import 'package:chapbox/models/user.dart';
 import 'package:chapbox/screens/address_list_screen.dart';
 import 'package:chapbox/screens/auth/login_screen.dart';
 import 'package:chapbox/screens/category_list_screen.dart';
@@ -80,9 +82,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   fetchTopCategories() async {
     //api/categories/top-categories
-
-    final response = await http
-        .get(Uri.parse("http://127.0.0.1/api/categories/top-categories"));
+    String $baseUrl = baseUrl;
+    /*final response = await http
+        .get(Uri.parse("http://127.0.0.1:8001/api/categories/top-categories"));*/
+    final response =
+        await http.get(Uri.parse("$baseUrl/categories/top-categories"));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -97,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //fetchproductsMadeInBenin() {} //api/products/local-products
   Future<void> fetchLocalProducts() async {
     final response = await http.get(Uri.parse(
-        "http://127.0.0.1/api/shopsAndProducts/findBenineseProducts"));
+        "http://127.0.0.1:8001/api/shopsAndProducts/findBenineseProducts"));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -537,7 +541,7 @@ Navigator.pop(context); // Ferme le Drawer
               height: 100.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: (firstSixCategories.length) + 1,
+                itemCount: firstSixCategories.length,
                 itemBuilder: (context, index) {
                   final topCategory = firstSixCategories[index];
                   do {

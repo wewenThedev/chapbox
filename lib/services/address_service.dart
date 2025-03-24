@@ -151,4 +151,139 @@ class AddressService {
     final error = jsonDecode(response.body)?['error'] ?? 'Erreur inconnue';
     throw Exception('${response.statusCode} - $error');
   }
+
+  /*
+  import 'package:dio/dio.dart';
+import 'package:your_app/models/address.dart';
+
+class AddressService {
+  final Dio _dio = Dio(BaseOptions(
+    baseUrl: 'https://votre-api.com/api',
+    headers: {'Accept': 'application/json'},
+  ));
+
+  // CRUD Basique
+  Future<List<Address>> getAllAddresses() async {
+    try {
+      final response = await _dio.get('/addresses');
+      return (response.data as List).map((json) => Address.fromJson(json)).toList();
+    } on DioException catch (e) {
+      throw _handleError(e, 'Erreur lors de la récupération des adresses');
+    }
+  }
+
+  Future<Address> createAddress(Address address) async {
+    try {
+      final response = await _dio.post(
+        '/addresses',
+        data: address.toJson(),
+      );
+      return Address.fromJson(response.data);
+    } on DioException catch (e) {
+      throw _handleError(e, 'Échec de la création de l\'adresse');
+    }
+  }
+
+  Future<Address> getAddress(int id) async {
+    try {
+      final response = await _dio.get('/addresses/$id');
+      return Address.fromJson(response.data);
+    } on DioException catch (e) {
+      throw _handleError(e, 'Adresse introuvable');
+    }
+  }
+
+  Future<Address> updateAddress(int id, Address address) async {
+    try {
+      final response = await _dio.put(
+        '/addresses/$id',
+        data: address.toJson(),
+      );
+      return Address.fromJson(response.data);
+    } on DioException catch (e) {
+      throw _handleError(e, 'Échec de la mise à jour');
+    }
+  }
+
+  Future<void> deleteAddress(int id) async {
+    try {
+      await _dio.delete('/addresses/$id');
+    } on DioException catch (e) {
+      throw _handleError(e, 'Échec de la suppression');
+    }
+  }
+
+  // Services Géographiques
+  Future<dynamic> reverseGeocode(double lat, double lng) async {
+    try {
+      final response = await _dio.get('/addresses/reverse-geocode', queryParameters: {
+        'lat': lat,
+        'lng': lng,
+      });
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleError(e, 'Géocodage inverse échoué');
+    }
+  }
+
+  Future<dynamic> getNearbyPlaces({
+    required double lat,
+    required double lng,
+    int radius = 1000,
+    String type = 'restaurant',
+  }) async {
+    try {
+      final response = await _dio.get('/addresses/nearby-places', queryParameters: {
+        'lat': lat,
+        'lng': lng,
+        'radius': radius,
+        'type': type,
+      });
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleError(e, 'Recherche de lieux proches échouée');
+    }
+  }
+
+  Future<dynamic> getDirections(String origin, String destination) async {
+    try {
+      final response = await _dio.get('/addresses/directions', queryParameters: {
+        'origin': origin,
+        'destination': destination,
+      });
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleError(e, 'Calcul d\'itinéraire impossible');
+    }
+  }
+
+  Future<dynamic> textSearch(String query) async {
+    try {
+      final response = await _dio.get('/addresses/text-search', queryParameters: {
+        'query': query,
+      });
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleError(e, 'Recherche textuelle échouée');
+    }
+  }
+
+  Future<dynamic> getPlaceDetails(String placeId) async {
+    try {
+      final response = await _dio.get('/addresses/place-details', queryParameters: {
+        'place_id': placeId,
+      });
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleError(e, 'Détails du lieu indisponibles');
+    }
+  }
+
+  // Gestion centralisée des erreurs
+  Never _handleError(DioException e, String defaultMessage) {
+    final errorMessage = e.response?.data?['message'] ?? defaultMessage;
+    throw Exception('$errorMessage (Code ${e.response?.statusCode})');
+  }
+}
+   */
 }

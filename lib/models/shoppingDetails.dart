@@ -97,11 +97,11 @@ class ShoppingDetails {
   double get total => cost * quantity;
 
   // Vérifie si l'article est toujours disponible
-  bool get isAvailable {
+  /*bool get isAvailable {
     return product?.stock != null &&
         product!.stock! >= quantity &&
         (deletedAt == null);
-  }
+  }*/
 
   // Méthode pour mettre à jour la quantité
   ShoppingDetails copyWithQuantity(int newQuantity) {

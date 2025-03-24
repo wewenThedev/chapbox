@@ -25,8 +25,8 @@ class _NearbySupermarketsPageState extends State<NearbySupermarketsPage> {
 
   Future<void> loadNearbySupermarkets() async {
     try {
-      Position position = await MapService.getCurrentLocation();
-      List<dynamic> results = await MapService.fetchNearbySupermarkets(
+      Position position = await MapsService.getCurrentLocation();
+      List<dynamic> results = await MapsService.fetchNearbySupermarkets(
         position.latitude,
         position.longitude,
       );

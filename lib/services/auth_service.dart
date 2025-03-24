@@ -1,6 +1,7 @@
-import 'dart:convert';
+/*import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 class AuthService {
   static const String _apiUrl = "http://127.0.0.1:8001/api/registerCustomer";
@@ -121,24 +122,24 @@ class AuthService {
   }
 }
 
+*/
 
-/*
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:your_app/models/user.dart';
+import 'package:chapbox/models/user.dart';
 
 class AuthService {
-  static const String _baseUrl = 'https://votre-api.com/api';
-  final SharedPreferences prefs;
+  static const String _baseUrl = 'http://127.0.0.1:8001/api';
+  final SharedPreferences? prefs;
 
   AuthService(this.prefs);
 
   // Enregistrement
-  Future<User> register({
+  static Future register({
     required String firstname,
     required String lastname,
-    required String username,
+    String? username,
     required String email,
     required String phone,
     required String password,
@@ -146,7 +147,7 @@ class AuthService {
     String? deviceId,
   }) async {
     final response = await http.post(
-      Uri.parse('$_baseUrl/register'),
+      Uri.parse('$_baseUrl/register/customer'),
       body: jsonEncode({
         'firstname': firstname,
         'lastname': lastname,
@@ -160,10 +161,11 @@ class AuthService {
       headers: {'Content-Type': 'application/json'},
     );
 
-    if (response.statusCode == 201) {
+    return response;
+    /*if (response.statusCode == 201) {
       return User.fromJson(jsonDecode(response.body));
     }
-    throw _handleError(response);
+    throw _handleError(response);*/
   }
 
   // Connexion
@@ -172,7 +174,7 @@ class AuthService {
     required String password,
   }) async {
     final response = await http.post(
-      Uri.parse('$_baseUrl/login'),
+      Uri.parse('$_baseUrl/login/customer'),
       body: jsonEncode({
         'email_or_phone': emailOrPhone,
         'password': password,
@@ -197,7 +199,7 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      await prefs.remove('auth_token');
+      await prefs!.remove('auth_token');
     } else {
       throw _handleError(response);
     }
@@ -219,11 +221,11 @@ class AuthService {
 
   // Gestion du token
   Future<void> _saveToken(String token) async {
-    await prefs.setString('auth_token', token);
+    await prefs!.setString('auth_token', token);
   }
 
   Future<String?> _getToken() async {
-    return prefs.getString('auth_token');
+    return prefs!.getString('auth_token');
   }
 
   // Gestion des erreurs
@@ -233,7 +235,7 @@ class AuthService {
   }
 }
 
-
+/*
 // Dans votre provider/Bloc
 Future<void> loginUser(String email, String password) async {
   try {
@@ -251,5 +253,6 @@ Future<String> refreshToken() async {
     headers: {'Authorization': 'Bearer ${await _getToken()}'},
   );
   // Implémentez la logique de rafraîchissement
+  
 }
- */
+*/

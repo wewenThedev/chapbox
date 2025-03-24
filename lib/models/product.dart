@@ -1,3 +1,4 @@
+import 'package:chapbox/models/media.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:chapbox/models/brand.dart';
@@ -47,6 +48,9 @@ class Product {
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
 
+  @JsonKey(name: 'deleted_at', includeIfNull: false)
+  final List<Media>? images;
+
   Product({
     required this.id,
     required this.name,
@@ -60,6 +64,8 @@ class Product {
     required this.createdAt,
     required this.updatedAt,
     this.deletedAt,
+    //
+    this.images,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {

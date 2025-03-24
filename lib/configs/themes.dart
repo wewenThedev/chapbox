@@ -66,7 +66,7 @@ class ChapboxTheme {
       bodySmall: GoogleFonts.openSans(
         fontSize: 11.0,
         fontWeight: FontWeight.w300,
-        color: appGrey,
+        color: Colors.black, //appGrey,
       ),
     ),
     buttonTheme: ButtonThemeData(
@@ -155,7 +155,8 @@ class ChapboxTheme {
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(
             10), //BorderRadiusDirectional.circular(10.0),//BorderRadius.all(Radius.circular(10),
-        borderSide: BorderSide(color: Color(0xffff0000), width: 1.5),
+        borderSide: BorderSide(
+            color: /*Color(0xffff0000)*/ primaryColorLight, width: 1.5),
       ),
       enabledBorder: /*UnderlineInputBorder()*/ OutlineInputBorder(
         borderRadius: BorderRadius.circular(

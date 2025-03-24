@@ -1,4 +1,5 @@
 import 'package:chapbox/configs/styles.dart';
+import 'package:chapbox/models/user.dart';
 import 'package:chapbox/screens/cart_screen.dart';
 import 'package:chapbox/screens/home_screen.dart';
 import 'package:chapbox/screens/search_screen.dart';
@@ -12,7 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class BaseScaffold extends StatefulWidget {
-  const BaseScaffold({super.key});
+  User? $userConnected;
+
+  BaseScaffold({super.key, this.$userConnected});
 
   @override
   State<BaseScaffold> createState() => _BaseScaffoldState();

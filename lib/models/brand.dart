@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:chapbox/models/brand.dart';
+//import 'package:chapbox/models/brand.dart';
+import 'package:chapbox/models/media.dart';
 
 //part 'generated/brand.g.dart';
 part 'brand.g.dart';

@@ -73,7 +73,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   custom_map_markers: ^0.0.2+1
   flutter_charts: ^0.5.2
-  json_annotation: ^4.0.0
+  json_annotation: ^4.9.0   #^4.0.0
   device_info_plus: ^11.1.0
   flutter_launcher_icons: ^0.14.3
   baseflow_plugin_template: ^2.1.0
@@ -94,8 +94,10 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^5.0.0
-  build_runner: ^2.3.0
-  json_serializable: ^6.6.0
+  #build_runner: ^2.3.0
+  #json_serializable: ^6.6.0
+  build_runner: ^2.4.6
+  json_serializable: ^6.7.1
   freezed_annotation: 
  
 dependency_overrides:

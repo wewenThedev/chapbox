@@ -10,6 +10,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 class ShopDetailsScreen extends StatelessWidget {
   final Shop shop;
 
+  final List<String> shopsImages = [
+    'logos/chapbox_Borange.jpg',
+    'logos/chapbox_Borange.jpg',
+    'logos/chapbox_Borange.jpg',
+    'logos/chapbox_Borange.jpg',
+  ];
+
   ShopDetailsScreen({required this.shop});
 
   @override
@@ -24,7 +31,7 @@ class ShopDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Carrousel d'images
-            CarouselSlider(
+            /*CarouselSlider(
               options: CarouselOptions(
                 autoPlay: true,
                 aspectRatio: 16 / 9,
@@ -40,7 +47,27 @@ class ShopDetailsScreen extends StatelessWidget {
                     );
                   },
                 );
-              }).toList(),
+              }).toList(),*/
+            CarouselSlider(
+              options: CarouselOptions(
+                autoPlay: true,
+                aspectRatio: 16 / 9,
+                enlargeCenterPage: true,
+                viewportFraction: 0.8,
+              ),
+              items: shopsImages
+                  .map((shopImage) => Container(
+                        margin: EdgeInsets.all(5),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            shopImage,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        ),
+                      ))
+                  .toList(),
             ),
             SizedBox(height: 16),
 
@@ -58,9 +85,9 @@ class ShopDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-                  Text('IFU: ${shop.supermarket.ifu}'),
-                  Text('RCCM: ${shop.supermarket.rccm}'),
-                  Text('Adresse: ${shop.supermarket.address}'),
+                  Text('IFU: ${shop.supermarket!.ifu}'),
+                  Text('RCCM: ${shop.supermarket!.rccm}'),
+                  Text('Adresse: ${shop.supermarket!.address}'),
                 ],
               ),
             ),
@@ -80,13 +107,17 @@ class ShopDetailsScreen extends StatelessWidget {
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: shop.products.length,
+              itemCount: shop.products!.length,
               itemBuilder: (context, index) {
-                Product product = shop.products[index];
+                Product product = shop.products![index];
                 return ListTile(
-                  leading: Image.network(product.image, width: 50, height: 50),
+                  leading: Image.network(product.images!.first.url,
+                      width: 50, height: 50),
                   title: Text(product.name),
-                  subtitle: Text('${product.price} XOF'),
+                  //subtitle: Text('${product.price} FCFA'),
+                  subtitle: Text(
+                      '${shop.getProductPrice(product.id).toStringAsFixed(2)} FCFA'),
+
                   onTap: () {
                     Navigator.push(
                       context,

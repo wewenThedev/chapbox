@@ -28,10 +28,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  /*navigateToRegister() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => RegisterScreen()));
-  }*/
   final TextEditingController _pnController = TextEditingController();
   final TextEditingController _pwdController = TextEditingController();
   //TextEditingController emailController = TextEditingController();
@@ -70,10 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => OtpScreen()));
     } else {
-      //_showErrorDialog(data['message']);
-      /*ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      _showErrorDialog('Connexion échouée');
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Identifiants de connexion incorrects"),
-      ));*/
+      ));
     }
   }
 

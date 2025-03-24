@@ -1,30 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category.dart';
+part of 'productMedia.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      description: json['description'] as String?,
+ProductMedia _$ProductMediaFromJson(Map<String, dynamic> json) => ProductMedia(
+      productId: (json['product_id'] as num).toInt(),
+      mediaId: (json['media_id'] as num).toInt(),
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       deletedAt: json['deleted_at'] == null
           ? null
           : DateTime.parse(json['deleted_at'] as String),
-      productsCount: (json['productsCount'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      if (instance.description case final value?) 'description': value,
+Map<String, dynamic> _$ProductMediaToJson(ProductMedia instance) =>
+    <String, dynamic>{
+      'product_id': instance.productId,
+      'media_id': instance.mediaId,
       'created_at': instance.createdAt.toIso8601String(),
       'updated_at': instance.updatedAt.toIso8601String(),
       if (instance.deletedAt?.toIso8601String() case final value?)
         'deleted_at': value,
-      'productsCount': instance.productsCount,
     };

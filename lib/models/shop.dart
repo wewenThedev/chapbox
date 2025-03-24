@@ -1,3 +1,6 @@
+import 'package:chapbox/models/media.dart';
+import 'package:chapbox/models/product.dart';
+import 'package:chapbox/models/shopProduct.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:chapbox/models/address.dart';
@@ -47,11 +50,11 @@ class Shop {
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
 
-  /*
-  final List<String> images;
-  final Supermarket supermarket;
-  final List<Product> products;
-*/
+  //final List<String> images;
+  final List<Media>? images;
+  final List<Product>? products;
+  @JsonKey(ignore: true)
+  List<ShopProduct>? shopProducts;
 
   Shop({
     required this.id,
@@ -67,12 +70,10 @@ class Shop {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
-    /*
-        required this.images,
-    required this.supermarket,
-    required this.products,
-
-    */
+    //
+    this.images,
+    this.products,
+    this.shopProducts,
   });
 
   factory Shop.fromJson(Map<String, dynamic> json) {
@@ -105,6 +106,54 @@ class Shop {
     return phone;
   }
 
+  String get name {
+    return '${supermarket?.name}.' '.${city}';
+  }
+
   // Vérifie si la boutique est active
   bool get isActive => deletedAt == null;
+
+  /////proposé par ...
+  ///
+  // Méthode pour récupérer le prix d'un produit spécifique
+  double getProductPrice(int productId) {
+    if (shopProducts == null) {
+      throw Exception('Shop products not loaded');
+    }
+
+    final product = shopProducts!.firstWhere(
+      (sp) => sp.productId == productId,
+      orElse: () =>
+          throw Exception('Product $productId not found in this shop'),
+    );
+
+    return product.price;
+  }
+
+  // Optionnel : Récupérer tous les prix sous forme de Map
+  Map<int, double> getAllProductPrices() {
+    return {for (var sp in shopProducts ?? []) sp.productId: sp.price};
+  }
+
+  ////
+  ///
+  /*Utilisation :
+
+final shop = Shop(...); // Récupéré depuis votre service
+
+try {
+  // Pour un produit spécifique
+  final price = shop.getProductPrice(123);
+  print('Prix: ${price.toStringAsFixed(2)} XOF');
+} catch (e) {
+  print(e.toString());
+}
+
+// Pour tous les prix
+final priceMap = shop.getAllProductPrices();
+priceMap.forEach((productId, price) {
+  print('Produit $productId : $price XOF');
+});
+
+*/
 }

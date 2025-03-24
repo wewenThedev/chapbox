@@ -33,7 +33,7 @@ class Supermarket {
 
   // Relations
 
-  @JsonKey(ignore: true)
+  //@JsonKey(ignore: true)
   @JsonKey(name: 'address_id')
   final int addressId;
 
@@ -67,6 +67,9 @@ class Supermarket {
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
 
+  @JsonKey(ignore: true)
+  List<Shop>? shops;
+
   Supermarket({
     required this.id,
     required this.name,
@@ -85,7 +88,7 @@ class Supermarket {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
-    required List<Shop> shops,
+    this.shops,
   });
 
   factory Supermarket.fromJson(Map<String, dynamic> json) {

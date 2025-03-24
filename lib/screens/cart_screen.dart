@@ -14,13 +14,16 @@ class _CartScreenState extends State<CartScreen> {
   }
 }*/
 
+import 'package:chapbox/models/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:chapbox/services/cart_service.dart';
 
 import 'package:web_socket_channel/io.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+  //required Cart $userCart;
+  Cart? $userCart;
+  CartScreen({super.key, /*required*/ this.$userCart});
 
   @override
   _CartScreenState createState() => _CartScreenState();

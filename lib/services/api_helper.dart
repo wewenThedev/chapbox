@@ -1,5 +1,5 @@
 // Fichier : lib/services/api_helper.dart
-import 'package:dio/dio.dart';
+/*import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 
 class ApiHelper {
@@ -18,3 +18,6 @@ class ApiHelper {
 
   // ... Méthodes POST/PUT/DELETE similaires
 }
+
+
+*/

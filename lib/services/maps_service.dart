@@ -110,5 +110,40 @@ class MapsService {
     throw Exception('Erreur Google Places: ${response.statusCode}');
   }
 
+  static getCurrentLocation() {
+    //to implement
+  }
+
+  static fetchNearbySupermarkets(double latitude, double longitude) {
+    //to implement
+  }
+
   //... (implémentez les autres méthodes de la même manière)
+
+  /*
+  import 'package:dio/dio.dart';
+
+class MapsService {
+  static const String _baseUrl = 'https://maps.googleapis.com/maps/api';
+  final Dio _dio;
+  final String apiKey;
+
+  MapsService({required this.apiKey}) : _dio = Dio(BaseOptions(
+    headers: {'Accept': 'application/json'},
+  ));
+
+  Future<dynamic> reverseGeocode(double lat, double lng) async {
+    final response = await _dio.get(
+      '$_baseUrl/geocode/json',
+      queryParameters: {
+        'latlng': '$lat,$lng',
+        'key': apiKey,
+      },
+    );
+    return response.data;
+  }
+
+  // Implémentez les autres méthodes de la même façon
+}
+   */
 }

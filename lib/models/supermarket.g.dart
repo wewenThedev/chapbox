@@ -16,12 +16,6 @@ Supermarket _$SupermarketFromJson(Map<String, dynamic> json) => Supermarket(
       website: json['website'] as String?,
       addressId: (json['address_id'] as num).toInt(),
       logoId: (json['logo_id'] as num?)?.toInt(),
-      marketManagerId: (json['market_manager_id'] as num).toInt(),
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
-      deletedAt: json['deleted_at'] == null
-          ? null
-          : DateTime.parse(json['deleted_at'] as String),
     );
 
 Map<String, dynamic> _$SupermarketToJson(Supermarket instance) =>
@@ -35,9 +29,4 @@ Map<String, dynamic> _$SupermarketToJson(Supermarket instance) =>
       if (instance.website case final value?) 'website': value,
       'address_id': instance.addressId,
       if (instance.logoId case final value?) 'logo_id': value,
-      'market_manager_id': instance.marketManagerId,
-      'created_at': instance.createdAt.toIso8601String(),
-      'updated_at': instance.updatedAt.toIso8601String(),
-      if (instance.deletedAt?.toIso8601String() case final value?)
-        'deleted_at': value,
     };

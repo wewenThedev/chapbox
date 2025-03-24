@@ -1,3 +1,4 @@
+import 'package:chapbox/models/cart.dart';
 import 'package:chapbox/models/profile.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -54,6 +55,9 @@ class User {
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
 
+  @JsonKey(name: 'cart', includeIfNull: false)
+  Cart cart;
+
   User({
     required this.id,
     required this.firstname,
@@ -69,6 +73,7 @@ class User {
     required this.createdAt,
     required this.updatedAt,
     this.deletedAt,
+    required this.cart,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {

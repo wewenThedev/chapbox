@@ -3,8 +3,8 @@ import 'package:chapbox/models/product.dart';
 import 'package:chapbox/models/media.dart';
 
 //part 'generated/product_media.g.dart';
-//part 'productMedia.g.dart';
-part 'product_media.g.dart';
+
+part 'productMedia.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class ProductMedia {

@@ -1,6 +1,6 @@
 //import '../models/Shop.dart';
 
-const String baseUrL = "http://127.0.0.1:8001/api";
+const String baseUrl = "http://127.0.0.1:8001/api";
 
 class PrefKeys {
   static String userId = "USER_ID";
@@ -10,7 +10,7 @@ class PrefKeys {
   static String isLight = "IS_LIGHT";
   static String userUrl = "USER_URL";
 
-  static String baseUrL = "http://127.0.0.1:8001/api";
+  static String baseUrl = "http://127.0.0.1:8001/api";
 }
 
 /*
