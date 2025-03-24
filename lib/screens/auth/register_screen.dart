@@ -19,7 +19,6 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import 'package:flutter/foundation.dart'; // Pour kIsWeb
 
 class RegisterScreen extends StatefulWidget {
@@ -45,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  Future<String> _getDeviceId() async {
+  /*Future<String> _getDeviceId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if () {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
@@ -57,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return 'web-device-${DateTime.now().millisecondsSinceEpoch}';
   }
     return 'unknown-device';
-  }
+  }*/
 
   Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
@@ -78,9 +77,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         //final authService = AuthService(prefs: await SharedPreferences.getInstance());
         //final authService = AuthService;
 
-
         final User $user;
-        
+
         var $response = await AuthService.register(
           firstname: _fnController.text,
           lastname: _lnController.text,
@@ -91,37 +89,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
           deviceId: 'device-id',
           //deviceId: await _getDeviceId();
         );
-  if ($response.statusCode == 201) {
-        final jsonResponse = jsonDecode($response.body);
-    $user = User.fromJson(jsonResponse['user']);
-    $user.cart = Cart.fromJson(jsonResponse['cart']);
+        if ($response.statusCode == 201) {
+          final jsonResponse = jsonDecode($response.body);
+          $user = User.fromJson(jsonResponse['user']);
+          $user.cart = Cart.fromJson(jsonResponse['cart']);
 
-
-        // Succès
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Inscription réussie'),
-            content: const Text('Votre compte a été créé avec succès.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BaseScaffold(
-                            userConnected: $user,
-                            userConnectedCart: $user.cart, 
-                          )),
-                ),
-                child: const Text('OK'),
-              )
-            ],
-          ),
-        );
-
+          // Succès
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Inscription réussie'),
+              content: const Text('Votre compte a été créé avec succès.'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BaseScaffold(
+                              userConnected: $user,
+                              userConnectedCart: $user.cart,
+                            )),
+                  ),
+                  child: const Text('OK'),
+                )
+              ],
+            ),
+          );
         } else {
-    throw Exception('Erreur d\'inscription: ${$response.body}');
-  }
+          throw Exception('Erreur d\'inscription: ${$response.body}');
+        }
       } catch (e) {
         _showErrorDialog(e.toString());
       } finally {

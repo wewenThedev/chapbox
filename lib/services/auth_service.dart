@@ -129,8 +129,14 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chapbox/models/user.dart';
 
+import 'package:chapbox/configs/const.dart';
+
+
 class AuthService {
-  static const String _baseUrl = 'http://127.0.0.1:8001/api';
+  //static const String _baseUrl = 'http://127.0.0.1:8001/api';
+  //static const String _baseUrl = 'localhost:8001/api';
+  static const String _baseUrl = baseUrl;
+
   final SharedPreferences? prefs;
 
   AuthService(this.prefs);
@@ -160,6 +166,10 @@ class AuthService {
       }),
       headers: {'Content-Type': 'application/json'},
     );
+    //print(Uri.parse('$_baseUrl/register/customer'));
+
+    print('Status Code: ${response.statusCode}'); // Debug
+    print('Response Body: ${response.body}'); // Debug
 
     return response;
     /*if (response.statusCode == 201) {

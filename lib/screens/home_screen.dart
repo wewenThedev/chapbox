@@ -29,11 +29,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class HomeScreen extends StatefulWidget {
   //final String? deviceId;
+
+  final User? userConnected;
   // Le constructeur prend le deviceId comme paramètre
-  const HomeScreen({
-    super.key,
-    /*required this.deviceId*/
-  });
+  const HomeScreen(
+      {super.key,
+      /*required this.deviceId*/
+      this.userConnected});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -101,7 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
   //fetchproductsMadeInBenin() {} //api/products/local-products
   Future<void> fetchLocalProducts() async {
     final response = await http.get(Uri.parse(
-        "http://127.0.0.1:8001/api/shopsAndProducts/findBenineseProducts"));
+        "$baseUrl/shopsAndProducts/findBenineseProducts"));
+        //"http://127.0.0.1:8001/api/shopsAndProducts/findBenineseProducts"));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -284,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(8),
           color: Colors.white,
           image: DecorationImage(
-            image: AssetImage('logos/chapbox_Borange.jpg'),
+            image: AssetImage('assets/logos/chapbox_Borange.jpg'),
             //AssetImage(imageUrl),
             /*NetworkImage(
               imageUrl),*/ // Ou AssetImage pour les ressources locales

@@ -22,20 +22,20 @@ class _StepScreenState extends State<StepScreen> {
       "title": "Recherche rapide",
       "subtitle": "Trouvez les supermarchés proches de vous sans vous déplacer",
       //"icon": "icons/white_search_icon.png"
-      "icon": "icons/loupe.png"
+      "icon": "assets/icons/loupe.png"
       
     },
     {
       "title": "Accès instantané aux informations des produits",
       "subtitle": "Vérifiez la disponibilité d'un produit dans un supermarché",
       //"icon": "assets/icons/card-list.svg"
-      "icon": "icons/carte.png"
+      "icon": "assets/icons/carte.png"
     },
     {
       "title": "Commandez facilement",
       "subtitle":
           "Ajoutez les articles que vous désirez à votre panier et payer en quelques clics",
-      "icon": "icons/panier-courses.png"
+      "icon": "assets/images/empty_shopping_cart_image.png"
       //"icon": "assets/icons/cart-check.svg"
     },
     {
@@ -43,7 +43,7 @@ class _StepScreenState extends State<StepScreen> {
       "subtitle":
           "Choisissez de récupérer votre colis en magasin ou d'etre livré n'importe selon vos besoins",
       //"icon": "assets/icons/send.svg"
-      "icon": "icons/camion.png"
+      "icon": "assets/icons/camion.png"
     },
   ];
 
@@ -98,12 +98,15 @@ class _StepScreenState extends State<StepScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      //SvgPicture.asset(
-                      currentObject["icon"].toString(),
+                    Container(
                       width: media.width * 0.5,
                       height: media.height * 0.3,
-                      fit: BoxFit.fill,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(currentObject["icon"].toString()),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: media.width * 0.1,

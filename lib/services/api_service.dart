@@ -1,9 +1,12 @@
 /*import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/product.dart';
+import 'package:chapbox/configs/const.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  final String baseUrl = 'http://127.0.0.1:8000/api';
+  //final String baseUrl = 'http://127.0.0.1:8000/api';
 
   Future<List<Product>> fetchProducts() async {
     final response = await http.get(Uri.parse('$baseUrl/products'));
@@ -17,12 +20,17 @@ class ApiService {
   }
 }*/
 
+
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/product.dart';
+import 'package:chapbox/configs/const.dart';
 
 class ApiService {
-  static const String apiUrl = "http://127.0.0.1:8001/api";
+  //static const String apiUrl = "http://127.0.0.1:8001/api";
+  static const String apiUrl = baseUrl;
 
   static Future<Map<String, String>> getHeaders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -50,4 +58,3 @@ class ApiService {
     return await http.delete(Uri.parse('$apiUrl/$endpoint'), headers: await getHeaders());
   }
 }
-

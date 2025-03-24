@@ -144,11 +144,11 @@ class ChapboxTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w700,
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
           color: /*appLightGrey*/ appGrey),
-      hintStyle: TextStyle(
-          fontSize: 11, fontWeight: FontWeight.normal, color: appGrey),
+      hintStyle:
+          TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: appGrey),
       border: InputBorder.none,
       filled: true,
       fillColor: Colors.grey.shade300,

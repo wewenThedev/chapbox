@@ -3,8 +3,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:chapbox/database_helper.dart';
 
+import 'package:chapbox/configs/const.dart';
+
 class ShopService {
-  static const String apiUrl = "http://127.0.0.0:8001/api/shops";
+  static const String apiUrl = "$baseUrl/shops";
 
   /// Récupérer les boutiques depuis l'API et les stocker en cache
   static Future<void> fetchAndCacheShops() async {

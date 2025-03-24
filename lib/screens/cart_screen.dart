@@ -21,9 +21,9 @@ import 'package:chapbox/services/cart_service.dart';
 import 'package:web_socket_channel/io.dart';
 
 class CartScreen extends StatefulWidget {
-  //required Cart $userCart;
-  Cart? $userCart;
-  CartScreen({super.key, /*required*/ this.$userCart});
+  //required Cart userCart;
+  Cart? userCart;
+  CartScreen({super.key, /*required this.userCart,*/ this.userCart});
 
   @override
   _CartScreenState createState() => _CartScreenState();
@@ -191,3 +191,32 @@ class _CartScreenState extends State<CartScreen> {
   }
 }
 //List<Ad> _ads = rawData.map<Ad>((Map<String, dynamic> e) => Ad.fromJson(e)).toList() as List<Ad>;
+
+
+/*
+late Future<Cart> _cartFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _cartFuture = _loadCart();
+  }
+
+  Future<Cart> _loadCart() async {
+    if (widget.userCart != null) return widget.userCart!;
+    
+    // Fallback API call si le panier n'est pas passé
+    return await CartService.getUserCart(widget.user!.id);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Cart>(
+      future: _cartFuture,
+      builder: (context, snapshot) {
+        // Gérer le loading/erreur/affichage
+      },
+    );
+  }
+}
+ */

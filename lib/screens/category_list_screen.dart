@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chapbox/configs/styles.dart';
+import 'package:chapbox/configs/const.dart';
 import 'package:chapbox/models/category.dart';
 import 'package:chapbox/screens/products_by_category_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
   Future<List<Category>> fetchCategories() async {
     try {
       final response =
-          await http.get(Uri.parse("http://localhost:8001/api/categories"));
+          //await http.get(Uri.parse("http://localhost:8001/api/categories"));
+          await http.get(Uri.parse("$baseUrl/categories"));
 
       if (response.statusCode == 200) {
         final decodedData = jsonDecode(response.body);

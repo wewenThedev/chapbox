@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:chapbox/configs/const.dart';
+
+
 class SupermarketDetailsScreen extends StatelessWidget {
   final int supermarketId;
   /*final String supermarketName;

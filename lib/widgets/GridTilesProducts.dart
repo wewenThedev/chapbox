@@ -104,3 +104,14 @@ class GridTilesProducts extends StatelessWidget {
 
 
 */
+/*
+cd android
+./gradlew clean
+cd ..
+flutter clean
+flutter pub get
+
+flutter upgrade
+flutter doctor --android-licenses
+
+ */

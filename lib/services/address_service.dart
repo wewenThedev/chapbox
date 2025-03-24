@@ -53,8 +53,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:chapbox/models/address.dart';
 
+import 'package:chapbox/configs/const.dart';
+
+
 class AddressService {
-  static const String _baseUrl = 'https://votre-api.com/api';
+  static const String _baseUrl = baseUrl;
   final String? authToken;
 
   AddressService({this.authToken});

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:chapbox/configs/const.dart';
 
 
 
@@ -31,7 +32,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _fetchProfile() async {
     // Remplace par l'URL de ton API
-    final response = await http.get(Uri.parse('https://api.example.com/user/profile'));
+    //final response = await http.get(Uri.parse('https://api.example.com/user/profile'));
+    final response = await http.get(Uri.parse('$baseUrl/user/profile'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

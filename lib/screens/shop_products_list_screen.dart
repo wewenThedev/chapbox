@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:chapbox/configs/const.dart';
+
 
 //import models
 //replace sueprmarketId by shopId
@@ -34,7 +36,8 @@ class _ProductListingPageState extends State<ProductListingPage> {
     });
 
     // Remplace par l'URL de ton API
-    final response = await http.get(Uri.parse('https://api.example.com/products?supermarket_id=${widget.supermarketId}&page=$page'));
+    //final response = await http.get(Uri.parse('https://api.example.com/products?supermarket_id=${widget.supermarketId}&page=$page'));
+    final response = await http.get(Uri.parse('$baseUrl/products?supermarket_id=${widget.supermarketId}&page=$page'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

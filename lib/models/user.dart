@@ -88,6 +88,11 @@ class User {
       user.picture = Media.fromJson(json['picture']);
     }
 
+    ///added by me
+    if (json['cart'] != null) {
+      user.cart = Cart.fromJson(json['cart']);
+    }
+
     return user;
   }
 

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:chapbox/screens/product_details_screen.dart';
+import 'package:chapbox/configs/const.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -28,7 +29,8 @@ class _SearchScreenState extends State<SearchScreen> {
     });
 
     // Remplace par l'URL de ton API de recherche
-    final response = await http.get(Uri.parse('https://127.0.0.1:8000/api/search?query=$query'));
+    //final response = await http.get(Uri.parse('https://127.0.0.1:8000/api/search?query=$query'));
+    final response = await http.get(Uri.parse('$baseUrl/search?query=$query'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

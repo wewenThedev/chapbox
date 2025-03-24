@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:chapbox/lib/configs/const.dart';
+
 import 'package:chapbox/models/order.dart';
 
 class OrderTrackingPage extends StatefulWidget {
@@ -22,7 +24,8 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
 
   // Méthode pour récupérer les commandes depuis l'API
   Future<void> _fetchOrders() async {
-    final response = await http.get(Uri.parse('http://localhost:8001/api/orders'));
+    //final response = await http.get(Uri.parse('http://localhost:8001/api/orders'));
+    final response = await http.get(Uri.parse('$baseUrl/orders'));
     
     if (response.statusCode == 200) {
       final List<dynamic> results = json.decode(response.body);

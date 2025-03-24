@@ -1,4 +1,5 @@
 import 'package:chapbox/configs/styles.dart';
+import 'package:chapbox/models/cart.dart';
 import 'package:chapbox/models/user.dart';
 import 'package:chapbox/screens/cart_screen.dart';
 import 'package:chapbox/screens/home_screen.dart';
@@ -13,9 +14,10 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class BaseScaffold extends StatefulWidget {
-  User? $userConnected;
+  final User? userConnected;
+  final Cart? userConnectedCart;
 
-  BaseScaffold({super.key, this.$userConnected});
+  const BaseScaffold({super.key, this.userConnected, this.userConnectedCart});
 
   @override
   State<BaseScaffold> createState() => _BaseScaffoldState();
@@ -27,20 +29,26 @@ class _BaseScaffoldState extends State<BaseScaffold> {
 
   int _selectedIndex = 0;
 
-  final List<Widget> _pages = [
+  /*final List<Widget> _pages = [
     HomeScreen(),
-    CartScreen(),
+    CartScreen(
+      $userCart: _userConnectedCart,
+    ),
     SearchScreen(),
     SettingsScreen(),
     //MapScreen()
-  ];
-
-/*final List<String> _titles = [
-    "Accueil",
-    "Recherche",
-    "Panier",
-    "Paramètres"
   ];*/
+
+  // Déplacez la liste des pages dans le build pour avoir accès aux props
+  List<Widget> get _pages => [
+        HomeScreen(userConnected: widget.userConnected),
+        CartScreen(
+          userCart: widget.userConnectedCart,
+          //user: widget.userConnected,
+        ),
+        SearchScreen(/*user: widget.userConnected*/),
+        SettingsScreen(/*user: widget.userConnected*/),
+      ];
 
   _onItemTapped(int index) {
     setState(() {

@@ -1,10 +1,12 @@
+import 'package:chapbox/configs/const.dart';
 import 'package:chapbox/models/media.dart';
 import 'package:chapbox/models/shop.dart';
 import 'package:chapbox/models/supermarket.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-const String apiUrl = "http://127.0.0.1:8001/api";
+//const String apiUrl = "http://127.0.0.1:8001/api";
+const String apiUrl = baseUrl;
 
 class SupermarketService {
   static Future<List<Supermarket>> fetchSupermarkets() async {
@@ -70,7 +72,7 @@ class SupermarketService {
 
   static Future<List<Supermarket>> _fetchSupermarkets() async {
     final response =
-        await http.get(Uri.parse('https://api.example.com/supermarkets'));
+        await http.get(Uri.parse('$apiUrl/supermarkets'));
 
     if (response.statusCode == 200) {
       return (jsonDecode(response.body) as List)
@@ -84,7 +86,7 @@ class SupermarketService {
     if (ids.isEmpty) return [];
 
     final response = await http.get(
-      Uri.parse('https://api.example.com/medias?ids=${ids.join(',')}'),
+      Uri.parse('apiUrl/medias?ids=${ids.join(',')}'),
     );
 
     if (response.statusCode == 200) {

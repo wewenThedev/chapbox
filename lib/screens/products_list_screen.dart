@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chapbox/services/product_service.dart';
+import 'package:chapbox/configs/const.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -9,6 +10,8 @@ class ProductListScreen extends StatefulWidget {
 }
 
 class _ProductListScreenState extends State<ProductListScreen> {
+  
+  /*
   List<Map<String, dynamic>> products = [];
 
   @override
@@ -27,6 +30,28 @@ class _ProductListScreenState extends State<ProductListScreen> {
     await ProductService.fetchAndCacheProducts();
     List<Map<String, dynamic>> updatedProducts = await ProductService.getCachedProducts();
     setState(() => products = updatedProducts);
+  }*/
+
+  List products = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchProducts();
+  }
+
+  Future<void> fetchProducts() async {
+    final response = await http.get(Uri.parse("https://ton-api.com/api/products"));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        products = json.decode(response.body);
+        isLoading = false;
+      });
+    } else {
+      throw Exception("Erreur lors du chargement des produits");
+    }
   }
 
   @override

@@ -54,8 +54,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       body: Center(
         child: ScaleTransition(
           scale: _animation,
-          child: Image.asset(
-            'logos/logo_chapbox_pin.png',
+          //child: Image.asset(
+          child: Image(
+            image: AssetImage(
+            'assets/logos/logo_chapbox_pin.png',),
             width: 240, // Largeur de l'image
             height: 240, // Hauteur de l'image
             fit: BoxFit.contain, // Ajuste le contenu de l'image à ses dimensions

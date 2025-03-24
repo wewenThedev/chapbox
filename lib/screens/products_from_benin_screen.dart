@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:chapbox/configs/styles.dart';
+import 'package:chapbox/configs/const.dart';
 import 'package:chapbox/services/product_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,23 +17,24 @@ class ProductsFromBeninScreen extends StatefulWidget {
 
 class _ProductsFromBeninScreenState extends State<ProductsFromBeninScreen> {
   //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+/*
   void fetchProducts() async {
     List<dynamic> products = await ProductService.getProducts();
     print(products);
   }
 
   List products = [];
-
+*/
   @override
   void initState() {
     super.initState();
-    fetchLocalProducts();
+    //fetchLocalProducts();
   }
-
+/*
   Future<void> fetchLocalProducts() async {
     final response = await http.get(Uri.parse(
-        "http://127.0.0.1/api/shopsAndProducts/findBenineseProducts"));
+        //"http://127.0.0.1/api/shopsAndProducts/findBenineseProducts"));
+        "$baseUrl/shopsAndProducts/findBenineseProducts"));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -41,7 +43,7 @@ class _ProductsFromBeninScreenState extends State<ProductsFromBeninScreen> {
     } else {
       throw Exception("Échec du chargement des produits");
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,11 @@ class _ProductsFromBeninScreenState extends State<ProductsFromBeninScreen> {
         backgroundColor: primaryColorLight,
         elevation: 2.0,
       ),
-      body: products.isEmpty
+      body:  Center(
+child: Text('Produits fabriqués au Bénin'),
+        )
+      );
+      /*products.isEmpty
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: products.length,
@@ -69,6 +75,6 @@ class _ProductsFromBeninScreenState extends State<ProductsFromBeninScreen> {
                 );
               },
             ),
-    );
+    );*/
   }
 }

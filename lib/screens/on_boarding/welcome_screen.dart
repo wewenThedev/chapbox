@@ -67,7 +67,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           ),
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('images/delivery-woman-in-red-uniform-box.jpg'),
+              image: AssetImage('assets/images/delivery-woman-in-red-uniform-box.jpg'),
               fit: BoxFit.cover,
             ),
           ),

@@ -1,12 +1,15 @@
 import 'package:chapbox/database_helper.dart';
+import 'package:chapbox/configs/const.dart';
 import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
 import 'dart:convert';
 import 'package:web_socket_channel/io.dart';
 
 
+
+
 class NotificationService {
-  static const String apiUrl = "http://127.0.0.0:8001/api";
+  static const String apiUrl = baseUrl;
 
   static Future<List<dynamic>> getUserNotifications(int userId) async {
     final response = await http.get(Uri.parse('$apiUrl/notifications/$userId'));
@@ -20,11 +23,11 @@ class NotificationService {
 
   /*static Future<void> markAsRead(int notificationId) async {
     await http.put(Uri.parse('$apiUrl/notifications/read/$notificationId'));
-  }*/
+  }
 
   static IOWebSocketChannel connectWebSocket() {
     return IOWebSocketChannel.connect('ws://127.0.0.0:6001/notifications');
-  }
+  }*/
 
   /// Récupérer les notifications de l'API et les stocker localement
   static Future<void> fetchAndCacheNotifications(int userId) async {

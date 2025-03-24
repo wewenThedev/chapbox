@@ -30,9 +30,9 @@ class _CustomAppBarWithBackState extends State<CustomAppBarWithBack> {
     return AppBar(
       /*backgroundColor: primaryColorLight,
       foregroundColor: Colors.white,*/
-      elevation: 2.0,
+      //elevation: 2.0,
       leading: IconButton(
-        icon: Icon(/*Iconsax.arrow_left*/ Iconsax.arrow_square_left_copy,
+        icon: Icon(/*Iconsax.arrow_left*/ Iconsax.arrow_left_copy,
             color: appGrey, size: 35.0),
         onPressed: () {
           // back
@@ -49,7 +49,7 @@ class _CustomAppBarWithBackState extends State<CustomAppBarWithBack> {
       title: Text(
         widget.title,
         //style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        style: ChapboxTheme.lightTheme.textTheme.headlineLarge,
+        style: ChapboxTheme.lightTheme.textTheme.headlineSmall,
       ),
       centerTitle: true, // Centre le titre au milieu de la barre d'applications
       actions: [

@@ -33,8 +33,8 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _getDeviceId();
-    NotificationHelper.initNotifications();
-    checkLastVisit();
+    //NotificationHelper.initNotifications();
+    //checkLastVisit();
   }
 
   // Fonction pour récupérer le Device ID
@@ -66,6 +66,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+/*
   void checkLastVisit() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? lastVisit = prefs.getString('last_visit');
@@ -81,7 +82,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     await prefs.setString('last_visit', DateTime.now().toIso8601String());
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

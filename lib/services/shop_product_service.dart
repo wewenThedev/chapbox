@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:chapbox/services/api_service.dart';
+import 'package:chapbox/configs/const.dart';
 
 
 
@@ -37,7 +38,7 @@ class ShopProductService {
 import 'package:http/http.dart' as http;
 
 class ProductService {
-  static const String apiUrl = "http://127.0.0.0:8001/api/products";
+  static const String apiUrl = "$baseUrl/products";
 
   /// Récupérer les produits depuis l'API et les stocker en cache
   static Future<void> fetchAndCacheProducts() async {

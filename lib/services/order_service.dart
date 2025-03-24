@@ -2,6 +2,7 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 import 'package:chapbox/services/api_service.dart';
+import 'package:chapbox/configs/const.dart';
 
 
 class OrderService {
@@ -49,7 +50,7 @@ class OrderService {
     "shipping_address" : data['shipping_address'],
   };
 
-  final url = '127.0.0.1:8001/api/orders';
+  final url = '$baseUrl/orders';
   final uri = Uri.parse(url);
   final response = await http.post(uri, headers: {
 

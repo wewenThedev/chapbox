@@ -1,5 +1,6 @@
 import 'package:chapbox/configs/styles.dart';
 import 'package:chapbox/screens/on_boarding/steps_screen.dart';
+import 'package:chapbox/widgets/base_scaffold.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
@@ -61,15 +62,27 @@ class _LoginScreenState extends State<LoginScreen> {
       await prefs.setString('token', token);*/
 
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Connexion réussie"),
+        content: Text(
+          "Connexion réussie",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: primaryColor,
       ));
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OtpScreen()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => /*OtpScreen()*/ BaseScaffold()));
     } else {
       _showErrorDialog('Connexion échouée');
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Identifiants de connexion incorrects"),
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Identifiants de connexion incorrects",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -222,6 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         alignment: Alignment.center,
                         child: TextButton(
                             onPressed: () {
+                              //login
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

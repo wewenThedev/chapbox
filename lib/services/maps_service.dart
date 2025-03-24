@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:chapbox/configs/const.dart';
+
+
 //import 'package:flutter_map/flutter_map.dart' /*as flutter_map*/;
 
 class MapService {
-  static const String apiUrl = "http://127.0.0.1:8001/api/locations";
+  static const String apiUrl = "$baseUrl/locations";
 
   static Future<List<Marker>> fetchMarkers() async {
     final response = await http.get(Uri.parse(apiUrl));
@@ -74,9 +77,12 @@ class MapService {
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:chapbox/configs/const.dart';
+
 
 class MapsService {
-  static const String _baseUrl = 'https://maps.googleapis.com/maps/api';
+  //static const String _baseUrl = 'https://maps.googleapis.com/maps/api';
+  static const String _baseUrl = baseUrl;
   final String apiKey;
 
   MapsService({required this.apiKey});

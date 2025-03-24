@@ -6,6 +6,9 @@ import 'package:chapbox/widgets/custom_appBar_with_back.dart';
 import 'package:chapbox/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
 
+import 'package:chapbox/configs/const.dart';
+
+
 class SupermarketListScreen extends StatefulWidget {
   const SupermarketListScreen({super.key});
 

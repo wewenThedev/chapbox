@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:chapbox/database_helper.dart';
 import 'package:http/http.dart' as http;
 import 'package:chapbox/services/api_service.dart';
+import 'package:chapbox/configs/const.dart';
+
 
 import 'package:sqflite/sqflite.dart';
 
 class ProductService {
-  static const String apiUrl = "http://127.0.0.1:8001/api";
+  static const String apiUrl = baseUrl;
 
+/*
   static Future<List<dynamic>> getProducts() async {
     final response = await ApiService.get("products");
     return jsonDecode(response.body);
@@ -47,8 +50,8 @@ class ProductService {
 
   static Future<void> fetchAndCacheProducts() async {
 
-  //final response = await http.get(Uri.parse(apiUrl));
-  final response = await http.get(Uri.parse("http://127.0.0.1:8001/api/products"));
+  final response = await http.get(Uri.parse('$apiUrl/products'));
+  //final response = await http.get(Uri.parse("http://127.0.0.1:8001/api/products"));
 
   if (response.statusCode == 200) {
     List<dynamic> products = jsonDecode(response.body);
@@ -80,5 +83,5 @@ class ProductService {
 }
 
   static getCachedProducts() {}
-
+*/
 }

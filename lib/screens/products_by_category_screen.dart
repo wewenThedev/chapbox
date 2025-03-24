@@ -5,6 +5,9 @@ import 'dart:convert';
 
 //import model
 
+import 'package:chapbox/configs/const.dart'; // Import du fichier const
+
+
 //vérifier la fin du fichier pour les mises à jour
 
 class ProductsByCategoryScreen extends StatefulWidget {
@@ -40,7 +43,8 @@ class _ProductsByCategoryScreenState extends State<ProductsByCategoryScreen> {
     // Remplace par l'URL de ton API
     //final response = await http.get(Uri.parse('https://api.example.com/products?category_id=${widget.categoryId}'));
     final response = await http.get(Uri.parse(
-        'http://127.0.0.1:8001/api/categories/${widget.categoryId}/products'));
+        //'http://127.0.0.1:8001/api/categories/${widget.categoryId}/products'));
+        '$baseUrl/categories/${widget.categoryId}/products'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

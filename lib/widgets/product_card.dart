@@ -1,5 +1,10 @@
+import 'package:chapbox/configs/const.dart';
 import 'package:chapbox/configs/styles.dart';
 import 'package:chapbox/configs/themes.dart';
+import 'package:chapbox/models/cart.dart';
+import 'package:chapbox/models/product.dart';
+import 'package:chapbox/models/shop.dart';
+import 'package:chapbox/models/shopProduct.dart';
 import 'package:chapbox/screens/category_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -9,9 +14,14 @@ import 'package:http/http.dart' as http;
 import 'package:device_info_plus/device_info_plus.dart';
 
 class ProductCard extends StatefulWidget {
-  final Map<String, dynamic> product;
+  //final Map<String, dynamic> product;
+  ///final ShopProduct product; //meilleure alternative??
+  final Product product;
+  final Shop? shop;
+  final Cart? userCart;
 
-  const ProductCard({Key? key, required this.product}) : super(key: key);
+  const ProductCard({Key? key, required this.product, this.shop, this.userCart})
+      : super(key: key);
 
   @override
   _ProductCardState createState() => _ProductCardState();
@@ -24,7 +34,7 @@ class _ProductCardState extends State<ProductCard> {
   @override
   void initState() {
     super.initState();
-    getDeviceId();
+    //getDeviceId();
   }
 
   // 🔹 Récupérer le Device ID
@@ -41,10 +51,13 @@ class _ProductCardState extends State<ProductCard> {
     if (deviceId.isEmpty) return;
 
     final response = await http.post(
-      Uri.parse("https://ton-api.com/api/cart/add"),
+      Uri.parse("$baseUrl/cart/add"),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode(
-          {"product_id": widget.product['id'], "device_id": deviceId}),
+      body: jsonEncode({
+        "product_id": widget.product.id,
+        //"shop_id": widget.product.shop['id'],
+        "device_id": deviceId
+      }),
     );
 
     if (response.statusCode == 200) {
@@ -67,7 +80,8 @@ class _ProductCardState extends State<ProductCard> {
           children: [
             // Image Produit
             Image.network(
-              widget.product['image_url'],
+              //widget.product['image_url'],
+              '',
               width: 80,
               height: 80,
               fit: BoxFit.cover,
@@ -80,10 +94,11 @@ class _ProductCardState extends State<ProductCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.product['name'],
+                  Text('Produit 1', //widget.product['name'],
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  Text("\$${widget.product['price']}",
+                  Text("5000 FCFA",
+                      //Text("\$${widget.product['price']}",
                       style: TextStyle(fontSize: 14, color: Colors.green)),
                 ],
               ),
@@ -103,7 +118,7 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 }
-
+/*
 class ProductCard extends StatelessWidget {
   //ShopProduct shopProduct;
   const ProductCard({super.key});
@@ -141,6 +156,10 @@ class ProductCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10.0),
                         //borderRadius: BorderRadius.right(10.0),
                       ),
+                      // Image Produit
+            Image.network(
+              //widget.product['image_url'],
+              ''),
                       //child: Image.network(src, width: media.width * 0.3),
                       child: Image.asset(
                         'images/productsImages/kitkat_nestle_paysage.jpg',
@@ -217,6 +236,12 @@ class ProductCard extends StatelessWidget {
                   isOutlined = !isOutlined; // Basculer entre Outlined et Linear
                 });*/
                     },
+                    icon: Icon(
+                isAddedToCart ? Icons.check_circle : Iconsax
+                        .add_square_copy,
+                color: isAddedToCart ? primayColor : Colors.blue,
+              ),
+              onPressed: addToCart,
                     icon: Icon(Iconsax
                         .add_square_copy) /*Icon( Iconsax.tick_square_copy)*/ /*Icon(Iconsax.archive_add_copy)*/,
                     /* isOutlined ? Iconsax.home_outline : Iconsax.home_linear, */
@@ -238,3 +263,5 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
+
+*/

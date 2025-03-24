@@ -20,6 +20,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       deletedAt: json['deleted_at'] == null
           ? null
           : DateTime.parse(json['deleted_at'] as String),
+      //added by me
+      cart: json['cart'] as Cart,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{

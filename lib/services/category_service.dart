@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:chapbox/models/category.dart';
+import 'package:chapbox/configs/const.dart';
 import 'package:chapbox/services/api_service.dart';
 
 class CategoryService {
@@ -21,8 +22,8 @@ static Future<Map<String, dynamic>> getCategory(int id) async {
 Future<List<Category>> fetchAllCategories() async {
 
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8001/api/categories'),
-    //Uri.parse('$baseUrl/categories'),
+    //Uri.parse('http://127.0.0.1:8001/api/categories'),
+    Uri.parse('$baseUrl/categories'),
   );
 
   if (response.statusCode == 200) {
@@ -39,8 +40,8 @@ Future<List<Category>> fetchAllCategories() async {
 Future<List<Category>> fetchCategoriesByShop(int shopId) async {
 
   final response = await http.get(
-    Uri.parse('http://127.0.0.1:8001/api/$shopId/categories'),
-    //Uri.parse('$baseUrl/$shopId/categories'),
+    //Uri.parse('http://127.0.0.1:8001/api/$shopId/categories'),
+    Uri.parse('$baseUrl/$shopId/categories'),
   );
 
   if (response.statusCode == 200) {

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:chapbox/configs/const.dart';
+
+
 class SupermarketShopsListScreen extends StatefulWidget {
   const SupermarketShopsListScreen({super.key});
 

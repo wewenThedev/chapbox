@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:chapbox/configs/const.dart';
+
+
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
@@ -36,7 +39,7 @@ class _CartPageState extends State<CartPage> {
     },
   ];
 
-  String apiUrl = "https://example.com/api"; // URL de base de ton API Laravel
+  //String apiUrl = "https://example.com/api"; // URL de base de ton API Laravel
 
   double getTotal() {
     return cartItems.fold(0.0, (total, item) => total + (item['price'] * item['quantity']));
@@ -45,7 +48,7 @@ class _CartPageState extends State<CartPage> {
   // Fonction pour envoyer la modification de la quantité au serveur
   Future<void> updateQuantity(int index, int newQuantity) async {
     final item = cartItems[index];
-    final url = Uri.parse('$apiUrl/cart/${item['id']}');
+    final url = Uri.parse('$baseUrl/cart/${item['id']}');
     
     final response = await http.put(
       url,
@@ -67,7 +70,7 @@ class _CartPageState extends State<CartPage> {
   // Fonction pour supprimer un produit du panier côté serveur
   Future<void> removeItemFromCart(int index) async {
     final item = cartItems[index];
-    final url = Uri.parse('$apiUrl/cart/${item['id']}');
+    final url = Uri.parse('$baseUrl/cart/${item['id']}');
 
     final response = await http.delete(url);
 
