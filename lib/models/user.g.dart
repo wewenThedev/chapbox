@@ -11,8 +11,9 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       firstname: json['firstname'] as String,
       lastname: json['lastname'] as String,
       username: json['username'] as String,
-      phone: json['phone'] as String?,
-      email: json['email'] as String?,
+      password: json['password'] as String,
+      phone: json['phone'] as String,
+      email: json['email'] as String,
       profileId: (json['profile_id'] as num).toInt(),
       pictureId: (json['picture_id'] as num?)?.toInt(),
       createdAt: json['created_at'] == null
@@ -24,6 +25,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       deletedAt: json['deleted_at'] == null
           ? null
           : DateTime.parse(json['deleted_at'] as String),
+      profile: Profile.fromJson(json['profile'] as Map<String, dynamic>),
       cart: Cart.fromJson(json['cart'] as Map<String, dynamic>),
     );
 

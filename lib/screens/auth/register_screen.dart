@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:chapbox/models/cart.dart';
 import 'package:chapbox/widgets/base_scaffold.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:json_serializable/json_serializable.dart';
 
 import 'package:chapbox/configs/styles.dart';
 import 'package:chapbox/configs/themes.dart';
@@ -59,6 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }*/
 
   Future<void> _register() async {
+    print("nom: $_fnController");
     if (_formKey.currentState!.validate()) {
       // Vérification de la correspondance des mots de passe
       if (_pwdController.text != _confirmPwdController.text) {

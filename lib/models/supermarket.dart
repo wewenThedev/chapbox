@@ -108,7 +108,12 @@ class Supermarket {
     }
 
     if (json['shops'] != null) {
-      supermarket.shops = Shop.fromJson(json['shops']);
+      final List<dynamic> shopList = json['shops'] as List<dynamic>;
+      supermarket.shops = shopList
+          .map((shopJson) => Shop.fromJson(shopJson as Map<String, dynamic>))
+          .toList();
+
+      //supermarket.shops = (json['shops'] as List)?.map((e) => Shop.fromJson(e));
     }
 
     return supermarket;

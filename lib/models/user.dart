@@ -21,14 +21,14 @@ class User {
   final String username;
 
   @JsonKey(name: 'phone')
-  final String? phone;
+  final String phone;
 
   @JsonKey(name: 'email')
-  final String? email;
+  final String email;
 
   @JsonKey(
       name: 'password', ignore: true) // Ne jamais sérialiser le mot de passe
-  final String? password;
+  final String password;
 
   // Relations
   @JsonKey(name: 'profile_id')
@@ -38,7 +38,7 @@ class User {
   final int? pictureId;
 
   @JsonKey(ignore: true)
-  Profile? profile;
+  Profile profile;
 
   @JsonKey(ignore: true)
   Media? picture;
@@ -61,12 +61,12 @@ class User {
     required this.firstname,
     required this.lastname,
     required this.username,
-    this.phone,
-    this.email,
-    this.password,
+    required this.phone,
+    required this.email,
+    required this.password,
     required this.profileId,
     this.pictureId,
-    this.profile,
+    required this.profile,
     this.picture,
     this.createdAt,
     this.updatedAt,
