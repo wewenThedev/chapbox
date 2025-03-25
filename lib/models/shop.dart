@@ -51,8 +51,8 @@ class Shop {
   final DateTime? deletedAt;
 
   //final List<String> images;
-  final List<Media>? images;
-  final List<Product>? products;
+  List<Media>? images;
+  List<Product>? products;
   @JsonKey(ignore: true)
   List<ShopProduct>? shopProducts;
 
@@ -91,6 +91,31 @@ class Shop {
     if (json['shop_manager'] != null) {
       shop.shopManager = User.fromJson(json['shop_manager']);
     }
+
+    if (json['address'] != null) {
+      shop.address = Address.fromJson(json['address']);
+    }
+
+//liste
+    if (json['media'] != null) {
+      final List<dynamic> imagesList = json['media'] as List<dynamic>;
+      shop.images = imagesList
+          .map((imageJson) => Media.fromJson(imageJson as Map<String, dynamic>))
+          .toList();
+    }
+
+//liste
+    if (json['products'] != null) {
+      final List<dynamic> productsList = json['products'] as List<dynamic>;
+      shop.products = productsList
+          .map((productJson) =>
+              Product.fromJson(productJson as Map<String, dynamic>))
+          .toList();
+    }
+/*
+    if (json['shop_manager'] != null) {
+      shop.shopManager = User.fromJson(json['shop_manager']);
+    }*/
 
     return shop;
   }

@@ -1,8 +1,6 @@
 import 'package:chapbox/models/supermarket.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:chapbox/models/promo.dart';
-
 //part 'generated/promo.g.dart';
 part 'promo.g.dart';
 

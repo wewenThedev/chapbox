@@ -40,16 +40,16 @@ class Product {
 
   // Timestamps
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
 
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
 
   @JsonKey(ignore: true)
-  final List<Media>? images;
+  List<Media>? images;
 
   Product({
     required this.id,
@@ -78,6 +78,15 @@ class Product {
 
     if (json['category'] != null) {
       product.category = Category.fromJson(json['category']);
+    }
+
+    if (json['media'] != null) {
+      //product.images = Category.fromJson(json['category']);
+
+      final List<dynamic> imagesList = json['media'] as List<dynamic>;
+      product.images = imagesList
+          .map((mediaJson) => Media.fromJson(mediaJson as Map<String, dynamic>))
+          .toList();
     }
 
     return product;

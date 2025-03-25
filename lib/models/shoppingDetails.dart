@@ -39,16 +39,16 @@ class ShoppingDetails {
 
   // Objets liés
   @JsonKey(ignore: true)
-  Cart cart;
+  Cart? cart;
 
   @JsonKey(ignore: true)
   Order? order;
 
   @JsonKey(ignore: true)
-  Shop shop;
+  Shop? shop;
 
   @JsonKey(ignore: true)
-  Product product;
+  Product? product;
 
   // Timestamps
   @JsonKey(name: 'created_at')
@@ -69,10 +69,10 @@ class ShoppingDetails {
     required this.addedAt,
     required this.quantity,
     required this.cost,
-    required this.cart,
+    this.cart,
     this.order,
-    required this.shop,
-    required this.product,
+    this.shop,
+    this.product,
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
@@ -104,7 +104,7 @@ class ShoppingDetails {
   }*/
 
   // Méthode pour mettre à jour la quantité
-  /*ShoppingDetails copyWithQuantity(int newQuantity) {
+  ShoppingDetails copyWithQuantity(int newQuantity) {
     return ShoppingDetails(
       id: id,
       cartId: cartId,
@@ -116,10 +116,10 @@ class ShoppingDetails {
       cost: cost,
       createdAt: createdAt,
       updatedAt: DateTime.now(),
-      deletedAt: deletedAt, 
-      cart:,
-      shop: , 
-      product: ,
+      deletedAt: deletedAt,
+      cart: cart,
+      shop: shop,
+      product: product,
     );
-  }*/
+  }
 }

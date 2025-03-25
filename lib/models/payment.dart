@@ -51,10 +51,10 @@ class Payment {
 
   // Timestamps
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
 
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
@@ -72,8 +72,8 @@ class Payment {
     this.method,
     this.promo,
     this.invoice,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
     this.deletedAt,
   });
 
@@ -82,9 +82,10 @@ class Payment {
 
     // Hydrate les relations
     if (json['order'] != null) payment.order = Order.fromJson(json['order']);
-    if (json['method'] != null)
-      payment.method = PaymentMethod.fromJson(json['method']);
-    if (json['promo'] != null) payment.promo = Promo.fromJson(json['promo']);
+    if (json['payment_method'] != null)
+      payment.method = PaymentMethod.fromJson(json['payment_method']);
+    if (json['code_promo'] != null)
+      payment.promo = Promo.fromJson(json['code_promo']);
     if (json['invoice'] != null)
       payment.invoice = Invoice.fromJson(json['invoice']);
 
@@ -103,7 +104,7 @@ class Payment {
   Duration get processingDuration {
     if (paidAt == null || status != PaymentStatus.successful)
       return Duration.zero;
-    return paidAt!.difference(createdAt);
+    return paidAt!.difference(createdAt!);
   }
 
   Payment copyWithStatus(PaymentStatus newStatus) {

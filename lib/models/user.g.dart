@@ -11,7 +11,6 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       firstname: json['firstname'] as String,
       lastname: json['lastname'] as String,
       username: json['username'] as String,
-      password: json['password'] as String,
       phone: json['phone'] as String,
       email: json['email'] as String,
       profileId: (json['profile_id'] as num).toInt(),
@@ -25,8 +24,9 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       deletedAt: json['deleted_at'] == null
           ? null
           : DateTime.parse(json['deleted_at'] as String),
-      profile: Profile.fromJson(json['profile'] as Map<String, dynamic>),
-      cart: Cart.fromJson(json['cart'] as Map<String, dynamic>),
+      cart: json['cart'] == null
+          ? null
+          : Cart.fromJson(json['cart'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -38,9 +38,9 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'email': instance.email,
       'profile_id': instance.profileId,
       if (instance.pictureId case final value?) 'picture_id': value,
-      'created_at': instance.createdAt!.toIso8601String(),
-      'updated_at': instance.updatedAt!.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
       if (instance.deletedAt?.toIso8601String() case final value?)
         'deleted_at': value,
-      'cart': instance.cart.toJson(),
+      if (instance.cart?.toJson() case final value?) 'cart': value,
     };

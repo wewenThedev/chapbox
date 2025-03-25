@@ -38,7 +38,8 @@ class User {
   final int? pictureId;
 
   @JsonKey(ignore: true)
-  Profile profile;
+  //final Profile? profile;
+  Profile? profile;
 
   @JsonKey(ignore: true)
   Media? picture;
@@ -54,7 +55,8 @@ class User {
   final DateTime? deletedAt;
 
   @JsonKey(name: 'cart', includeIfNull: false)
-  Cart cart;
+  //Cart? cart;
+  Cart? cart;
 
   User({
     required this.id,
@@ -63,10 +65,10 @@ class User {
     required this.username,
     required this.phone,
     required this.email,
-    required this.password,
+    this.password = '',
     required this.profileId,
     this.pictureId,
-    required this.profile,
+    this.profile,
     this.picture,
     this.createdAt,
     this.updatedAt,

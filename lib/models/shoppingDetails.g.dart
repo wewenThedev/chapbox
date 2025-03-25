@@ -37,8 +37,8 @@ Map<String, dynamic> _$ShoppingDetailsToJson(ShoppingDetails instance) =>
       'added_at': instance.addedAt.toIso8601String(),
       'quantity': instance.quantity,
       'cost': instance.cost,
-      'created_at': instance.createdAt!.toIso8601String(),
-      'updated_at': instance.updatedAt!.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
       if (instance.deletedAt?.toIso8601String() case final value?)
         'deleted_at': value,
     };
