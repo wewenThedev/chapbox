@@ -4,7 +4,8 @@ import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:chapbox/configs/styles.dart';
 
 class CustomLogoAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String logoPath = 'logos/logo_chapbox_pin.png'; // Le chemin du logo
+  final String logoPath =
+      'assets/logos/logo_chapbox_pin.png'; // Le chemin du logo comme étant AssetImage
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   // Le constructeur pour accepter le logo et la clé du Scaffold pour ouvrir le Drawer
@@ -20,10 +21,10 @@ class CustomLogoAppBar extends StatelessWidget implements PreferredSizeWidget {
           scaffoldKey.currentState?.openDrawer(); // Ouvre le Drawer
         },
       ),*/
-      title: Image.asset(
-        logoPath, // Le chemin de ton logo
-        height: 90, // Taille du logo (ajustable selon ton besoin)
-        //fit: BoxFit.contain,
+      title: Image(
+        image: AssetImage(logoPath),
+        height: 90,
+        fit: BoxFit.contain,
       ),
       centerTitle: true, // Centre le logo au milieu de l'AppBar
       actions: [

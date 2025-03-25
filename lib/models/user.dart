@@ -1,8 +1,6 @@
 import 'package:chapbox/models/cart.dart';
 import 'package:chapbox/models/profile.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'package:chapbox/models/user.dart';
 import 'package:chapbox/models/media.dart';
 
 part 'user.g.dart';
@@ -47,10 +45,10 @@ class User {
 
   // Timestamps
   @JsonKey(name: 'created_at')
-  final DateTime createdAt;
+  final DateTime? createdAt;
 
   @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
+  final DateTime? updatedAt;
 
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
@@ -70,8 +68,8 @@ class User {
     this.pictureId,
     this.profile,
     this.picture,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
     this.deletedAt,
     required this.cart,
   });

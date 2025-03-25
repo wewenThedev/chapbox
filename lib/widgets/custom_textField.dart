@@ -1,10 +1,7 @@
 import 'package:chapbox/configs/themes.dart';
 import 'package:flutter/material.dart';
 
-//enum FieldType { name, email, phoneNumber, password }
-
 class MyTextField extends StatelessWidget {
-  //final String? labelName;
   final TextEditingController controller;
   final String hintText;
   final bool isTextObscure;
@@ -16,7 +13,6 @@ class MyTextField extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.hintText,
-      //required this.labelName,
       this.isTextObscure = false,
       //this.validator,
       required this.type});
@@ -26,6 +22,28 @@ class MyTextField extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5.0),
       child: TextField(
+        keyboardType: type,
+        decoration: InputDecoration(
+          labelStyle: Theme.of(context).textTheme.bodyMedium,
+          hintText: hintText,
+        ),
+        style: ChapboxTheme.lightTheme.textTheme.bodySmall,
+        /*validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Ce champ ne peut pas etre vide";
+                    }
+                    return null;
+                  },*/
+        //strutStyle: StrutStyle.fromTextStyle(textStyle),
+      ),
+    );
+  }
+}
+
+
+
+//enum FieldType { name, email, phoneNumber, password }
+
         /*keyboardType: type == FieldType.name
             ? TextInputType.name
             : type == FieldType.email
@@ -35,22 +53,3 @@ class MyTextField extends StatelessWidget {
                     : type == FieldType.password
                         ? TextInputType.visiblePassword
                         : TextInputType.text,*/
-        keyboardType: type,
-        decoration: InputDecoration(
-          //label: Text.rich(textSpan),
-          labelStyle: Theme.of(context).textTheme.bodyMedium,
-          //labelText: labelName,
-          hintText: hintText,
-        ),
-        style: ChapboxTheme.lightTheme.textTheme.bodySmall,
-        /*validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter your email";
-                    }
-                    return null;
-                  },*/
-        //strutStyle: StrutStyle.fromTextStyle(textStyle),
-      ),
-    );
-  }
-}

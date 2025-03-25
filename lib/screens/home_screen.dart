@@ -7,6 +7,8 @@ import 'package:chapbox/configs/styles.dart';
 import 'package:chapbox/configs/themes.dart';
 import 'package:chapbox/models/category.dart';
 import 'package:chapbox/models/product.dart';
+import 'package:chapbox/models/product.dart';
+import 'package:chapbox/models/shopProduct.dart';
 import 'package:chapbox/models/user.dart';
 import 'package:chapbox/screens/address_list_screen.dart';
 import 'package:chapbox/screens/auth/login_screen.dart';
@@ -18,6 +20,7 @@ import 'package:chapbox/screens/promotions_list_screen.dart';
 import 'package:chapbox/screens/search_screen.dart';
 import 'package:chapbox/screens/supermarket_details_screen.dart';
 import 'package:chapbox/screens/supermarkets_list_screen.dart';
+import 'package:chapbox/services/category_service.dart';
 import 'package:chapbox/widgets/custom_appBar_with_logo.dart';
 import 'package:chapbox/widgets/custom_card.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Category> firstSixCategories = [];
   List<Product> localProducts = [];
+  //List<Category> topCategories = [];
   bool isLoading = true;
 
 //getUserCurrentPosition
@@ -82,29 +86,35 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Map<String, dynamic>> productsMadeInBenin = [];
 
-  fetchTopCategories() async {
-    //api/categories/top-categories
-    String $baseUrl = baseUrl;
-    /*final response = await http
-        .get(Uri.parse("http://127.0.0.1:8001/api/categories/top-categories"));*/
-    final response =
-        await http.get(Uri.parse("$baseUrl/categories/top-categories"));
-
-    if (response.statusCode == 200) {
+  Future<void> loadTopCategories() async {
+    try {
+      // Création de l'instance du service avec la baseUrl définie
+      List<Category> data = await CategoryService().fetchTopCategories();
       setState(() {
-        firstSixCategories = json.decode(response.body);
+        firstSixCategories = data;
         isLoading = false;
       });
-    } else {
-      throw Exception("Erreur lors du chargement des catégories");
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      // Vous pouvez afficher un SnackBar en cas d'erreur
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('$e'),
+          duration: Duration(seconds: 4), // La durée d'affichage du SnackBar
+          backgroundColor: ChapboxTheme
+              .lightTheme.colorScheme.primary, // Couleur du Snackbar
+        ),
+      );
     }
   }
 
-  //fetchproductsMadeInBenin() {} //api/products/local-products
+//fetchproductsMadeInBenin() {} //api/products/local-products
   Future<void> fetchLocalProducts() async {
-    final response = await http.get(Uri.parse(
-        "$baseUrl/shopsAndProducts/findBenineseProducts"));
-        //"http://127.0.0.1:8001/api/shopsAndProducts/findBenineseProducts"));
+    final response = await http
+        .get(Uri.parse("$baseUrl/shopsAndProducts/findBenineseProducts"));
+    //"http://127.0.0.1:8001/api/shopsAndProducts/findBenineseProducts"));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -143,8 +153,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    fetchTopCategories();
-
+    loadTopCategories();
+    fetchLocalProducts();
     /*_getUserLocation();
     _fetchSupermarkets(); //Appel API pour récupérer les supermarchés proches*/
   }
@@ -203,6 +213,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  double _calculateDistance(LatLng start, LatLng end) {
+    double distanceInMeters = Geolocator.distanceBetween(
+        start.latitude, start.longitude, end.latitude, end.longitude);
+    return distanceInMeters / 1000; // Convertir en kilomètres
+  }
+
   void _onMarkerTapped(Marker marker, Map<String, dynamic> supermarket) {
     setState(() {
       _selectedMarker = marker;
@@ -211,12 +227,6 @@ class _HomeScreenState extends State<HomeScreen> {
       _distance = _calculateDistance(_userLocation, supermarket['position']);
       _isPopupVisible = true;
     });
-  }
-
-  double _calculateDistance(LatLng start, LatLng end) {
-    double distanceInMeters = Geolocator.distanceBetween(
-        start.latitude, start.longitude, end.latitude, end.longitude);
-    return distanceInMeters / 1000; // Convertir en kilomètres
   }
 
   final List<String> supermarketLogos = [
@@ -461,25 +471,26 @@ Navigator.pop(context); // Ferme le Drawer
             ),
 
             //Static Section Carte Google Maps
-            Container(
-              height: 250.0,
-              width: double.infinity,
-              margin: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text('Votre carte'),
-              ),
-              /*ClipRRect(
+            GestureDetector(
+              child: Container(
+                height: 300.0,
+                width: double.infinity,
+                margin: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 3,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Text('Votre carte'),
+                ),
+                /*ClipRRect(
                 borderRadius: BorderRadius.circular(16.0),
                 child: GoogleMap(
                   initialCameraPosition: CameraPosition(
@@ -493,8 +504,10 @@ Navigator.pop(context); // Ferme le Drawer
                   },
                 ),
               ),*/
+              ),
             ),
-            /*Dynamic Section Google Maps
+
+            /*Dynamic Section for Google Maps
             Container(
               height: 300.0,
               width: double.infinity,
@@ -527,32 +540,71 @@ Navigator.pop(context); // Ferme le Drawer
             ),*/
 
             // Section des Catégories de Produits (défilement horizontal)
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                "Catégories",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Catégories",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CategoryListScreen()));
+                            },
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Voir plus',
+                                  //style: ChapboxTheme.lightTheme.textTheme.bodyLarge,
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w700,
+                                    color: primaryColorLight,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Icon(Icons.arrow_forward_ios,
+                                    color: primaryColor),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 16.0),
-//we are here to list just four or five first categories
+            //we are here to list just four or six first categories
             SizedBox(
               height: 100.0,
               child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: firstSixCategories.length,
-                itemBuilder: (context, index) {
-                  final topCategory = firstSixCategories[index];
-                  do {
+                  scrollDirection: Axis.horizontal,
+                  itemCount: firstSixCategories.length,
+                  itemBuilder: (context, index) {
+                    final topCategory = firstSixCategories[index];
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       /*height: ,
-                    width: ,
-                    constraints: BoxConstraints(),*/
+                        width: ,
+                        constraints: BoxConstraints(),*/
                       child: Column(
                         children: [
                           GestureDetector(
@@ -587,47 +639,7 @@ Navigator.pop(context); // Ferme le Drawer
                         ],
                       ),
                     );
-                  } while (index < firstSixCategories.length);
-                  return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    /*height: ,
-                    width: ,
-                    constraints: BoxConstraints(),*/
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CategoryListScreen()));
-                          },
-                          child: CircleAvatar(
-                            radius: 30.0,
-                            backgroundColor:
-                                const Color.fromRGBO(255, 127, 80, 0.2),
-                            child: Icon(
-                              Icons.add,
-                              size: 32,
-                              color: Colors.grey[600],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 8.0),
-                        Text(
-                          'Autres',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey[700],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                  }),
             ),
             SizedBox(height: 8.0),
             Padding(
@@ -641,13 +653,6 @@ Navigator.pop(context); // Ferme le Drawer
                         '100% Bénin',
                         style: ChapboxTheme.lightTheme.textTheme.headlineSmall,
                       ),
-                      /*),
-                          SizedBox(
-                            width: media.width * 0.5,
-                          ),
-                          SizedBox(
-                              width: media.width * 0.2,
-                              child: */
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -672,9 +677,6 @@ Navigator.pop(context); // Ferme le Drawer
                                   ),
                                   SizedBox(width: 10),
                                   Icon(Icons.arrow_forward_ios,
-                                      /*Iconsax
-                                  .arrow_right_4,
-                              Iconsax.arrow_2_copy*/
                                       color: primaryColor)
                                 ],
                               )),
@@ -720,21 +722,20 @@ Navigator.pop(context); // Ferme le Drawer
                                 children: [
                                   //Le contenur de l'image pour pouvoir faire la mise en forme border-radius
                                   Container(
-                                    margin: EdgeInsetsDirectional.symmetric(
-                                        horizontal: 6.0, vertical: 3.0),
-
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      //side: BorderSide
-                                    ),
-                                    //child: Image.network(
-                                    child: Image.asset(
-                                      'images/productsImages/kitkat_nestle_paysage.jpg',
-                                      //child: Image.file('images/productsImages/kitkat nestlé paysage.jpg',
-                                      // Ajuste la largeur mais pas la hauteur
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                                      margin: EdgeInsetsDirectional.symmetric(
+                                          horizontal: 6.0, vertical: 3.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        //side: BorderSide
+                                      ),
+                                      //child: Image.network(
+                                      child: Image(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          'assets/images/productsImages/kitkat_nestle_paysage.jpg',
+                                        ),
+                                      )),
                                   Padding(
                                     padding: EdgeInsets.all(3.0),
                                     child: Column(
@@ -807,11 +808,12 @@ Navigator.pop(context); // Ferme le Drawer
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     //child: Image.network(
-                                    child: Image.asset(
-                                      'images/productsImages/kitkat_nestle_paysage.jpg',
-                                      //child: Image.file('images/productsImages/kitkat nestlé paysage.jpg',
-                                      //width: double.infinity, // Ajuste la largeur mais pas la hauteur
+                                    child: Image(
                                       fit: BoxFit.cover,
+                                      image: AssetImage(
+                                        'assets/images/productsImages/kitkat_nestle_paysage.jpg',
+                                      ),
+                                      //width: double.infinity, // Ajuste la largeur mais pas la hauteur
                                     ),
                                   ),
                                   Padding(
@@ -828,7 +830,22 @@ Navigator.pop(context); // Ferme le Drawer
                                           children: [
                                             Column(
                                               children: [
-                                                Text('Supermarché vendeur')
+                                                Text('Supermarché vendeur'),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text('Prix'),
+//SizedBox(height: 2.0),
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.all(10.0),
+                                                      color: primaryColor,
+                                                      child: Text('En stock'),
+                                                    ),
+                                                  ],
+                                                )
                                               ],
                                             ),
                                             /*Column(
@@ -876,7 +893,6 @@ Navigator.pop(context); // Ferme le Drawer
                 ],
               ),
             ),
-
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -1023,3 +1039,45 @@ Navigator.pop(context); // Ferme le Drawer
     }
   }
 }
+
+
+/*
+return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    /*height: ,
+                    width: ,
+                    constraints: BoxConstraints(),*/
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        CategoryListScreen()));
+                          },
+                          child: CircleAvatar(
+                            radius: 30.0,
+                            backgroundColor:
+                                const Color.fromRGBO(255, 127, 80, 0.2),
+                            child: Icon(
+                              Icons.add,
+                              size: 32,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Text(
+                          'Autres',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey[700],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+ */

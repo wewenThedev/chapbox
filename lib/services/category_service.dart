@@ -6,12 +6,33 @@ import 'package:chapbox/configs/const.dart';
 import 'package:chapbox/services/api_service.dart';
 
 class CategoryService {
-  static Future<List<dynamic>> getCategories() async {
+  Future<List<Category>> fetchTopCategories() async {
+    final response =
+        await http.get(Uri.parse("$baseUrl/categories/top-categories"));
+
+    if (response.statusCode == 200) {
+      // On décode la réponse JSON
+      final dynamic jsonData = jsonDecode(response.body);
+
+      // Si la réponse est directement une liste, on l'utilise, sinon on cherche une clé particulière
+      final List<dynamic> jsonList = jsonData is List
+          ? jsonData
+          : jsonData["categories"] ?? jsonData["data"] ?? [];
+
+      // Transformation en liste de Category
+      return jsonList.map((data) => Category.fromJson(data)).toList();
+    } else {
+      throw Exception(
+          "Erreur ${response.statusCode} lors du chargement des catégories");
+    }
+  }
+
+  Future<List<dynamic>> getCategories() async {
     final response = await ApiService.get("categories");
     return jsonDecode(response.body);
   }
 
-static Future<Map<String, dynamic>> getCategory(int id) async {
+  Future<Map<String, dynamic>> getCategory(int id) async {
     final response = await ApiService.get("categories/$id");
     return jsonDecode(response.body);
   }
@@ -19,41 +40,36 @@ static Future<Map<String, dynamic>> getCategory(int id) async {
 //endpoint GET All categories
 //Ce qui importe, c'est la vague sur laquelle vous surfez
 
-Future<List<Category>> fetchAllCategories() async {
+  Future<List<Category>> fetchAllCategories() async {
+    final response = await http.get(
+      //Uri.parse('http://127.0.0.1:8001/api/categories'),
+      Uri.parse('$baseUrl/categories'),
+    );
 
-  final response = await http.get(
-    //Uri.parse('http://127.0.0.1:8001/api/categories'),
-    Uri.parse('$baseUrl/categories'),
-  );
-
-  if (response.statusCode == 200) {
-    List<dynamic> data = json.decode(response.body);
-    return data.map((category) => Category.fromJson(category)).toList();
-  } else {
-    throw Exception('Failed to load all categories');
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      return data.map((category) => Category.fromJson(category)).toList();
+    } else {
+      throw Exception('Failed to load all categories');
+    }
   }
-}
-
 
 //Endpoint : GET /shops/{shopId}/categories
 
-Future<List<Category>> fetchCategoriesByShop(int shopId) async {
+  Future<List<Category>> fetchCategoriesByShop(int shopId) async {
+    final response = await http.get(
+      //Uri.parse('http://127.0.0.1:8001/api/$shopId/categories'),
+      Uri.parse('$baseUrl/$shopId/categories'),
+    );
 
-  final response = await http.get(
-    //Uri.parse('http://127.0.0.1:8001/api/$shopId/categories'),
-    Uri.parse('$baseUrl/$shopId/categories'),
-  );
-
-  if (response.statusCode == 200) {
-    List<dynamic> data = json.decode(response.body);
-    return data.map((category) => Category.fromJson(category)).toList();
-  } else {
-    throw Exception('Failed to load categories by shop');
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      return data.map((category) => Category.fromJson(category)).toList();
+    } else {
+      throw Exception('Failed to load categories by shop');
+    }
   }
 }
-
-}
-
 
 /* 
 

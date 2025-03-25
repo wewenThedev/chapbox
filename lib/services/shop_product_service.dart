@@ -1,10 +1,8 @@
-
 import 'dart:convert';
+import 'package:chapbox/models/shopProduct.dart';
 import 'package:chapbox/services/api_service.dart';
 import 'package:chapbox/configs/const.dart';
-
-
-
+import 'package:http/http.dart' as http;
 
 class ShopProductService {
   static Future<List<dynamic>> getShops() async {
@@ -17,18 +15,21 @@ class ShopProductService {
     return jsonDecode(response.body);
   }
 
-  static Future<Map<String, dynamic>> createProduct(Map<String, dynamic> productData) async {
-    final response = await ApiService.post("products", productData);
-    return jsonDecode(response.body);
-  }
+  /// Récupère la liste des produits locaux (Béninois)
+  Future<List<ShopProduct>> fetchLocalProducts() async {
+    final response = await http
+        .get(Uri.parse("$baseUrl/shopsAndProducts/findBenineseProducts"));
 
-  static Future<Map<String, dynamic>> updateProduct(int id, Map<String, dynamic> productData) async {
-    final response = await ApiService.put("products/$id", productData);
-    return jsonDecode(response.body);
-  }
-
-  static Future<void> deleteProduct(int id) async {
-    await ApiService.delete("products/$id");
+    if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+      // Si la réponse est directement une liste, sinon adaptez la clé d'extraction (ex: "products")
+      final List<dynamic> jsonList =
+          jsonData is List ? jsonData : jsonData["products"] ?? [];
+      return jsonList.map((data) => ShopProduct.fromJson(data)).toList();
+    } else {
+      throw Exception(
+          "Échec du chargement des produits locaux (status: ${response.statusCode})");
+    }
   }
 
   //avec base de données locale
@@ -82,5 +83,4 @@ class ProductService {
   }
 }
 */
-
 }

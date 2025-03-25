@@ -22,6 +22,12 @@ Shop _$ShopFromJson(Map<String, dynamic> json) => Shop(
       deletedAt: json['deleted_at'] == null
           ? null
           : DateTime.parse(json['deleted_at'] as String),
+      images: (json['images'] as List<dynamic>?)
+          ?.map((e) => Media.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      products: (json['products'] as List<dynamic>?)
+          ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ShopToJson(Shop instance) => <String, dynamic>{
@@ -35,4 +41,6 @@ Map<String, dynamic> _$ShopToJson(Shop instance) => <String, dynamic>{
       'updated_at': instance.updatedAt?.toIso8601String(),
       if (instance.deletedAt?.toIso8601String() case final value?)
         'deleted_at': value,
+      'images': instance.images?.map((e) => e.toJson()).toList(),
+      'products': instance.products?.map((e) => e.toJson()).toList(),
     };

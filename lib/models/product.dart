@@ -48,7 +48,7 @@ class Product {
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
 
-  @JsonKey(name: 'deleted_at', includeIfNull: false)
+  @JsonKey(ignore: true)
   final List<Media>? images;
 
   Product({

@@ -53,6 +53,9 @@ class Supermarket {
   @JsonKey(ignore: true)
   User? marketManager;
 
+  @JsonKey(ignore: true)
+  List<Shop>? shops;
+
   // Timestamps
 
   @JsonKey(ignore: true)
@@ -66,9 +69,6 @@ class Supermarket {
   @JsonKey(ignore: true)
   @JsonKey(name: 'deleted_at', includeIfNull: false)
   final DateTime? deletedAt;
-
-  @JsonKey(ignore: true)
-  List<Shop>? shops;
 
   Supermarket({
     required this.id,
@@ -105,6 +105,10 @@ class Supermarket {
 
     if (json['market_manager'] != null) {
       supermarket.marketManager = User.fromJson(json['market_manager']);
+    }
+
+    if (json['shops'] != null) {
+      supermarket.shops = Shop.fromJson(json['shops']);
     }
 
     return supermarket;

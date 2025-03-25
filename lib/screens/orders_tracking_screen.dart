@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:chapbox/lib/configs/const.dart';
+import 'package:chapbox/configs/const.dart';
 
 import 'package:chapbox/models/order.dart';
 
@@ -26,7 +26,7 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
   Future<void> _fetchOrders() async {
     //final response = await http.get(Uri.parse('http://localhost:8001/api/orders'));
     final response = await http.get(Uri.parse('$baseUrl/orders'));
-    
+
     if (response.statusCode == 200) {
       final List<dynamic> results = json.decode(response.body);
       setState(() {
@@ -49,11 +49,13 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Commande #${order.id}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Text("Commande #${order.id}",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             SizedBox(height: 8),
             Text("Statut: ${order.status}", style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
-            Text("Montant: \$${order.totalTtc}", style: TextStyle(fontSize: 16)),
+            Text("Montant: \$${order.totalTtc}",
+                style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
             Text("Date: ${order.orderingDate}", style: TextStyle(fontSize: 16)),
             SizedBox(height: 8),
@@ -81,7 +83,7 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
               children: [
                 Text("Produits:"),
                 /*//...order.products.map((product) => Text("- ${product.name} (x${product.quantity})")),*/
-                
+
                 SizedBox(height: 8),
                 Text("Montant Total: \$${order.totalTtc}"),
                 Text("Date de Commande: ${order.orderingDate}"),

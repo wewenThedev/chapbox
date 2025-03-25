@@ -74,9 +74,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() => _isLoading = true);
 
       try {
-        //final authService = AuthService(prefs: await SharedPreferences.getInstance());
-        //final authService = AuthService;
-
         final User $user;
 
         var $response = await AuthService.register(
@@ -172,10 +169,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                'logos/logo_chapbox_pin.png',
-                height: 150,
-                width: 150,
+              Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/logos/logo_chapbox_pin.png')),
+                ),
               ),
               /*SizedBox(
                           height: media.width * 0.02,

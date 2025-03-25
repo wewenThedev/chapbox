@@ -2,8 +2,6 @@ import 'package:chapbox/screens/on_boarding/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-
-
 class SplashScreen extends StatefulWidget {
   final String? deviceId;
   // Le constructeur prend le deviceId comme paramètre
@@ -13,10 +11,11 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-  
+
   @override
   void initState() {
     super.initState();
@@ -25,8 +24,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
-      lowerBound: 0.8,
-      upperBound: 1.2,
+      lowerBound: 0.5,
+      upperBound: 1,
     )..repeat(reverse: true);
 
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
@@ -48,8 +47,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(  
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
         child: ScaleTransition(
@@ -57,11 +55,13 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           //child: Image.asset(
           child: Image(
             image: AssetImage(
-            'assets/logos/logo_chapbox_pin.png',),
+              'assets/logos/logo_chapbox_pin.png',
+            ),
             width: 240, // Largeur de l'image
             height: 240, // Hauteur de l'image
-            fit: BoxFit.contain, // Ajuste le contenu de l'image à ses dimensions
-        ),
+            fit:
+                BoxFit.contain, // Ajuste le contenu de l'image à ses dimensions
+          ),
         ),
       ),
     );

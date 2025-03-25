@@ -1,3 +1,4 @@
+import 'package:chapbox/configs/const.dart';
 import 'package:chapbox/configs/styles.dart';
 import 'package:chapbox/screens/on_boarding/steps_screen.dart';
 import 'package:chapbox/widgets/base_scaffold.dart';
@@ -37,52 +38,63 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _login() async {
     setState(() => _isLoading = true);
 
-    const String apiUrl =
-        'http://127.0.0.1:8001/api/login/customer'; // Change for real devices
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      body: {
-        'email_or_phone': _pnController.text,
-        'password': _pwdController.text,
-      },
-    );
+    try {
+      const String apiUrl =
+          //'http://127.0.0.1:8001/api/login/customer'; // Change for real devices
+          '$baseUrl/login/customer'; // for real devices
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        body: {
+          'email_or_phone': _pnController.text,
+          'password': _pwdController.text,
+        },
+      );
 
-    setState(() => _isLoading = false);
+      setState(() => _isLoading = false);
 
-    if (response.statusCode == 200) {
-      final jsonList = jsonDecode(response.body);
-      // Vérifiez si c'est une liste ou un objet contenant une liste
-      final List<dynamic> data =
-          jsonList is List ? jsonList : jsonList['token'] ?? [];
-      // String token = (String) data['token'];
-      //final token = data['token'].toString();
+      if (response.statusCode == 200) {
+        final jsonList = jsonDecode(response.body);
+        // Vérifiez si c'est une liste ou un objet contenant une liste
+        final List<dynamic> data =
+            jsonList is List ? jsonList : jsonList['token'] ?? [];
+        // String token = (String) data['token'];
+        //final token = data['token'].toString();
 //à modifier
-      /*final token = '';
+        /*final token = '';
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);*/
 
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text(
-          "Connexion réussie",
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: primaryColor,
-      ));
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => /*OtpScreen()*/ BaseScaffold()));
-    } else {
-      _showErrorDialog('Connexion échouée');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
-            "Identifiants de connexion incorrects",
+            "Connexion réussie",
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: Colors.red,
-        ),
-      );
+          backgroundColor: primaryColor,
+        ));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => /*OtpScreen()*/ BaseScaffold()));
+      } else {
+        //_showErrorDialog('Connexion échouée');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Column(
+              children: [
+                Text('Echec de la connexion',
+                    style: TextStyle(color: Colors.white)),
+                Text(
+                  "Identifiants de connexion incorrects",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch ($e) {
+      _showErrorDialog($e.toString());
     }
   }
 
@@ -133,17 +145,26 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SafeArea(
           child: Container(
             padding: EdgeInsets.symmetric(
-                vertical: media.width * 0.1, horizontal: media.width * 0.2),
+                vertical: media.width * 0.1, horizontal: media.width * 0.1),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
-                  child: Image.asset(
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image:
+                              AssetImage('assets/logos/logo_chapbox_pin.png')),
+                    ),
+                    /*Image.asset(
                     'logos/logo_chapbox_pin.png',
                     height: 75,
                     width: 75,
+                  ),*/
                   ),
                 ),
                 SizedBox(
@@ -215,12 +236,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 //side: ,
                               ),
                               onPressed: () {
+                                //data.logJson(_login);
                                 _login;
 
-                                Navigator.push(
+                                /*Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => OtpScreen()));
+                                        builder: (context) => OtpScreen()));*/
                               },
                               child: Text(
                                 'Connectez-vous',

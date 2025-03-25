@@ -124,6 +124,25 @@ class _MapScreenState extends State<MapScreen> {
   }
 */
 
+//position géographique des suermarchés à proximité
+
+/*
+Marker(
+      markerId: MarkerId("superU1"),
+      position: LatLng(6.356737, 2.440927), // Super U Akpakpa
+      infoWindow: InfoWindow(title: "Super U Akpakpa"),
+    ),
+    Marker(
+      markerId: MarkerId("superU2"),
+      position: LatLng(6.365976, 2.404382), // Erevan Mont Sinai
+      infoWindow: InfoWindow(title: "Erevan Mont Sinai"),
+    ),
+    Marker(
+      markerId: MarkerId("superU3"),
+      position: LatLng(6.371918, 2.386040), // Super U Fidjrossè
+      infoWindow: InfoWindow(title: "Super U Fidjrossè"),
+    ),
+*/
   void _loadMarkers() async {
     List<Marker> markers = await fetchMarkers(_currentPosition);
     setState(() => _markers.addAll(markers));

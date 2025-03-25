@@ -22,15 +22,15 @@ class _ProductsFromBeninScreenState extends State<ProductsFromBeninScreen> {
     List<dynamic> products = await ProductService.getProducts();
     print(products);
   }
-
-  List products = [];
 */
+  List products = [];
+
   @override
   void initState() {
     super.initState();
-    //fetchLocalProducts();
+    fetchLocalProducts();
   }
-/*
+
   Future<void> fetchLocalProducts() async {
     final response = await http.get(Uri.parse(
         //"http://127.0.0.1/api/shopsAndProducts/findBenineseProducts"));
@@ -43,38 +43,39 @@ class _ProductsFromBeninScreenState extends State<ProductsFromBeninScreen> {
     } else {
       throw Exception("Échec du chargement des produits");
     }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Produits Locaux"),
+        title: Text("Produits Béninois"),
         backgroundColor: primaryColorLight,
         elevation: 2.0,
       ),
-      body:  Center(
-child: Text('Produits fabriqués au Bénin'),
+      body: Center(
+        child: /*Text('Produits fabriqués au Bénin'),
         )
-      );
-      /*products.isEmpty
-          ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                final product = products[
-                    index]; ////mise à jour to show shopProduct with stock and price
-                return ListTile(
-                  title: Text(product['name']),
-                  subtitle: Text(product['description']),
-                  leading: product['media'].isNotEmpty
-                      ? Image.network(product['media'][0]['url'],
-                          width: 50, height: 50, fit: BoxFit.cover)
-                      : Icon(Icons.image_not_supported),
-                  trailing: Text("Shop: ${product['shop']['name']}"),
-                );
-              },
-            ),
-    );*/
+      );*/
+            products.isEmpty
+                ? Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      final product = products[
+                          index]; ////mise à jour to show shopProduct with stock and price
+                      return ListTile(
+                        title: Text(product['name']),
+                        subtitle: Text(product['description']),
+                        leading: product['media'].isNotEmpty
+                            ? Image.network(product['media'][0]['url'],
+                                width: 50, height: 50, fit: BoxFit.cover)
+                            : Icon(Icons.image_not_supported),
+                        trailing: Text("Shop: ${product['shop']['name']}"),
+                      );
+                    },
+                  ),
+      ),
+    );
   }
 }

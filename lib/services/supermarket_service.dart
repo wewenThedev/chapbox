@@ -9,12 +9,25 @@ import 'dart:convert';
 const String apiUrl = baseUrl;
 
 class SupermarketService {
-  static Future<List<Supermarket>> fetchSupermarkets() async {
+  /*static*/ Future<List<Supermarket>> fetchSupermarkets() async {
     //avec static j'appelle ça avec SupermarketService.fetchSupermarkets()
     //static Future<List<Supermarket>> fetchSupermarkets() async { ////avec static j'appelle ça avec SupermarketService().fetchSupermarkets()
     final response = await http.get(Uri.parse('$apiUrl/supermarkets'));
 
     if (response.statusCode == 200) {
+      final jsonData = jsonDecode(response.body);
+
+      print(jsonData);
+
+      final List<dynamic> jsonList =
+          jsonData is List ? jsonData : jsonData["supermarkets"] ?? [];
+
+      print(jsonList);
+
+      //return jsonList.map((json) => Category.fromJson(json)).toList();
+      return jsonList.map((data) => Supermarket.fromJson(data)).toList();
+
+/*
       List<dynamic> data = json.decode(response.body);
       return data.map((supermarket) {
         return Supermarket(
@@ -33,9 +46,9 @@ class SupermarketService {
             );
           }).toList(),
         );
-      }).toList();
+      }).toList();*/
     } else {
-      throw Exception('Failed to load supermarkets');
+      throw Exception('Echec lors du chargement des supermarchés');
     }
   }
 

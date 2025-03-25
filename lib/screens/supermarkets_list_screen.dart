@@ -4,10 +4,10 @@ import 'package:chapbox/screens/supermarket_details_screen.dart';
 import 'package:chapbox/services/supermarket_service.dart';
 import 'package:chapbox/widgets/custom_appBar_with_back.dart';
 import 'package:chapbox/widgets/custom_card.dart';
+import 'package:chapbox/widgets/supermarket_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chapbox/configs/const.dart';
-
 
 class SupermarketListScreen extends StatefulWidget {
   const SupermarketListScreen({super.key});
@@ -17,6 +17,11 @@ class SupermarketListScreen extends StatefulWidget {
 }
 
 class _SupermarketListScreenState extends State<SupermarketListScreen> {
+  /*
+  late Future<List<Category>> futureCategories;
+  String data = "Chargement...";
+   */
+
   List<Supermarket> supermarkets = [];
   bool isLoading = true;
 
@@ -28,7 +33,8 @@ class _SupermarketListScreenState extends State<SupermarketListScreen> {
 
   Future<void> loadSupermarkets() async {
     try {
-      List<Supermarket> data = await SupermarketService.fetchSupermarkets();
+      //List<Supermarket> data = await SupermarketService.fetchSupermarkets();
+      List<Supermarket> data = await SupermarketService().fetchSupermarkets();
       setState(() {
         supermarkets = data;
         isLoading = false;
@@ -37,8 +43,16 @@ class _SupermarketListScreenState extends State<SupermarketListScreen> {
       setState(() {
         isLoading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erreur: $e')),
+
+      AlertDialog(
+        title: const Text("Erreur"),
+        content: Text('$e'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text("OK"),
+          ),
+        ],
       );
     }
   }
@@ -50,8 +64,60 @@ class _SupermarketListScreenState extends State<SupermarketListScreen> {
     return Scaffold(
       appBar: CustomAppBarWithBack(
           title: 'Supermarchés partenaires', scaffoldKey: _scaffoldKey),
-      //ourrait partir en commentaire
+      //pourrait partir en commentaire
       body: isLoading
+          ? const Center(
+              child:
+                  CircularProgressIndicator()) // Affiche un loader pendant le chargement
+          : supermarkets.isEmpty
+              ? const Center(
+                  child:
+                      Text("Aucun supermarché trouvé")) // Si la liste est vide
+              : ListView.builder(
+                  itemCount: supermarkets.length,
+                  itemBuilder: (context, index) {
+                    final supermarket = supermarkets[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SupermarketDetailsScreen(
+                                  //supermarketId: supermarket.id),
+                                  supermarket: supermarket),
+                            ));
+                      },
+                      child: SupermarketCard(supermarket: supermarket),
+                    );
+                  }),
+    );
+  }
+}
+
+/*SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        reverse: true,
+      )*/
+
+/*
+                    GestureDetector(
+                      child: LogoCard(
+                          title: 'Erevan',
+                          subtitle: 'Supermarchés meilleur du Bénin',
+                          logo: 'logos/logo_chapbox_pin.png'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SupermarketDetailsScreen(
+                                    supermarketId: 10,
+                                  )),
+                        );
+                      },
+                    ),*/
+
+/*
+  isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: supermarkets.length,
@@ -61,64 +127,5 @@ class _SupermarketListScreenState extends State<SupermarketListScreen> {
                   children: [
                     //mettre à jour le Gesture Detector
                     GestureDetector(
-                      child: LogoCard(
-                          title: 'Erevan',
-                          subtitle: 'Supermarchés meilleur du Bénin',
-                          logo: 'logos/logo_chapbox_pin.png'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SupermarketDetailsScreen(
-                                    supermarketId: 10,
-                                  )),
-                        );
-                      },
-                    ),
-                    GestureDetector(
-                      child: LogoCard(
-                          title: 'Erevan',
-                          subtitle: 'Supermarchés meilleur du Bénin',
-                          logo: 'logos/logo_chapbox_pin.png'),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SupermarketDetailsScreen(
-                                    supermarketId: 10,
-                                  )),
-                        );
-                      },
-                    ),
-                  ],
-                );
-              }),
-/*ListView.builder(
-        itemCount: supermarkets.length,
-        itemBuilder: (context, index) {
-          Supermarket supermarket = supermarkets[index];
-        ),        return*/
-    );
-  }
 
-  /*List<Supermarket> generateFakeData() {
-  return [
-    Supermarket(
-      id: 1,
-      name: 'Supermarket A',
-      shops: [
-        Shop(id: 1, /*name: 'Shop A1',*/ city: 'Cotonou', addressId: '123 Rue du Commerce'),
-        Shop(id: 2, /*name: 'Shop A2',*/ city: 'Porto-Novo', addressId: '456 Avenue des Marchés'),
-      ],
-    ),
-    Supermarket(
-      id: '2',
-      name: 'Supermarket B',
-      shops: [
-        Shop(id: '3', name: 'Shop B1', city: 'Parakou', address: '789 Boulevard des Affaires'),
-        Shop(id: '4', name: 'Shop B2', city: 'Abomey-Calavi', address: '101 Rue des Artisans'),
-      ],
-    ),
-  ];
-}*/
-}
+  */

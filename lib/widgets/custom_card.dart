@@ -163,6 +163,8 @@ class _ProductCardState extends State<ProductCard> {
     return const Placeholder();
   }
 }*/
+
+//trnasform in Stsatefull
 class ProductCard extends StatelessWidget {
   //ShopProduct shopProduct;
   const ProductCard({super.key});
@@ -195,24 +197,25 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      width: media.width * 0.5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        //borderRadius: BorderRadius.right(10.0),
-                      ),
-                      //child: Image.network(src, width: media.width * 0.3),
-                      child: Image.asset(
-                        'images/productsImages/kitkat_nestle_paysage.jpg',
+                        width: media.width * 0.5,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          //borderRadius: BorderRadius.right(10.0),
+                        ),
+                        //child: Image.network(src, width: media.width * 0.3),
+                        child: Image(
+                          image: AssetImage(
+                              'assets/images/productsImages/kitkat_nestle_paysage.jpg'),
+                          //fit: BoxFit.cover,
+                          fit: BoxFit.fill,
+                        )
 
-                        //fit: BoxFit.cover,
-                        fit: BoxFit.fill,
-                      ),
-                      /*CachedNetworkImage(
+                        /*CachedNetworkImage(
                   imageUrl: product.imageUrl,
                   placeholder: (context, url) => CircularProgressIndicator(),
                   errorWidget: (context, url, error) => Icon(/*Icons.error */Iconsax.error),
                 ),*/
-                    ),
+                        ),
                     const SizedBox(width: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
